@@ -1,4 +1,5 @@
-import { getIconForFolder, getIconForOpenFolder, getIconForFile } from './GetIcon';
+import { getIconForFolder, getIconForOpenFolder, getIconForFile } from './Icons';
+import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from './PageDetect';
 
 const DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
@@ -39,7 +40,7 @@ const showIconsForSegments = async () => {
 /**
  * Show icons for repository files
  */
-const showIcon = async () => {
+const showRepoTreeIcons = async () => {
     const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
     for (let i = 0; i < trEls.length; i++) {
         const trEl = trEls[i];
@@ -62,7 +63,7 @@ const showIcon = async () => {
 };
 
 // DIFF ICONS ARE NOT COMPLETED YET
-// function showDiffIcon() {
+// const showDiffIcon = async () => {
 //     const elements = document.getElementsByClassName('file-info');
 //     for (let i = 0; i < elements.length; i++) {
 //         const element = elements[i];
@@ -77,7 +78,15 @@ const showIcon = async () => {
 //     }
 // }
 
-// Thanks to https://github.com/sindresorhus/hide-files-on-github
+const showGistIcons = async () => {
+    const fileInfos = document.querySelectorAll('.file-info');
+    for (let i = 0; i < fileInfos.length; i++) {
+        const fileInfo = fileInfos[i] as HTMLDivElement;
+        const gistName = (fileInfo.lastElementChild.firstElementChild as HTMLSpanElement).innerText;
+        const iconPath = getIconForFile(gistName);
+        fileInfo.firstElementChild.innerHTML = `<img src="${chrome.runtime.getURL('icons/' + iconPath)}" alt="icon" class="vscode-icon">`;
+    }
+};
 
 const domLoaded = new Promise(resolve => {
     if (document.readyState === 'loading') {
@@ -88,10 +97,19 @@ const domLoaded = new Promise(resolve => {
 });
 
 function update(e?) {
-    showIcon();
-    showIconsForSegments();
+    if (isRepoRoot()) {
+        showRepoTreeIcons();
+    }
+    if ((!isRepoRoot() && isRepoTree()) || isSingleFile() || isHistoryForFile()) {
+        showIconsForSegments();
+    }
+    if (isCommit()) {
+        // showDiffIcon();
+    }
+    if (isGist()) {
+        showGistIcons();
+    }
 }
-
 
 function init() {
     // Update on fragment update
@@ -99,6 +117,7 @@ function init() {
     const observeFragment = () => {
         const ajaxFiles = document.querySelector('include-fragment.file-wrap');
         const navigation = document.querySelector('include-fragment.file-navigation');
+        const diffContainer = document.querySelector('.js-diff-progressive-container');
         if (ajaxFiles) {
             observer.observe(ajaxFiles.parentNode, {
                 childList: true
@@ -106,6 +125,11 @@ function init() {
         }
         if (navigation) {
             observer.observe(navigation.parentNode, {
+                childList: true
+            });
+        }
+        if (diffContainer) {
+            observer.observe(diffContainer.parentNode, {
                 childList: true
             });
         }
@@ -117,4 +141,4 @@ function init() {
     document.addEventListener('pjax:end', observeFragment);
 }
 
-Promise.all([domLoaded]).then(init);
+init();

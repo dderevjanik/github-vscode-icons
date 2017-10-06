@@ -29,7 +29,8 @@
     "@types/node": "^8.0.31",
     "chalk": "^2.1.0",
     "fetch": "^1.1.0",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^1.7.3",
+    "select-dom": "^4.1.1"
   },
   "devDependencies": {
     "webpack": "^3.6.0",
