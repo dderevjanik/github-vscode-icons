@@ -12,6 +12,7 @@ export const DEFAULT_FILE = 'default_file.svg';
 
 /**
  * Get icon for a folder
+ * @param folderName name of folder to find icon for
  */
 export function getIconForFolder(folderName: string) {
     const iconKey = folderNames[folderName];
@@ -22,11 +23,13 @@ export function getIconForFolder(folderName: string) {
         }
     }
 
+    // if there's no icon for folder, use default one
     return DEFAULT_FOLDER;
 }
 
 /**
  * Get icon for a file
+ * @param fileName name of file to find icon for
  */
 export function getIconForFile(fileName: string) {
     // match by exact FileName
@@ -51,11 +54,13 @@ export function getIconForFile(fileName: string) {
         return iconPath
     }
 
+    // if there's no icon for file, use default one
     return DEFAULT_FILE;
 }
 
 /**
  * Get icon for an opened folder
+ * @param folderName name of opened folder to icon for
  */
 export function getIconForOpenFolder(folderName: string) {
     return getIconForFolder(folderName).split('.').shift() + '_opened.svg';

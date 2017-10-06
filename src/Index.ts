@@ -5,6 +5,9 @@ const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigati
 const QUERY_PATH_SEGMENTS = 'js-path-segment';
 const QUERY_LAST_PATH_SEGMENT = 'final-path';
 
+/**
+ * Show icon for path segments
+ */
 const showIconsForSegments = async () => {
     const aSegments = document.getElementsByClassName(QUERY_PATH_SEGMENTS) as HTMLCollectionOf<HTMLDivElement>;
     const firstSegment = aSegments[0];
@@ -33,6 +36,9 @@ const showIconsForSegments = async () => {
     }
 };
 
+/**
+ * Show icons for repository files
+ */
 const showIcon = async () => {
     const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
     for (let i = 0; i < trEls.length; i++) {
@@ -92,8 +98,14 @@ function init() {
     const observer = new MutationObserver(update);
     const observeFragment = () => {
         const ajaxFiles = document.querySelector('include-fragment.file-wrap');
+        const navigation = document.querySelector('include-fragment.file-navigation');
         if (ajaxFiles) {
             observer.observe(ajaxFiles.parentNode, {
+                childList: true
+            });
+        }
+        if (navigation) {
+            observer.observe(navigation.parentNode, {
                 childList: true
             });
         }
