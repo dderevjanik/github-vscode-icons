@@ -1,0 +1,21 @@
+td.icon > img  {
+    /* display: none; */
+    height: 16px
+}
+
+.js-path-segment > a > img {
+    vertical-align: middle;
+}
+
+.final-path > img {
+    vertical-align: middle;
+}
+
+.vsi-icon-diff {
+    vertical-align: middle;
+}
+
+.vscode-icon {
+    vertical-align: middle;
+    height: 16px;
+}

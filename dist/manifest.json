@@ -1,0 +1,51 @@
+{
+  "manifest_version": 2,
+  "name": "vscode-github-icons",
+  "description": "This extension shows a VS Code icons in Github Repositories",
+  "icons": {
+    "128": "icon128.png",
+    "48": "icon48.png",
+    "16": "icon16.png"
+  },
+  "version": "1.1",
+  "author": "Daniel Derevjanik <daniel.derevjanik@gmail.com>",
+  "offline_enabled": true,
+  "background": {
+    "scripts": [
+      "event.js"
+    ],
+    "matches": [
+      "http://github.com/*",
+      "https://github.com/*",
+      "http://gist.github.com/*",
+      "https://gist.github.com/*"
+    ],
+    "persistent": false
+  },
+  "web_accessible_resources": [
+    "icons/*.svg"
+  ],
+  "content_scripts": [
+    {
+      "css": [
+        "content.css"
+      ],
+      "matches": [
+        "http://github.com/*",
+        "https://github.com/*",
+        "http://gist.github.com/*",
+        "https://gist.github.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "runt_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "http://github.com/*",
+    "https://github.com/*",
+    "http://gist.github.com/*",
+    "https://gist.github.com/*"
+  ]
+}
