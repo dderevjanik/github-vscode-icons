@@ -31,11 +31,12 @@
     "select-dom": "^4.1.1"
   },
   "devDependencies": {
-    "webpack": "^3.6.0",
-    "typescript": "^2.5.3",
-    "fetch": "^1.1.0",
     "chalk": "^2.1.0",
+    "fetch": "^1.1.0",
     "node-fetch": "^1.7.3",
-    "ts-loader": "^2.3.7"
+    "ts-loader": "^2.3.7",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3",
+    "webpack": "^3.6.0"
   }
 }
