@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+    - "8.6.0"
+before_install:
+    - npm install -g ts-node
+script:
+    - npm run preprocess
+    - npm build
