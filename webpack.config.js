@@ -30,7 +30,6 @@ const config = {
         ]
     },
     plugins: [
-        new Webpack.optimize.DedupePlugin(),
         new Webpack.optimize.AggressiveMergingPlugin(),
         new Webpack.optimize.UglifyJsPlugin({
             // compress: (process.env.NODE_ENV === 'production'),
