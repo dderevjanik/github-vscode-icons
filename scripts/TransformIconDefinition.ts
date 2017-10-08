@@ -15,6 +15,12 @@ const icons = JSON.parse(iconsJSONFile.toString()) as {
     fileExtensions: { [fileExtension: string]: IconKey },
     fileNames: { [fileName: string]: IconKey },
     languageIds: { [language: string]: IconKey }
+    light: {
+        folderNames: { [folderName: string]: IconKey },
+        fileExtensions: { [fileExtension: string]: IconKey },
+        fileNames: { [fileName: string]: IconKey },
+        languageIds: { [language: string]: IconKey }
+    }
 };
 
 const langauges = JSON.parse(languagesJSONFile.toString()) as {
@@ -24,70 +30,70 @@ const langauges = JSON.parse(languagesJSONFile.toString()) as {
     }
 };
 
+const writeFile = (path: string, callback: () => any) => {
+    const result = callback();
+    writeFileSync(
+        path,
+        JSON.stringify(result, null, 2)
+    );
+    log(green(`> '${path}' file created`));
+}
+
 // create mini-json files
 
 (async function () {
     log(bgYellow(`(${filename}) Creating mini-json files from definitions`));
-    // ICON DEFINITIONS
-    const iconsDefinition = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
-        ...acc,
-        [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
-    }), {});
 
-    writeFileSync(
-        './src/json/iconDefinitions.json',
-        JSON.stringify(iconsDefinition, null, 2)
-    );
-    log(green(`> 'iconDefinitions.json' file created`));
+    // ICON DEFINITIONS
+    writeFile('./src/json/iconDefinitions.json', () => {
+        const iconsDefinition = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
+            ...acc,
+            [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
+        }), {});
+        return iconsDefinition;
+    });
 
     // FOLDER NAMES
-    const folderNames = Object.keys(icons.folderNames).reduce((acc, folderName) => ({
-        ...acc,
-        [folderName]: icons.folderNames[folderName]
-    }), {});
-    writeFileSync(
-        './src/json/folderNames.json',
-        JSON.stringify(folderNames, null, 2)
-    );
-    log(green(`> 'folderNames1.json' file created`));
+    writeFile('./src/json/folderNames.json', () => {
+        const folderNames = Object.keys(icons.light.folderNames).reduce((acc, folderName) => ({
+            ...acc,
+            [folderName]: icons.folderNames[folderName]
+        }), {});
+        return folderNames;
+    });
+
 
     // FILE EXTENSIONS
-    const fileExtensions = Object.keys(icons.fileExtensions).reduce((acc, fileExtension) => ({
-        ...acc,
-        [fileExtension]: icons.fileExtensions[fileExtension]
-    }), {});
-    writeFileSync(
-        './src/json/fileExtensions.json',
-        JSON.stringify(fileExtensions, null, 2)
-    );
-    log(green(`> 'fileExtensions.json' file created`));
+    writeFile('./src/json/fileExtensions.json', () => {
+        const fileExtensions = Object.keys(icons.light.fileExtensions).reduce((acc, fileExtension) => ({
+            ...acc,
+            [fileExtension]: icons.fileExtensions[fileExtension]
+        }), {});
+        return fileExtensions;
+    });
 
     // FILE NAMES
-    const fileNames = Object.keys(icons.fileNames).reduce((acc, fileName) => ({
-        ...acc,
-        [fileName]: icons.fileNames[fileName]
-    }), {});
-    writeFileSync(
-        './src/json/fileNames.json',
-        JSON.stringify(fileNames, null, 2)
-    );
-    log(green(`> 'fileNames.json' file created`));
+    writeFile('./src/json/fileNames.json', () => {
+        const fileNames = Object.keys(icons.light.fileNames).reduce((acc, fileName) => ({
+            ...acc,
+            [fileName]: icons.fileNames[fileName]
+        }), {});
+        return fileNames;
+    });
 
     // LANGUAGES IDS
-    const languagesIds = Object.keys(langauges).reduce((acc, languageId) => {
-        const language = langauges[languageId];
-        const langaugeIcon = {
-            [language.defaultExtension]: icons.languageIds[languageId]
-        };
-        return {
-            ...acc,
-            ...langaugeIcon
-        };
-    }, {});
-    writeFileSync(
-        './src/json/languagesIds.json',
-        JSON.stringify(languagesIds, null, 2)
-    );
-    log(green(`> 'languagesIds.json' file created`));
+    writeFile('./src/json/languagesIds.json', () => {
+        const languagesIds = Object.keys(langauges).reduce((acc, languageId) => {
+            const language = langauges[languageId];
+            const langaugeIcon = {
+                [language.defaultExtension]: icons.languageIds[languageId]
+            };
+            return {
+                ...acc,
+                ...langaugeIcon
+            };
+        }, {});
+        return languagesIds;
+    });
 
 })();

@@ -97,7 +97,7 @@ const domLoaded = new Promise(resolve => {
 });
 
 function update(e?) {
-    if (isRepoRoot()) {
+    if (isRepoRoot() || isRepoTree()) {
         showRepoTreeIcons();
     }
     if ((!isRepoRoot() && isRepoTree()) || isSingleFile() || isHistoryForFile()) {

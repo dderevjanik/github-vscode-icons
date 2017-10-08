@@ -116,6 +116,8 @@
   ".specs": "_fd_test",
   "tools": "_fd_tools",
   ".tools": "_fd_tools",
+  "util": "_fd_tools",
+  "utils": "_fd_tools",
   "typescript": "_fd_typescript",
   "ts": "_fd_typescript",
   "typings": "_fd_typings",
