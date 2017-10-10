@@ -1,3 +1,5 @@
+dist/*.zip
+
 # Logs
 content.js.map
 logs
