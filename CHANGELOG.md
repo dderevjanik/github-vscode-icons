@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.4] - 2017-XX-YY
+
+### Changed
+
+- blue logo to orange one, [vscode blogpost](https://code.visualstudio.com/updates/v1_17#_new-visual-studio-code-logo)
+- name of extension from `vscode-github-icons` to `github-vscode-icons` in chrome store
+
+### Added
+
+- Opera is now supported
+
 ## [1.0.3] - 2017-10-10
 
 ### Fixes
