@@ -15,16 +15,16 @@ export const DEFAULT_FILE = 'default_file.svg';
  * @param folderName name of folder to find icon for
  */
 export function getIconForFolder(folderName: string) {
-    const iconKey = folderNames[folderName];
-    if (iconKey) {
-        const iconPath = iconDefinitions[iconKey];
-        if (iconPath) {
-            return iconPath;
-        }
+  const iconKey = folderNames[folderName];
+  if (iconKey) {
+    const iconPath = iconDefinitions[iconKey];
+    if (iconPath) {
+      return iconPath;
     }
+  }
 
-    // if there's no icon for folder, use default one
-    return DEFAULT_FOLDER;
+  // if there's no icon for folder, use default one
+  return DEFAULT_FOLDER;
 }
 
 /**
@@ -32,30 +32,30 @@ export function getIconForFolder(folderName: string) {
  * @param fileName name of file to find icon for
  */
 export function getIconForFile(fileName: string) {
-    // match by exact FileName
-    const iconKeyFromFileName = fileNames[fileName];
-    if (iconKeyFromFileName) {
-        const iconPath = iconDefinitions[iconKeyFromFileName];
-        return iconPath
-    }
+  // match by exact FileName
+  const iconKeyFromFileName = fileNames[fileName];
+  if (iconKeyFromFileName) {
+    const iconPath = iconDefinitions[iconKeyFromFileName];
+    return iconPath;
+  }
 
-    // match by File Extension
-    const fileExtension = fileName.split('.').pop();
-    const iconKeyFromFileExt = fileExtensions[fileExtension];
-    if (iconKeyFromFileExt) {
-        const iconPath = iconDefinitions[iconKeyFromFileExt];
-        return iconPath
-    }
+  // match by File Extension
+  const fileExtension = fileName.split('.').pop();
+  const iconKeyFromFileExt = fileExtensions[fileExtension];
+  if (iconKeyFromFileExt) {
+    const iconPath = iconDefinitions[iconKeyFromFileExt];
+    return iconPath;
+  }
 
-    // match by language
-    const iconKeyFromLang = languageIds[fileExtension];
-    if (iconKeyFromLang) {
-        const iconPath = iconDefinitions[iconKeyFromLang];
-        return iconPath
-    }
+  // match by language
+  const iconKeyFromLang = languageIds[fileExtension];
+  if (iconKeyFromLang) {
+    const iconPath = iconDefinitions[iconKeyFromLang];
+    return iconPath;
+  }
 
-    // if there's no icon for file, use default one
-    return DEFAULT_FILE;
+  // if there's no icon for file, use default one
+  return DEFAULT_FILE;
 }
 
 /**
@@ -63,5 +63,9 @@ export function getIconForFile(fileName: string) {
  * @param folderName name of opened folder to icon for
  */
 export function getIconForOpenFolder(folderName: string) {
-    return getIconForFolder(folderName).split('.').shift() + '_opened.svg';
+  return (
+    getIconForFolder(folderName)
+      .split('.')
+      .shift() + '_opened.svg'
+  );
 }
