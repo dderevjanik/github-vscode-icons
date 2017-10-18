@@ -46,15 +46,14 @@ export function getIconForFile(fileName: string) {
   }
 
   // match by File Extension
-  const extensionKey = fileExtensionsKeys.find(function(extension) {
+  const extensionKey = fileExtensionsKeys.find(function (extension) {
     // try to find extension which satisfy file's extension.
     // be aware of extensions like `.test.js`, `.map.js` etc.
-    const extensionRE = new RegExp(`.*\\.${extension}`);
+    const extensionRE = new RegExp(`.*\\.${extension}\Z`);
     return extensionRE.test(fileName);
   });
   if (extensionKey) {
     const iconKeyFromFileExt = fileExtensionsToIcon[extensionKey];
-    console.log(iconKeyFromFileExt);
     const iconPath = iconsToPath[iconKeyFromFileExt];
     return iconPath;
   }
