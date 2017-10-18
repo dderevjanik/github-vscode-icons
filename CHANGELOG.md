@@ -8,14 +8,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
-- blue logo to orange one, read more about this change at [vscode blogpost](https://code.visualstudio.com/updates/v1_17#_new-visual-studio-code-logo).
-- name of extension from `vscode-github-icons` to `github-vscode-icons` in chrome store.
-- structure of repository. Now is more readable and self-explanatory.
+- Blue logo to orange one, read more about this change at [vscode blogpost](https://code.visualstudio.com/updates/v1_17#_new-visual-studio-code-logo)
+- Name of extension from `vscode-github-icons` to `github-vscode-icons` in chrome store
+- Project Structure, now is more readable and better self-explanatory
 
 ### Added
 
-- Opera is now supported
-- Support for filenames with several extensions like `.map.js`, `.test.js`, etc.
+- Support for filenames with several extensions like `content.js.map`, `index.test.tsx`, etc
+- Opera browser extension
+- Test for *getIcons* functions
 
 ## [1.0.3] - 2017-10-10
 

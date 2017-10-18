@@ -23,7 +23,7 @@ const reExt = /defaultExtension:.*'(.*?)'/;
         .then((res) => res.text())
         .then((body) => {
             const bodyLines = body.split('\n').slice(3, -2);
-            const languages = {};
+            const languages: any = {};
             const keyIdExt = bodyLines.map((fLine: string) => {
                 const line = fLine.trim();
                 const key = reKey.exec(line);
