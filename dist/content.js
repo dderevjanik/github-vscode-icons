@@ -294,12 +294,11 @@ function getIconForFile(fileName) {
     var extensionKey = fileExtensionsKeys.find(function (extension) {
         // try to find extension which satisfy file's extension.
         // be aware of extensions like `.test.js`, `.map.js` etc.
-        var extensionRE = new RegExp(".*\\." + extension);
+        var extensionRE = new RegExp("^.*\\." + extension + "$");
         return extensionRE.test(fileName);
     });
     if (extensionKey) {
         var iconKeyFromFileExt = fileExtensionsToIcon[extensionKey];
-        console.log(iconKeyFromFileExt);
         var iconPath = iconsToPath[iconKeyFromFileExt];
         return iconPath;
     }
