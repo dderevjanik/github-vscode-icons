@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 - Opera is now supported
+- Support for filenames with several extensions like `.map.js`, `.test.js`, etc.
 
 ## [1.0.3] - 2017-10-10
 

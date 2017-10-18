@@ -1,12 +1,7 @@
 import { getIconForFolder, getIconForOpenFolder, getIconForFile } from './Icons';
-import {
-  isRepoRoot,
-  isHistoryForFile,
-  isRepoTree,
-  isSingleFile,
-  isCommit,
-  isGist
-} from './PageDetect';
+import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from './PageDetect';
+
+const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons/' + iconFileName);
 
 const DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
@@ -17,19 +12,15 @@ const QUERY_LAST_PATH_SEGMENT = 'final-path';
  * Show icon for path segments
  */
 const showIconsForSegments = async () => {
-  const aSegments = document.getElementsByClassName(QUERY_PATH_SEGMENTS) as HTMLCollectionOf<
-    HTMLDivElement
-  >;
+  const aSegments = document.getElementsByClassName(QUERY_PATH_SEGMENTS) as HTMLCollectionOf<HTMLDivElement>;
   const firstSegment = aSegments[0];
-  const finalSegment = document.getElementsByClassName(QUERY_LAST_PATH_SEGMENT)[0] as
-    | HTMLSpanElement
-    | undefined;
+  const finalSegment = document.getElementsByClassName(QUERY_LAST_PATH_SEGMENT)[0] as HTMLSpanElement | undefined;
 
   // first segment has always root folder icon
   if (firstSegment) {
     const spanEl = firstSegment.children[0] as HTMLSpanElement;
-    spanEl.innerHTML = `<img src="${chrome.runtime.getURL(
-      'icons/' + DEFAULT_ROOT_OPENED
+    spanEl.innerHTML = `<img src="${getIconUrl(
+      DEFAULT_ROOT_OPENED
     )}" alt="icon" height="16"><span> ${spanEl.innerText}</span>`;
   }
 
@@ -38,8 +29,8 @@ const showIconsForSegments = async () => {
     const iconPath = window.location.href.includes('/blob/')
       ? getIconForFile(finalSegment.innerText)
       : getIconForOpenFolder(finalSegment.innerText);
-    finalSegment.innerHTML = `<img src="${chrome.runtime.getURL(
-      'icons/' + iconPath
+    finalSegment.innerHTML = `<img src="${getIconUrl(
+      iconPath
     )}" alt="icon" height="16"><span> ${finalSegment.innerText}</span>`;
   }
 
@@ -48,9 +39,7 @@ const showIconsForSegments = async () => {
     const spanEl = aSegments[i];
     const aEl = spanEl.firstChild as HTMLAnchorElement;
     const iconPath = getIconForOpenFolder(aEl.innerText);
-    aEl.innerHTML = `<img src="${chrome.runtime.getURL(
-      'icons/' + iconPath
-    )}" alt="icon" height="16"><span> ${aEl.innerText}</span>`;
+    aEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" height="16"><span> ${aEl.innerText}</span>`;
   }
 };
 
@@ -68,15 +57,12 @@ const showRepoTreeIcons = async () => {
     // const messageEl = trEl.children[2]; Unused
     // const ageEl = trEl.children[3]; Unused
 
-    const filename = (contentEl.firstElementChild
-      .firstElementChild as HTMLAnchorElement).innerText.toLowerCase();
+    const filename = (contentEl.firstElementChild.firstElementChild as HTMLAnchorElement).innerText.toLowerCase();
     const folderName = filename.split('/').shift(); // If folder is inside folder (e.g. public/resources), use public/ for icon
 
-    const isFolder =
-      (contentEl.firstElementChild.firstElementChild as HTMLAnchorElement).href.indexOf('/tree/') >
-      0;
+    const isFolder = (contentEl.firstElementChild.firstElementChild as HTMLAnchorElement).href.indexOf('/tree/') > 0;
     const iconPath = isFolder ? getIconForFolder(folderName) : getIconForFile(filename);
-    iconEl.innerHTML = `<img src="${chrome.runtime.getURL('icons/' + iconPath)}" alt="icon">`;
+    iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
   }
 };
 
@@ -102,9 +88,7 @@ const showGistIcons = async () => {
     const fileInfo = fileInfos[i] as HTMLDivElement;
     const gistName = (fileInfo.lastElementChild.firstElementChild as HTMLSpanElement).innerText;
     const iconPath = getIconForFile(gistName);
-    fileInfo.firstElementChild.innerHTML = `<img src="${chrome.runtime.getURL(
-      'icons/' + iconPath
-    )}" alt="icon" class="vscode-icon">`;
+    fileInfo.firstElementChild.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" class="vscode-icon">`;
   }
 };
 
@@ -116,7 +100,7 @@ const domLoaded = new Promise(resolve => {
   }
 });
 
-function update(e?) {
+function update(e?: any) {
   if (isRepoRoot() || isRepoTree()) {
     showRepoTreeIcons();
   }

@@ -108,6 +108,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Icons_1 = __webpack_require__(1);
 var PageDetect_1 = __webpack_require__(7);
+var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
 var DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 var QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
 var QUERY_PATH_SEGMENTS = 'js-path-segment';
@@ -124,21 +125,21 @@ var showIconsForSegments = function () { return __awaiter(_this, void 0, void 0,
         // first segment has always root folder icon
         if (firstSegment) {
             spanEl = firstSegment.children[0];
-            spanEl.innerHTML = "<img src=\"" + chrome.runtime.getURL('icons/' + DEFAULT_ROOT_OPENED) + "\" alt=\"icon\" height=\"16\"><span> " + spanEl.innerText + "</span>";
+            spanEl.innerHTML = "<img src=\"" + getIconUrl(DEFAULT_ROOT_OPENED) + "\" alt=\"icon\" height=\"16\"><span> " + spanEl.innerText + "</span>";
         }
         // check if final segment is file or folder
         if (finalSegment) {
             iconPath = window.location.href.includes('/blob/')
                 ? Icons_1.getIconForFile(finalSegment.innerText)
                 : Icons_1.getIconForOpenFolder(finalSegment.innerText);
-            finalSegment.innerHTML = "<img src=\"" + chrome.runtime.getURL('icons/' + iconPath) + "\" alt=\"icon\" height=\"16\"><span> " + finalSegment.innerText + "</span>";
+            finalSegment.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\" height=\"16\"><span> " + finalSegment.innerText + "</span>";
         }
         // segments between first and last are always folders
         for (i = 1; i < aSegments.length; i++) {
             spanEl = aSegments[i];
             aEl = spanEl.firstChild;
             iconPath = Icons_1.getIconForOpenFolder(aEl.innerText);
-            aEl.innerHTML = "<img src=\"" + chrome.runtime.getURL('icons/' + iconPath) + "\" alt=\"icon\" height=\"16\"><span> " + aEl.innerText + "</span>";
+            aEl.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\" height=\"16\"><span> " + aEl.innerText + "</span>";
         }
         return [2 /*return*/];
     });
@@ -154,13 +155,11 @@ var showRepoTreeIcons = function () { return __awaiter(_this, void 0, void 0, fu
             trEl = trEls[i];
             iconEl = trEl.children[0];
             contentEl = trEl.children[1];
-            filename = contentEl.firstElementChild
-                .firstElementChild.innerText.toLowerCase();
+            filename = contentEl.firstElementChild.firstElementChild.innerText.toLowerCase();
             folderName = filename.split('/').shift();
-            isFolder = contentEl.firstElementChild.firstElementChild.href.indexOf('/tree/') >
-                0;
+            isFolder = contentEl.firstElementChild.firstElementChild.href.indexOf('/tree/') > 0;
             iconPath = isFolder ? Icons_1.getIconForFolder(folderName) : Icons_1.getIconForFile(filename);
-            iconEl.innerHTML = "<img src=\"" + chrome.runtime.getURL('icons/' + iconPath) + "\" alt=\"icon\">";
+            iconEl.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\">";
         }
         return [2 /*return*/];
     });
@@ -186,7 +185,7 @@ var showGistIcons = function () { return __awaiter(_this, void 0, void 0, functi
             fileInfo = fileInfos[i];
             gistName = fileInfo.lastElementChild.firstElementChild.innerText;
             iconPath = Icons_1.getIconForFile(gistName);
-            fileInfo.firstElementChild.innerHTML = "<img src=\"" + chrome.runtime.getURL('icons/' + iconPath) + "\" alt=\"icon\" class=\"vscode-icon\">";
+            fileInfo.firstElementChild.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\">";
         }
         return [2 /*return*/];
     });
@@ -256,6 +255,7 @@ var fileExtensionsToIcon = __webpack_require__(3);
 var fileNamesToIcon = __webpack_require__(4);
 var languagesToIcon = __webpack_require__(5);
 var iconsToPath = __webpack_require__(6);
+var fileExtensionsKeys = Object.keys(fileExtensionsToIcon);
 exports.DEFAULT_FOLDER = 'default_folder.svg';
 exports.DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
 exports.DEFAULT_FILE = 'default_file.svg';
@@ -265,7 +265,8 @@ exports.DEFAULT_FILE = 'default_file.svg';
  * @return icon filename
  */
 function getIconForFolder(folderName) {
-    var iconKey = folderNamesToIcon[folderName];
+    var lowerCased = folderName.toLowerCase();
+    var iconKey = folderNamesToIcon[lowerCased];
     if (iconKey) {
         var iconPath = iconsToPath[iconKey];
         if (iconPath) {
@@ -282,24 +283,34 @@ exports.getIconForFolder = getIconForFolder;
  * @return icon filename
  */
 function getIconForFile(fileName) {
+    var lowerCased = fileName.toLowerCase();
     // match by exact FileName
-    var iconKeyFromFileName = folderNamesToIcon[fileName];
+    var iconKeyFromFileName = fileNamesToIcon[lowerCased];
     if (iconKeyFromFileName) {
         var iconPath = iconsToPath[iconKeyFromFileName];
         return iconPath;
     }
     // match by File Extension
-    var fileExtension = fileName.split('.').pop();
-    var iconKeyFromFileExt = fileExtensionsToIcon[fileExtension];
-    if (iconKeyFromFileExt) {
+    var extensionKey = fileExtensionsKeys.find(function (extension) {
+        // try to find extension which satisfy file's extension.
+        // be aware of extensions like `.test.js`, `.map.js` etc.
+        var extensionRE = new RegExp(".*\\." + extension);
+        return extensionRE.test(fileName);
+    });
+    if (extensionKey) {
+        var iconKeyFromFileExt = fileExtensionsToIcon[extensionKey];
+        console.log(iconKeyFromFileExt);
         var iconPath = iconsToPath[iconKeyFromFileExt];
         return iconPath;
     }
     // match by language
-    var iconKeyFromLang = languagesToIcon[fileExtension];
-    if (iconKeyFromLang) {
-        var iconPath = iconsToPath[iconKeyFromLang];
-        return iconPath;
+    var fileExtension = fileName.split('.').pop();
+    if (fileExtension) {
+        var iconKeyFromLang = languagesToIcon[fileExtension];
+        if (iconKeyFromLang) {
+            var iconPath = iconsToPath[iconKeyFromLang];
+            return iconPath;
+        }
     }
     // if there's no icon for file, use default one
     return exports.DEFAULT_FILE;
@@ -357,12 +368,8 @@ module.exports = {"_file":"default_file.svg","_folder":"default_folder.svg","_fo
 // COPIED FROM https://github.com/sindresorhus/refined-github/blob/master/src/libs/page-detect.js
 Object.defineProperty(exports, "__esModule", { value: true });
 var select = __webpack_require__(8);
-exports.isGist = function () {
-    return location.hostname.startsWith('gist.') || location.pathname.startsWith('gist/');
-};
-exports.isDashboard = function () {
-    return location.pathname === '/' || /^(\/orgs\/[^/]+)?\/dashboard/.test(location.pathname);
-};
+exports.isGist = function () { return location.hostname.startsWith('gist.') || location.pathname.startsWith('gist/'); };
+exports.isDashboard = function () { return location.pathname === '/' || /^(\/orgs\/[^/]+)?\/dashboard/.test(location.pathname); };
 exports.isTrending = function () { return location.pathname.startsWith('/trending'); };
 // @todo Replace with DOM-based test because this is too generic #708
 exports.isRepo = function () { return !exports.isGist() && !exports.isTrending() && /^\/[^/]+\/[^/]+/.test(location.pathname); };
@@ -384,31 +391,21 @@ exports.isPRSearch = function () { return location.pathname.startsWith('/pulls')
 exports.isPRList = function () { return exports.isRepo() && /^\/pulls\/?$/.test(exports.getRepoPath()); };
 exports.isPR = function () { return exports.isRepo() && /^\/pull\/\d+/.test(exports.getRepoPath()); };
 exports.isPRFiles = function () { return exports.isRepo() && /^\/pull\/\d+\/files/.test(exports.getRepoPath()); };
-exports.isPRCommit = function () {
-    return exports.isRepo() && /^\/pull\/\d+\/commits\/[0-9a-f]{5,40}/.test(exports.getRepoPath());
-};
-exports.isHistoryForFile = function () {
-    return exports.isRepo() && /^\/commits\/[0-9a-f]{5,40}\/.+/.test(exports.getRepoPath());
-};
+exports.isPRCommit = function () { return exports.isRepo() && /^\/pull\/\d+\/commits\/[0-9a-f]{5,40}/.test(exports.getRepoPath()); };
+exports.isHistoryForFile = function () { return exports.isRepo() && /^\/commits\/[0-9a-f]{5,40}\/.+/.test(exports.getRepoPath()); };
 exports.isMilestoneList = function () { return exports.isRepo() && /^\/milestones\/?$/.test(exports.getRepoPath()); };
 exports.isMilestone = function () { return exports.isRepo() && /^\/milestone\/\d+/.test(exports.getRepoPath()); };
 exports.isLabelList = function () { return exports.isRepo() && /^\/labels\/?(((?=\?).*)|$)/.test(exports.getRepoPath()); };
 exports.isLabel = function () { return exports.isRepo() && /^\/labels\/\w+/.test(exports.getRepoPath()); };
 exports.isCommitList = function () { return exports.isRepo() && /^\/commits\//.test(exports.getRepoPath()); };
 exports.isSingleCommit = function () { return exports.isRepo() && /^\/commit\/[0-9a-f]{5,40}/.test(exports.getRepoPath()); };
-exports.isCommit = function () {
-    return exports.isSingleCommit() || exports.isPRCommit() || (exports.isPRFiles() && select.exists('.full-commit'));
-};
+exports.isCommit = function () { return exports.isSingleCommit() || exports.isPRCommit() || (exports.isPRFiles() && select.exists('.full-commit')); };
 exports.isCompare = function () { return exports.isRepo() && /^\/compare/.test(exports.getRepoPath()); };
 exports.isQuickPR = function () { return exports.isCompare() && /[?&]quick_pull=1(&|$)/.test(location.search); };
 exports.hasCode = function () { return exports.isRepo() && select.exists('.highlight'); };
 exports.hasDiff = function () {
     return exports.isRepo() &&
-        (exports.isSingleCommit() ||
-            exports.isPRCommit() ||
-            exports.isPRFiles() ||
-            exports.isCompare() ||
-            (exports.isPR() && select.exists('.diff-table')));
+        (exports.isSingleCommit() || exports.isPRCommit() || exports.isPRFiles() || exports.isCompare() || (exports.isPR() && select.exists('.diff-table')));
 };
 exports.isReleases = function () { return exports.isRepo() && /^\/(releases|tags)/.test(exports.getRepoPath()); };
 exports.isBlame = function () { return exports.isRepo() && /^\/blame\//.test(exports.getRepoPath()); };

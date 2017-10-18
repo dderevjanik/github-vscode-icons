@@ -5,6 +5,7 @@ const fileExtensionsToIcon = require('./iconsData/FileExtensionsToIcon.json') as
 const fileNamesToIcon = require('./iconsData/FileNamesToIcon.json') as DICT;
 const languagesToIcon = require('./iconsData/LanguagesToIcon.json') as DICT;
 const iconsToPath = require('./iconsData/IconsToPath.json') as DICT;
+const fileExtensionsKeys = Object.keys(fileExtensionsToIcon);
 
 export const DEFAULT_FOLDER = 'default_folder.svg';
 export const DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
@@ -16,7 +17,8 @@ export const DEFAULT_FILE = 'default_file.svg';
  * @return icon filename
  */
 export function getIconForFolder(folderName: string) {
-  const iconKey = folderNamesToIcon[folderName];
+  const lowerCased = folderName.toLowerCase();
+  const iconKey = folderNamesToIcon[lowerCased];
   if (iconKey) {
     const iconPath = iconsToPath[iconKey];
     if (iconPath) {
@@ -34,26 +36,37 @@ export function getIconForFolder(folderName: string) {
  * @return icon filename
  */
 export function getIconForFile(fileName: string) {
+  const lowerCased = fileName.toLowerCase();
+
   // match by exact FileName
-  const iconKeyFromFileName = folderNamesToIcon[fileName];
+  const iconKeyFromFileName = fileNamesToIcon[lowerCased];
   if (iconKeyFromFileName) {
     const iconPath = iconsToPath[iconKeyFromFileName];
     return iconPath;
   }
 
   // match by File Extension
-  const fileExtension = fileName.split('.').pop();
-  const iconKeyFromFileExt = fileExtensionsToIcon[fileExtension];
-  if (iconKeyFromFileExt) {
+  const extensionKey = fileExtensionsKeys.find(function(extension) {
+    // try to find extension which satisfy file's extension.
+    // be aware of extensions like `.test.js`, `.map.js` etc.
+    const extensionRE = new RegExp(`.*\\.${extension}`);
+    return extensionRE.test(fileName);
+  });
+  if (extensionKey) {
+    const iconKeyFromFileExt = fileExtensionsToIcon[extensionKey];
+    console.log(iconKeyFromFileExt);
     const iconPath = iconsToPath[iconKeyFromFileExt];
     return iconPath;
   }
 
   // match by language
-  const iconKeyFromLang = languagesToIcon[fileExtension];
-  if (iconKeyFromLang) {
-    const iconPath = iconsToPath[iconKeyFromLang];
-    return iconPath;
+  const fileExtension = fileName.split('.').pop();
+  if (fileExtension) {
+    const iconKeyFromLang = languagesToIcon[fileExtension];
+    if (iconKeyFromLang) {
+      const iconPath = iconsToPath[iconKeyFromLang];
+      return iconPath;
+    }
   }
 
   // if there's no icon for file, use default one
