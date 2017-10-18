@@ -1,3 +1,8 @@
+/**
+ * Script will create json data, which contains dictionaries for runtime,
+ * where `key` is name of folder
+ * we want icon for and `value` is icon's filename.
+ */
 import * as Path from 'path';
 import { writeFileSync, readFileSync } from 'fs';
 import { bgYellow, green } from 'chalk';
@@ -6,6 +11,7 @@ const log = console.log;
 const filename = Path.basename(__filename);
 const iconsJSONFile = readFileSync('./icons.json');
 const languagesJSONFile = readFileSync('./languages.json');
+const PATH_ICONSDATA = './src/iconsData';
 
 type IconKey = string;
 
@@ -44,8 +50,8 @@ const writeFile = (path: string, callback: () => any) => {
 (async function () {
     log(bgYellow(`(${filename}) Creating mini-json files from definitions`));
 
-    // ICON DEFINITIONS
-    writeFile('./src/json/iconDefinitions.json', () => {
+    // Icons to Path
+    writeFile(`${PATH_ICONSDATA}/IconsToPath.json`, () => {
         const iconsDefinition = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
             ...acc,
             [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
@@ -53,8 +59,8 @@ const writeFile = (path: string, callback: () => any) => {
         return iconsDefinition;
     });
 
-    // FOLDER NAMES
-    writeFile('./src/json/folderNames.json', () => {
+    // FolderNames to Icon
+    writeFile(`${PATH_ICONSDATA}/FolderNamesToIcon.json`, () => {
         const folderNames = Object.keys(icons.light.folderNames).reduce((acc, folderName) => ({
             ...acc,
             [folderName]: icons.light.folderNames[folderName]
@@ -63,8 +69,8 @@ const writeFile = (path: string, callback: () => any) => {
     });
 
 
-    // FILE EXTENSIONS
-    writeFile('./src/json/fileExtensions.json', () => {
+    // FileExtensions to Icon
+    writeFile(`${PATH_ICONSDATA}/FileExtensionsToIcon.json`, () => {
         const fileExtensions = Object.keys(icons.light.fileExtensions).reduce((acc, fileExtension) => ({
             ...acc,
             [fileExtension]: icons.light.fileExtensions[fileExtension]
@@ -72,8 +78,8 @@ const writeFile = (path: string, callback: () => any) => {
         return fileExtensions;
     });
 
-    // FILE NAMES
-    writeFile('./src/json/fileNames.json', () => {
+    // FileNames to Icon
+    writeFile(`${PATH_ICONSDATA}/FileNamesToIcon.json`, () => {
         const fileNames = Object.keys(icons.light.fileNames).reduce((acc, fileName) => ({
             ...acc,
             [fileName]: icons.light.fileNames[fileName]
@@ -81,14 +87,14 @@ const writeFile = (path: string, callback: () => any) => {
         return fileNames;
     });
 
-    // LANGUAGES IDS
-    writeFile('./src/json/languagesIds.json', () => {
+    // Languages to Icon
+    writeFile(`${PATH_ICONSDATA}/LanguagesToIcon.json`, () => {
         const languagesIds = Object.keys(langauges).reduce((acc, languageId) => {
             const languageDef = langauges[languageId];
             const languageExtension = languageDef.defaultExtension;
             const iconFileName = icons.languageIds[languageId];
 
-            // sometimes, there's not icon for language, so skip it
+            // sometimes, icon for language not exists, so skip it
             if (iconFileName === undefined) {
                 return {
                     ...acc

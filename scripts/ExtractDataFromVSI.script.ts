@@ -1,3 +1,8 @@
+/**
+ * This script will extract data from vscode-icons, those data will be later used to
+ * Create Icons Data, which will be used in runtime as dictionary where `key` is name of folder
+ * we want icon for and `value` is icon's filename.
+ */
 import * as Path from 'path';
 import fetch from 'node-fetch';
 import { bgYellow, green } from 'chalk';
@@ -13,6 +18,7 @@ const reExt = /defaultExtension:.*'(.*?)'/;
 
 (async function () {
     log(bgYellow(`(${filename}) Downloading vscode languages`));
+
     fetch(LANG_URL, {})
         .then((res) => res.text())
         .then((body) => {

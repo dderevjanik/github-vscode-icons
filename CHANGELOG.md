@@ -8,8 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
-- blue logo to orange one, [vscode blogpost](https://code.visualstudio.com/updates/v1_17#_new-visual-studio-code-logo)
-- name of extension from `vscode-github-icons` to `github-vscode-icons` in chrome store
+- blue logo to orange one, read more about this change at [vscode blogpost](https://code.visualstudio.com/updates/v1_17#_new-visual-studio-code-logo).
+- name of extension from `vscode-github-icons` to `github-vscode-icons` in chrome store.
+- structure of repository. Now is more readable and self-explanatory.
 
 ### Added
 

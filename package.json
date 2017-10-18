@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preprocess": "npm run preprocess:languages && npm run preprocess:definitions",
-    "preprocess:languages": "ts-node ./scripts/DownloadVSLanguages.ts",
-    "preprocess:definitions": "ts-node ./scripts/TransformIconDefinition.ts",
+    "preprocess": "npm run preprocess:extractData && npm run preprocess:iconsData",
+    "preprocess:extractData": "ts-node ./scripts/ExtractDataFromVSI.script.ts",
+    "preprocess:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
     "build": "npx webpack --config webpack.config.js",
     "lint": "prettier --write src/**/*.ts",
     "dev": "npx webpack --watch --config webpack.config.dev.js"
