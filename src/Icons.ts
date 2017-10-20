@@ -5,7 +5,6 @@ const fileExtensions1ToIcon = require('./iconsData/FileExtensions1ToIcon.json') 
 const fileExtensions2ToIcon = require('./iconsData/FileExtensions2ToIcon.json') as DICT;
 const fileNamesToIcon = require('./iconsData/FileNamesToIcon.json') as DICT;
 const languagesToIcon = require('./iconsData/LanguagesToIcon.json') as DICT;
-const iconsToPath = require('./iconsData/IconsToPath.json') as DICT;
 
 export const DEFAULT_FOLDER = 'default_folder.svg';
 export const DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
@@ -29,7 +28,7 @@ export function getIconForFolder(folderName: string) {
 export function getIconForFile(fileName: string) {
   // match by exact FileName
   const iconFromFileName = fileNamesToIcon[fileName];
-  if (iconFromFileName) {
+  if (iconFromFileName !== undefined) {
     return iconFromFileName;
   }
 
@@ -40,25 +39,25 @@ export function getIconForFile(fileName: string) {
     const ext2 = extensions.pop();
     // check for `.js.map`, `test.tsx`, ...
     const iconFromExtension2 = fileExtensions2ToIcon[`${ext2}.${ext1}`];
-    if (iconFromExtension2) {
+    if (iconFromExtension2 !== undefined) {
       return iconFromExtension2;
     }
     // check for `.js`, `tsx`, ...
     const iconFromExtension1 = fileExtensions1ToIcon[ext1];
-    if (iconFromExtension1) {
+    if (iconFromExtension1 !== undefined) {
       return iconFromExtension1;
     }
   } else {
     const ext = extensions.pop();
     const iconFromExtension = fileExtensions1ToIcon[ext];
-    if (iconFromExtension) {
+    if (iconFromExtension !== undefined) {
       return iconFromExtension;
     }
   }
 
   // match by language
   const fileExtension = fileName.split('.').pop();
-  if (fileExtension) {
+  if (fileExtension !== undefined) {
     const iconFromLang = languagesToIcon[fileExtension];
     if (iconFromLang) {
       return iconFromLang;

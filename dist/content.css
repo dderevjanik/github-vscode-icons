@@ -1,15 +1,38 @@
+td.icon {
+    min-width: 26px; /* make sure that icon will not blink after replacing old one */
+}
+
+td.icon > .octicon {
+    display: none; /* don't how old icon */
+    width: 16px;
+}
+td.icon > .spinner {
+    display: block !important; /* show loading icon while replacing old one */
+}
+
 td.icon > img  {
-    /* display: none; */
-    height: 16px
+    /* copied from original icon */
+    position: relative;
+    top: 3px;
+    margin-top: -3px;
+    margin-left: -2px;
 }
 
 .js-path-segment > a > img {
     vertical-align: middle;
 }
 
+.js-path-segment:before {
+    /* min-width: 16px;
+    display: inline-block;
+    content: "\00a0 "; */
+}
+
 .final-path > img {
     vertical-align: middle;
 }
+
+/* diff icons - WIP */
 
 .vsi-icon-diff {
     vertical-align: middle;

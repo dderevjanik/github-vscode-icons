@@ -55,9 +55,6 @@ const writeFile = (path: string, callback: () => any) => {
         [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
     }), {});
 
-    // Icons to Path
-    writeFile(`${PATH_ICONSDATA}/IconsToPath.json`, () => iconToPath);
-
     // FolderNames to Icon
     writeFile(`${PATH_ICONSDATA}/FolderNamesToIcon.json`, () => {
         const folderNames = Object.keys(icons.light.folderNames).reduce((acc, folderName) => ({

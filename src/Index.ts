@@ -11,7 +11,7 @@ const QUERY_LAST_PATH_SEGMENT = 'final-path';
 /**
  * Show icon for path segments
  */
-async function showIconsForSegments() {
+function showIconsForSegments() {
   const aSegments = document.getElementsByClassName(QUERY_PATH_SEGMENTS) as HTMLCollectionOf<HTMLDivElement>;
   const firstSegment = aSegments[0];
   const finalSegment = document.getElementsByClassName(QUERY_LAST_PATH_SEGMENT)[0] as HTMLSpanElement | undefined;
@@ -21,7 +21,7 @@ async function showIconsForSegments() {
     const spanEl = firstSegment.children[0] as HTMLSpanElement;
     spanEl.innerHTML = `<img src="${getIconUrl(
       DEFAULT_ROOT_OPENED
-    )}" alt="icon" height="16"><span> ${spanEl.innerText}</span>`;
+    )}" alt="icon" class="vscode-icon"><span> ${spanEl.innerText}</span>`;
   }
 
   // check if final segment is file or folder
@@ -31,7 +31,7 @@ async function showIconsForSegments() {
       : getIconForOpenFolder(finalSegment.innerText);
     finalSegment.innerHTML = `<img src="${getIconUrl(
       iconPath
-    )}" alt="icon" height="16"><span> ${finalSegment.innerText}</span>`;
+    )}" alt="icon" class="vscode-icon"><span> ${finalSegment.innerText}</span>`;
   }
 
   // segments between first and last are always folders
@@ -39,22 +39,23 @@ async function showIconsForSegments() {
     const spanEl = aSegments[i];
     const aEl = spanEl.firstChild as HTMLAnchorElement;
     const iconPath = getIconForOpenFolder(aEl.innerText);
-    aEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" height="16"><span> ${aEl.innerText}</span>`;
+    aEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" class="vscode-icon"><span> ${aEl.innerText}</span>`;
   }
 };
 
 /**
  * Show icons for repository files
  */
-async function showRepoTreeIcons() {
+function showRepoTreeIcons() {
   // console.time('QUERY_ELEMENTS');
   const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
   // console.timeEnd('QUERY_ELEMENTS');
   // console.log(trEls.length);
   // console.time('SHOWING_ICONS');
-
   for (let i = 0; i < trEls.length; i++) {
     const trEl = trEls[i];
+
+    // console.time('OBTAIN_EL');
     // [ICON_FOR_CONTENT] [CONTENT_NAME] [LAST_COMMIT_MESSAGE] [LAST_TIME_UPDATED]
     const iconEl = trEl.children[0];
     const contentEl = trEl.children[1];
@@ -63,11 +64,17 @@ async function showRepoTreeIcons() {
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
     const name = linkToEl.innerText.toLowerCase();
+    // console.timeEnd('OBTAIN_EL');
+
+    // console.time('OBTAIN_ICON');
     const iconPath = linkToEl.href.indexOf('/tree/') > 0 // is Folder ?
       ? getIconForFolder(name.split('/').shift())
       : getIconForFile(linkToEl.innerText.toLowerCase());
+    // console.timeEnd('OBTAIN_ICON');
 
+    // console.time('INJECT_IMG');
     iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
+    // console.timeEnd('INJECT_IMG');
   }
   // console.timeEnd('SHOWING_ICONS');
 };
@@ -82,7 +89,7 @@ async function showRepoTreeIcons() {
 //         const iconPath = getIconForFile(filename);
 
 //         const iconEl = document.createElement('div');
-//         iconEl.innerHTML = `<img class="vsi-icon-diff" src="${chrome.runtime.getURL('icons/' + iconPath)}" alt="icon" height="16">`;
+//         iconEl.innerHTML = `<img class="vsi-icon-diff" src="${chrome.runtime.getURL('icons/' + iconPath)}" alt="icon" class="vscode-icon">`;
 
 //         element.insertBefore(iconEl.firstChild, element.firstChild);
 //     }
@@ -107,11 +114,11 @@ const domLoaded = new Promise(resolve => {
 });
 
 function update(e?: any) {
-  if (isRepoRoot() || isRepoTree()) {
-    showRepoTreeIcons();
-  }
   if ((!isRepoRoot() && isRepoTree()) || isSingleFile() || isHistoryForFile()) {
     showIconsForSegments();
+  }
+  if (isRepoRoot() || isRepoTree()) {
+    showRepoTreeIcons();
   }
   if (isCommit()) {
     // showDiffIcon();
