@@ -1,6 +1,6 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "show vscode-icons in github repository",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
     "preprocess:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
     "build": "npx webpack --config webpack.config.js",
     "lint": "prettier --write src/**/*.ts",
-    "tape /**/*": "",
     "dev": "npx webpack --watch --config webpack.config.dev.js"
   },
   "repository": {

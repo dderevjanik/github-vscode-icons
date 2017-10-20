@@ -4,18 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [1.0.4] - 2017-XX-YY
+## [1.0.4] - 2017-10-20
 
 ### Changed
 
 - Blue logo to orange one, read more about this change at [vscode blogpost](https://code.visualstudio.com/updates/v1_17#_new-visual-studio-code-logo)
 - Name of extension from `vscode-github-icons` to `github-vscode-icons` in chrome store
 - Project Structure, now is more readable and better self-explanatory
+- Better performance (~25%) thanks to optimizing `getIcons` functions
 
 ### Added
 
 - Support for filenames with several extensions like `content.js.map`, `index.test.tsx`, etc
 - Opera browser extension
+- Loading icon when `vscode-icons` is loading
 - Test for *getIcons* functions
 
 ## [1.0.3] - 2017-10-10
