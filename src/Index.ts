@@ -11,7 +11,7 @@ const QUERY_LAST_PATH_SEGMENT = 'final-path';
 /**
  * Show icon for path segments
  */
-const showIconsForSegments = async () => {
+async function showIconsForSegments() {
   const aSegments = document.getElementsByClassName(QUERY_PATH_SEGMENTS) as HTMLCollectionOf<HTMLDivElement>;
   const firstSegment = aSegments[0];
   const finalSegment = document.getElementsByClassName(QUERY_LAST_PATH_SEGMENT)[0] as HTMLSpanElement | undefined;
@@ -46,24 +46,30 @@ const showIconsForSegments = async () => {
 /**
  * Show icons for repository files
  */
-const showRepoTreeIcons = async () => {
+async function showRepoTreeIcons() {
+  // console.time('QUERY_ELEMENTS');
   const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
+  // console.timeEnd('QUERY_ELEMENTS');
+  // console.log(trEls.length);
+  // console.time('SHOWING_ICONS');
+
   for (let i = 0; i < trEls.length; i++) {
     const trEl = trEls[i];
-
     // [ICON_FOR_CONTENT] [CONTENT_NAME] [LAST_COMMIT_MESSAGE] [LAST_TIME_UPDATED]
     const iconEl = trEl.children[0];
     const contentEl = trEl.children[1];
     // const messageEl = trEl.children[2]; Unused
     // const ageEl = trEl.children[3]; Unused
 
-    const filename = (contentEl.firstElementChild.firstElementChild as HTMLAnchorElement).innerText.toLowerCase();
-    const folderName = filename.split('/').shift(); // If folder is inside folder (e.g. public/resources), use public/ for icon
+    const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
+    const name = linkToEl.innerText.toLowerCase();
+    const iconPath = linkToEl.href.indexOf('/tree/') > 0 // is Folder ?
+      ? getIconForFolder(name.split('/').shift())
+      : getIconForFile(linkToEl.innerText.toLowerCase());
 
-    const isFolder = (contentEl.firstElementChild.firstElementChild as HTMLAnchorElement).href.indexOf('/tree/') > 0;
-    const iconPath = isFolder ? getIconForFolder(folderName) : getIconForFile(filename);
     iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
   }
+  // console.timeEnd('SHOWING_ICONS');
 };
 
 // DIFF ICONS ARE NOT COMPLETED YET

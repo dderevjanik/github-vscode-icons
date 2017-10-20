@@ -1,11 +1,11 @@
 type DICT = { [name: string]: string };
 
 const folderNamesToIcon = require('./iconsData/FolderNamesToIcon.json') as DICT;
-const fileExtensionsToIcon = require('./iconsData/FileExtensionsToIcon.json') as DICT;
+const fileExtensions1ToIcon = require('./iconsData/FileExtensions1ToIcon.json') as DICT;
+const fileExtensions2ToIcon = require('./iconsData/FileExtensions2ToIcon.json') as DICT;
 const fileNamesToIcon = require('./iconsData/FileNamesToIcon.json') as DICT;
 const languagesToIcon = require('./iconsData/LanguagesToIcon.json') as DICT;
 const iconsToPath = require('./iconsData/IconsToPath.json') as DICT;
-const fileExtensionsKeys = Object.keys(fileExtensionsToIcon);
 
 export const DEFAULT_FOLDER = 'default_folder.svg';
 export const DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
@@ -17,17 +17,8 @@ export const DEFAULT_FILE = 'default_file.svg';
  * @return icon filename
  */
 export function getIconForFolder(folderName: string) {
-  const lowerCased = folderName.toLowerCase();
-  const iconKey = folderNamesToIcon[lowerCased];
-  if (iconKey) {
-    const iconPath = iconsToPath[iconKey];
-    if (iconPath) {
-      return iconPath;
-    }
-  }
-
-  // if there's no icon for folder, use default one
-  return DEFAULT_FOLDER;
+  const folderIcon = folderNamesToIcon[folderName];
+  return folderIcon ? folderIcon : DEFAULT_FOLDER;
 }
 
 /**
@@ -36,35 +27,41 @@ export function getIconForFolder(folderName: string) {
  * @return icon filename
  */
 export function getIconForFile(fileName: string) {
-  const lowerCased = fileName.toLowerCase();
-
   // match by exact FileName
-  const iconKeyFromFileName = fileNamesToIcon[lowerCased];
-  if (iconKeyFromFileName) {
-    const iconPath = iconsToPath[iconKeyFromFileName];
-    return iconPath;
+  const iconFromFileName = fileNamesToIcon[fileName];
+  if (iconFromFileName) {
+    return iconFromFileName;
   }
 
   // match by File Extension
-  const extensionKey = fileExtensionsKeys.find(function (extension) {
-    // try to find extension which satisfy file's extension.
-    // be aware of extensions like `.test.js`, `.map.js` etc.
-    const extensionRE = new RegExp(`\^.*\\.${extension}\$`);
-    return extensionRE.test(fileName);
-  });
-  if (extensionKey) {
-    const iconKeyFromFileExt = fileExtensionsToIcon[extensionKey];
-    const iconPath = iconsToPath[iconKeyFromFileExt];
-    return iconPath;
+  const extensions = fileName.split('.');
+  if (extensions.length > 1) {
+    const ext1 = extensions.pop();
+    const ext2 = extensions.pop();
+    // check for `.js.map`, `test.tsx`, ...
+    const iconFromExtension2 = fileExtensions2ToIcon[`${ext2}.${ext1}`];
+    if (iconFromExtension2) {
+      return iconFromExtension2;
+    }
+    // check for `.js`, `tsx`, ...
+    const iconFromExtension1 = fileExtensions1ToIcon[ext1];
+    if (iconFromExtension1) {
+      return iconFromExtension1;
+    }
+  } else {
+    const ext = extensions.pop();
+    const iconFromExtension = fileExtensions1ToIcon[ext];
+    if (iconFromExtension) {
+      return iconFromExtension;
+    }
   }
 
   // match by language
   const fileExtension = fileName.split('.').pop();
   if (fileExtension) {
-    const iconKeyFromLang = languagesToIcon[fileExtension];
-    if (iconKeyFromLang) {
-      const iconPath = iconsToPath[iconKeyFromLang];
-      return iconPath;
+    const iconFromLang = languagesToIcon[fileExtension];
+    if (iconFromLang) {
+      return iconFromLang;
     }
   }
 

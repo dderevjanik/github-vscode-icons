@@ -50,39 +50,65 @@ const writeFile = (path: string, callback: () => any) => {
 (async function () {
     log(bgYellow(`(${filename}) Creating mini-json files from definitions`));
 
+    const iconToPath: any = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
+        ...acc,
+        [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
+    }), {});
+
     // Icons to Path
-    writeFile(`${PATH_ICONSDATA}/IconsToPath.json`, () => {
-        const iconsDefinition = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
-            ...acc,
-            [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
-        }), {});
-        return iconsDefinition;
-    });
+    writeFile(`${PATH_ICONSDATA}/IconsToPath.json`, () => iconToPath);
 
     // FolderNames to Icon
     writeFile(`${PATH_ICONSDATA}/FolderNamesToIcon.json`, () => {
         const folderNames = Object.keys(icons.light.folderNames).reduce((acc, folderName) => ({
             ...acc,
-            [folderName]: icons.light.folderNames[folderName]
+            [folderName]: iconToPath[
+            icons.light.folderNames[folderName]
+            ]
         }), {});
         return folderNames;
     });
 
 
     // FileExtensions to Icon
-    writeFile(`${PATH_ICONSDATA}/FileExtensionsToIcon.json`, () => {
-        const fileExtensions = Object.keys(icons.light.fileExtensions).reduce((acc, fileExtension) => ({
-            ...acc,
-            [fileExtension]: icons.light.fileExtensions[fileExtension]
-        }), {});
-        return fileExtensions;
+    writeFile(`${PATH_ICONSDATA}/FileExtensions1ToIcon.json`, () => {
+        // 1 - .js, .ts, .cpp
+        const fileExtensions1 = Object.keys(icons.light.fileExtensions).reduce((acc, fileExtension) => {
+            if (fileExtension.indexOf('.') === -1) {
+                return {
+                    ...acc,
+                    [fileExtension]: iconToPath[
+                    icons.light.fileExtensions[fileExtension]
+                    ]
+                };
+            }
+            return { ...acc };
+        }, {});
+        return fileExtensions1;
+    });
+    writeFile(`${PATH_ICONSDATA}/FileExtensions2ToIcon.json`, () => {
+        // 2. - .js.map, .test.js, .test.json
+        const fileExtensions2 = Object.keys(icons.light.fileExtensions).reduce((acc, fileExtension) => {
+            if (fileExtension.indexOf('.') > -1) {
+                return {
+                    ...acc,
+                    [fileExtension]: iconToPath[
+                    icons.light.fileExtensions[fileExtension]
+                    ]
+                };
+            }
+            return { ...acc };
+        }, {});
+        return fileExtensions2;
     });
 
     // FileNames to Icon
     writeFile(`${PATH_ICONSDATA}/FileNamesToIcon.json`, () => {
         const fileNames = Object.keys(icons.light.fileNames).reduce((acc, fileName) => ({
             ...acc,
-            [fileName]: icons.light.fileNames[fileName]
+            [fileName]: iconToPath[
+            icons.light.fileNames[fileName]
+            ]
         }), {});
         return fileNames;
     });
@@ -108,8 +134,8 @@ const writeFile = (path: string, callback: () => any) => {
 
             const langaugeIcon = {
                 [languageDef.defaultExtension]: existsLightTheme
-                    ? lightIconFileName
-                    : iconFileName
+                    ? iconToPath[lightIconFileName]
+                    : iconToPath[iconFileName]
             };
             return {
                 ...acc,
