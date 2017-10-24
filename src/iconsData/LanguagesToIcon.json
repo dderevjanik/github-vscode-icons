@@ -27,6 +27,7 @@
   "diff": "file_type_diff.svg",
   "dockerfile": "file_type_docker.svg",
   "dox": "file_type_doxygen.svg",
+  "dust": "file_type_dustjs.svg",
   "edge": "file_type_edge.svg",
   "ex": "file_type_elixir.svg",
   "elm": "file_type_elm.svg",
