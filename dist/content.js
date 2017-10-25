@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,14 +70,100 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var GitHub_1 = __webpack_require__(1);
-var GitLab_1 = __webpack_require__(10);
-GitHub_1.initGithub();
-GitLab_1.initGitLab();
+var folderNamesToIcon = __webpack_require__(3);
+var fileExtensions1ToIcon = __webpack_require__(4);
+var fileExtensions2ToIcon = __webpack_require__(5);
+var fileNamesToIcon = __webpack_require__(6);
+var languagesToIcon = __webpack_require__(7);
+exports.DEFAULT_FOLDER = 'default_folder.svg';
+exports.DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
+exports.DEFAULT_FILE = 'default_file.svg';
+/**
+ * Get icon for a folder
+ * @param folderName name of folder to find icon for
+ * @return icon filename
+ */
+function getIconForFolder(folderName) {
+    var folderIcon = folderNamesToIcon[folderName];
+    return folderIcon ? folderIcon : exports.DEFAULT_FOLDER;
+}
+exports.getIconForFolder = getIconForFolder;
+/**
+ * Get icon for a file
+ * @param fileName name of file to find icon for
+ * @return icon filename
+ */
+function getIconForFile(fileName) {
+    // match by exact FileName
+    var iconFromFileName = fileNamesToIcon[fileName];
+    if (iconFromFileName !== undefined) {
+        return iconFromFileName;
+    }
+    // match by File Extension
+    var extensions = fileName.split('.');
+    if (extensions.length > 1) {
+        var ext1 = extensions.pop();
+        var ext2 = extensions.pop();
+        // check for `.js.map`, `test.tsx`, ...
+        var iconFromExtension2 = fileExtensions2ToIcon[ext2 + "." + ext1];
+        if (iconFromExtension2 !== undefined) {
+            return iconFromExtension2;
+        }
+        // check for `.js`, `tsx`, ...
+        var iconFromExtension1 = fileExtensions1ToIcon[ext1];
+        if (iconFromExtension1 !== undefined) {
+            return iconFromExtension1;
+        }
+    }
+    else {
+        var ext = extensions.pop();
+        var iconFromExtension = fileExtensions1ToIcon[ext];
+        if (iconFromExtension !== undefined) {
+            return iconFromExtension;
+        }
+    }
+    // match by language
+    var fileExtension = fileName.split('.').pop();
+    if (fileExtension !== undefined) {
+        var iconFromLang = languagesToIcon[fileExtension];
+        if (iconFromLang) {
+            return iconFromLang;
+        }
+    }
+    // if there's no icon for file, use default one
+    return exports.DEFAULT_FILE;
+}
+exports.getIconForFile = getIconForFile;
+/**
+ * Get icon for an opened folder
+ * @param folderName name of opened folder to icon for
+ * @return icon filename
+ */
+function getIconForOpenFolder(folderName) {
+    return (getIconForFolder(folderName)
+        .split('.')
+        .shift() + '_opened.svg');
+}
+exports.getIconForOpenFolder = getIconForOpenFolder;
 
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var GitHub_1 = __webpack_require__(2);
+var GitLab_1 = __webpack_require__(10);
+var BitBucket_1 = __webpack_require__(11);
+GitHub_1.initGithub();
+GitLab_1.initGitLab();
+BitBucket_1.initBitBucket();
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -119,7 +205,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var Icons_1 = __webpack_require__(2);
+var Icons_1 = __webpack_require__(0);
 var PageDetect_1 = __webpack_require__(8);
 var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
 var DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
@@ -263,90 +349,6 @@ function initGithub() {
     document.addEventListener('pjax:end', observeFragment);
 }
 exports.initGithub = initGithub;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var folderNamesToIcon = __webpack_require__(3);
-var fileExtensions1ToIcon = __webpack_require__(4);
-var fileExtensions2ToIcon = __webpack_require__(5);
-var fileNamesToIcon = __webpack_require__(6);
-var languagesToIcon = __webpack_require__(7);
-exports.DEFAULT_FOLDER = 'default_folder.svg';
-exports.DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
-exports.DEFAULT_FILE = 'default_file.svg';
-/**
- * Get icon for a folder
- * @param folderName name of folder to find icon for
- * @return icon filename
- */
-function getIconForFolder(folderName) {
-    var folderIcon = folderNamesToIcon[folderName];
-    return folderIcon ? folderIcon : exports.DEFAULT_FOLDER;
-}
-exports.getIconForFolder = getIconForFolder;
-/**
- * Get icon for a file
- * @param fileName name of file to find icon for
- * @return icon filename
- */
-function getIconForFile(fileName) {
-    // match by exact FileName
-    var iconFromFileName = fileNamesToIcon[fileName];
-    if (iconFromFileName !== undefined) {
-        return iconFromFileName;
-    }
-    // match by File Extension
-    var extensions = fileName.split('.');
-    if (extensions.length > 1) {
-        var ext1 = extensions.pop();
-        var ext2 = extensions.pop();
-        // check for `.js.map`, `test.tsx`, ...
-        var iconFromExtension2 = fileExtensions2ToIcon[ext2 + "." + ext1];
-        if (iconFromExtension2 !== undefined) {
-            return iconFromExtension2;
-        }
-        // check for `.js`, `tsx`, ...
-        var iconFromExtension1 = fileExtensions1ToIcon[ext1];
-        if (iconFromExtension1 !== undefined) {
-            return iconFromExtension1;
-        }
-    }
-    else {
-        var ext = extensions.pop();
-        var iconFromExtension = fileExtensions1ToIcon[ext];
-        if (iconFromExtension !== undefined) {
-            return iconFromExtension;
-        }
-    }
-    // match by language
-    var fileExtension = fileName.split('.').pop();
-    if (fileExtension !== undefined) {
-        var iconFromLang = languagesToIcon[fileExtension];
-        if (iconFromLang) {
-            return iconFromLang;
-        }
-    }
-    // if there's no icon for file, use default one
-    return exports.DEFAULT_FILE;
-}
-exports.getIconForFile = getIconForFile;
-/**
- * Get icon for an opened folder
- * @param folderName name of opened folder to icon for
- * @return icon filename
- */
-function getIconForOpenFolder(folderName) {
-    return (getIconForFolder(folderName)
-        .split('.')
-        .shift() + '_opened.svg');
-}
-exports.getIconForOpenFolder = getIconForOpenFolder;
 
 
 /***/ }),
@@ -507,7 +509,7 @@ module.exports = select;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Icons_1 = __webpack_require__(2);
+var Icons_1 = __webpack_require__(0);
 var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
 var QUERY_TREE_ITEMS = '.tree-item';
 function showRepoTreeIcons() {
@@ -520,6 +522,9 @@ function showRepoTreeIcons() {
         var iconEl = iconAndNameEls.firstElementChild;
         var nameEl = iconAndNameEls.lastElementChild;
         var name_1 = nameEl.innerText.toLowerCase();
+        if (i === 0 && name_1 === '..') {
+            continue;
+        }
         var iconPath = nameEl.href.indexOf('/tree/') > 0
             ? Icons_1.getIconForFolder(name_1)
             : Icons_1.getIconForFile(name_1);
@@ -532,6 +537,75 @@ function initGitLab() {
     showRepoTreeIcons();
 }
 exports.initGitLab = initGitLab;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Icons_1 = __webpack_require__(0);
+var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
+var QUERY_TREE_ITEMS = '.iterable-item > td:first-child';
+function showRepoTreeIcons() {
+    var treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
+    for (var i = 0; i < treeItems.length; i++) {
+        var itemEl = treeItems[i];
+        var newIconEl = document.createElement('img');
+        newIconEl.setAttribute('class', 'vscode-icon');
+        var isFolder = itemEl.className.includes('dirname');
+        if (isFolder) {
+            /**
+             * td > a > span
+             */
+            var iconEl = itemEl.firstElementChild.firstElementChild;
+            var name_1 = itemEl.innerText.toLowerCase();
+            var iconPath = Icons_1.getIconForFolder(name_1);
+            newIconEl.setAttribute('src', getIconUrl(iconPath));
+            itemEl.firstElementChild.replaceChild(newIconEl, iconEl);
+        }
+        else {
+            /**
+             * File is wrapped in another div element, like:
+             * td > div > a > span
+             */
+            var iconEl = itemEl.firstElementChild.firstElementChild.firstElementChild;
+            var name_2 = itemEl.firstElementChild.innerText;
+            var iconPath = Icons_1.getIconForFile(name_2);
+            newIconEl.setAttribute('src', getIconUrl(iconPath));
+            itemEl.firstElementChild.firstElementChild.replaceChild(newIconEl, iconEl);
+        }
+    }
+}
+var domLoaded = new Promise(function (resolve) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+    }
+    else {
+        resolve();
+    }
+});
+function update(e) {
+    showRepoTreeIcons();
+}
+function initBitBucket() {
+    var observer = new MutationObserver(update);
+    var observeFragment = function () {
+        var ajaxFiles = document.getElementById('source-container');
+        if (ajaxFiles) {
+            observer.observe(ajaxFiles, {
+                childList: true
+            });
+        }
+    };
+    update();
+    observeFragment();
+    document.addEventListener('pjax:end', update);
+    document.addEventListener('pjax:end', observeFragment);
+}
+exports.initBitBucket = initBitBucket;
 
 
 /***/ })

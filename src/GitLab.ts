@@ -16,6 +16,9 @@ function showRepoTreeIcons() {
         const nameEl = iconAndNameEls.lastElementChild as HTMLAnchorElement;
 
         const name = nameEl.innerText.toLowerCase();
+        if (i === 0 && name === '..') {
+            continue;
+        }
         const iconPath = nameEl.href.indexOf('/tree/') > 0
             ? getIconForFolder(name)
             : getIconForFile(name);
