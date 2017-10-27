@@ -1,4 +1,5 @@
 import { getIconForFile, getIconForFolder, getIconForOpenFolder } from './Icons';
+import { isGitLabRepo } from './PageDetect';
 
 const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons/' + iconFileName);
 
@@ -29,7 +30,16 @@ function showRepoTreeIcons() {
     }
 }
 
-export function initGitLab() {
-    showRepoTreeIcons();
-}
+const domLoaded = new Promise(resolve => {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+    } else {
+        resolve();
+    }
+})
 
+function update(e?: any) {
+    if (isGitLabRepo()) {
+        showRepoTreeIcons();
+    }
+}

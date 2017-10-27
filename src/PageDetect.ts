@@ -90,3 +90,14 @@ export const isSingleFile = () => {
 };
 
 export const hasCommentForm = () => select.exists('.js-previewable-comment-form');
+
+/**
+ * BitBucket
+ */
+
+export const isBitBucketRepo = () => select.exists('#source-container');
+
+/**
+ * GitLab
+ */
+export const isGitLabRepo = () => select.exists('.project-show-files');

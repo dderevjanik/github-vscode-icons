@@ -1,3 +1,7 @@
+/**
+ * Github
+ */
+
 td.icon {
     min-width: 26px; /* make sure that icon will not blink after replacing old one */
 }
@@ -42,3 +46,16 @@ td.icon > img  {
     vertical-align: middle;
     height: 16px;
 }
+
+/**
+ * BitBucket
+ */
+
+.bb-icon {
+    margin-right: 10px;
+}
+
+/**
+ * GitLab
+ */
+

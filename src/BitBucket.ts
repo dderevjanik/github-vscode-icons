@@ -1,4 +1,5 @@
 import { getIconForFile, getIconForFolder, getIconForOpenFolder } from './Icons';
+import { isBitBucketRepo } from './PageDetect';
 
 const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons/' + iconFileName);
 
@@ -10,7 +11,7 @@ function showRepoTreeIcons() {
         const itemEl = treeItems[i] as HTMLDivElement;
 
         const newIconEl = document.createElement('img');
-        newIconEl.setAttribute('class', 'vscode-icon');
+        newIconEl.setAttribute('class', 'vscode-icon bb-icon');
 
         const isFolder = itemEl.className.includes('dirname');
         if (isFolder) {
@@ -45,7 +46,9 @@ const domLoaded = new Promise(resolve => {
 });
 
 function update(e?: any) {
-    showRepoTreeIcons();
+    if (isBitBucketRepo()) {
+        showRepoTreeIcons();
+    }
 }
 
 export function initBitBucket() {
