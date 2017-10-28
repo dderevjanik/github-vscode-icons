@@ -4,11 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.6] - 2017-10-24
+
+### Added
+
+- support for [gitlab.com](https://about.gitlab.com/)
+- support for [bitbucket.org](https://bitbucket.org/)
+
+### Changed
+
+- changed structure of project to be more abstract for several web-based GIT hostings (Github, Gitlab, Bitbucket and Gist)
+
 ## [1.0.5] - 2017-10-24
 
 ### Changed
 
-- `vscode-icons` 7.16.0, added 25 new icons, read more at vscode-icons [changelog](https://github.com/vscode-icons/vscode-icons/blob/master/CHANGELOG.md#7160-october-22-2017)
+- `vscode-icons` updated to `7.16.0`, added 25 new icons, read more at vscode-icons [changelog](https://github.com/vscode-icons/vscode-icons/blob/master/CHANGELOG.md#7160-october-22-2017)
 
 ## [1.0.4] - 2017-10-20
 

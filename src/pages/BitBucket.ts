@@ -1,7 +1,5 @@
-import { getIconForFile, getIconForFolder, getIconForOpenFolder } from './Icons';
-import { isBitBucketRepo } from './PageDetect';
-
-const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons/' + iconFileName);
+import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconUrl } from '../utils/Icons';
+import { isBitBucketRepo } from '../utils/PageDetect';
 
 const QUERY_TREE_ITEMS = '.iterable-item > td:first-child';
 

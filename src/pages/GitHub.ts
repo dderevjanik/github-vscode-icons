@@ -1,7 +1,5 @@
-import { getIconForFolder, getIconForOpenFolder, getIconForFile } from './Icons';
-import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from './PageDetect';
-
-const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons/' + iconFileName);
+import { getIconForFolder, getIconForOpenFolder, getIconForFile, getIconUrl } from '../utils/Icons';
+import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
 
 const DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
@@ -95,16 +93,6 @@ function showRepoTreeIcons() {
 //     }
 // }
 
-const showGistIcons = async () => {
-    const fileInfos = document.querySelectorAll('.file-info');
-    for (let i = 0; i < fileInfos.length; i++) {
-        const fileInfo = fileInfos[i] as HTMLDivElement;
-        const gistName = (fileInfo.lastElementChild.firstElementChild as HTMLSpanElement).innerText;
-        const iconPath = getIconForFile(gistName);
-        fileInfo.firstElementChild.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" class="vscode-icon">`;
-    }
-};
-
 const domLoaded = new Promise(resolve => {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -122,9 +110,6 @@ function update(e?: any) {
     }
     if (isCommit()) {
         // showDiffIcon();
-    }
-    if (isGist()) {
-        showGistIcons();
     }
 }
 

@@ -1,10 +1,16 @@
-type DICT = { [name: string]: string };
+type NAME_TO_ICON = { [name: string]: string };
 
-const folderNamesToIcon = require('./iconsData/FolderNamesToIcon.json') as DICT;
-const fileExtensions1ToIcon = require('./iconsData/FileExtensions1ToIcon.json') as DICT;
-const fileExtensions2ToIcon = require('./iconsData/FileExtensions2ToIcon.json') as DICT;
-const fileNamesToIcon = require('./iconsData/FileNamesToIcon.json') as DICT;
-const languagesToIcon = require('./iconsData/LanguagesToIcon.json') as DICT;
+const folderNamesToIcon = require('../iconsData/FolderNamesToIcon.json') as NAME_TO_ICON;
+const fileExtensions1ToIcon = require('../iconsData/FileExtensions1ToIcon.json') as NAME_TO_ICON;
+const fileExtensions2ToIcon = require('../iconsData/FileExtensions2ToIcon.json') as NAME_TO_ICON;
+const fileNamesToIcon = require('../iconsData/FileNamesToIcon.json') as NAME_TO_ICON;
+const languagesToIcon = require('../iconsData/LanguagesToIcon.json') as NAME_TO_ICON;
+
+/**
+ * Retrieve url of icon within chrome
+ */
+export const getIconUrl = (iconFileName: string) =>
+  chrome.runtime.getURL('icons/' + iconFileName);
 
 export const DEFAULT_FOLDER = 'default_folder.svg';
 export const DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';

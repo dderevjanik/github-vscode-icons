@@ -35,5 +35,8 @@ Goals:
 - [x] Display icons for path segments (second screenshot)
 - [ ] Display icons for path segments in file-history
 - [ ] Display icons for diff pages
+- [ ] Support BitBucket
+- [ ] Support GitLab
+- [ ] Support PasteBin
 - [x] Add tests
 - [ ] Automatically generate artifact from `vscode-icons` using docker and extract `icons.json`

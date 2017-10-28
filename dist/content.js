@@ -75,6 +75,12 @@ var fileExtensions1ToIcon = __webpack_require__(5);
 var fileExtensions2ToIcon = __webpack_require__(6);
 var fileNamesToIcon = __webpack_require__(7);
 var languagesToIcon = __webpack_require__(8);
+/**
+ * Retrieve url of icon within chrome
+ */
+exports.getIconUrl = function (iconFileName) {
+    return chrome.runtime.getURL('icons/' + iconFileName);
+};
 exports.DEFAULT_FOLDER = 'default_folder.svg';
 exports.DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
 exports.DEFAULT_FILE = 'default_file.svg';
@@ -156,20 +162,14 @@ exports.getIconForOpenFolder = getIconForOpenFolder;
 // COPIED FROM https://github.com/sindresorhus/refined-github/blob/master/src/libs/page-detect.js
 Object.defineProperty(exports, "__esModule", { value: true });
 var select = __webpack_require__(9);
-exports.isGist = function () { return location.hostname.startsWith('gist.') || location.pathname.startsWith('gist/'); };
 exports.isDashboard = function () { return location.pathname === '/' || /^(\/orgs\/[^/]+)?\/dashboard/.test(location.pathname); };
 exports.isTrending = function () { return location.pathname.startsWith('/trending'); };
-// @todo Replace with DOM-based test because this is too generic #708
-exports.isRepo = function () { return !exports.isGist() && !exports.isTrending() && /^\/[^/]+\/[^/]+/.test(location.pathname); };
 exports.getRepoPath = function () { return location.pathname.replace(/^\/[^/]+\/[^/]+/, ''); };
 exports.getRepoURL = function () {
     return location.pathname
         .slice(1)
         .split('/', 2)
         .join('/');
-};
-exports.isRepoRoot = function () {
-    return exports.isRepo() && /^(\/?$|\/tree\/)/.test(exports.getRepoPath()) && select.exists('.repository-meta-content');
 };
 exports.isRepoTree = function () { return exports.isRepo() && /\/tree\//.test(exports.getRepoPath()); };
 exports.isIssueSearch = function () { return location.pathname.startsWith('/issues'); };
@@ -180,14 +180,12 @@ exports.isPRList = function () { return exports.isRepo() && /^\/pulls\/?$/.test(
 exports.isPR = function () { return exports.isRepo() && /^\/pull\/\d+/.test(exports.getRepoPath()); };
 exports.isPRFiles = function () { return exports.isRepo() && /^\/pull\/\d+\/files/.test(exports.getRepoPath()); };
 exports.isPRCommit = function () { return exports.isRepo() && /^\/pull\/\d+\/commits\/[0-9a-f]{5,40}/.test(exports.getRepoPath()); };
-exports.isHistoryForFile = function () { return exports.isRepo() && /^\/commits\/[0-9a-f]{5,40}\/.+/.test(exports.getRepoPath()); };
 exports.isMilestoneList = function () { return exports.isRepo() && /^\/milestones\/?$/.test(exports.getRepoPath()); };
 exports.isMilestone = function () { return exports.isRepo() && /^\/milestone\/\d+/.test(exports.getRepoPath()); };
 exports.isLabelList = function () { return exports.isRepo() && /^\/labels\/?(((?=\?).*)|$)/.test(exports.getRepoPath()); };
 exports.isLabel = function () { return exports.isRepo() && /^\/labels\/\w+/.test(exports.getRepoPath()); };
 exports.isCommitList = function () { return exports.isRepo() && /^\/commits\//.test(exports.getRepoPath()); };
 exports.isSingleCommit = function () { return exports.isRepo() && /^\/commit\/[0-9a-f]{5,40}/.test(exports.getRepoPath()); };
-exports.isCommit = function () { return exports.isSingleCommit() || exports.isPRCommit() || (exports.isPRFiles() && select.exists('.full-commit')); };
 exports.isCompare = function () { return exports.isRepo() && /^\/compare/.test(exports.getRepoPath()); };
 exports.isQuickPR = function () { return exports.isCompare() && /[?&]quick_pull=1(&|$)/.test(location.search); };
 exports.hasCode = function () { return exports.isRepo() && select.exists('.highlight'); };
@@ -206,13 +204,31 @@ exports.getOwnerAndRepo = function () {
         repoName: repoName
     };
 };
+exports.hasCommentForm = function () { return select.exists('.js-previewable-comment-form'); };
+/**
+ * Github related detections
+ */
+// @todo Replace with DOM-based test because this is too generic #708
+exports.isRepo = function () { return !exports.isGist() && !exports.isTrending() && /^\/[^/]+\/[^/]+/.test(location.pathname); };
 exports.isSingleFile = function () {
     var _a = exports.getOwnerAndRepo(), ownerName = _a.ownerName, repoName = _a.repoName;
     var blobPattern = new RegExp("/" + ownerName + "/" + repoName + "/blob/");
     return exports.isRepo() && blobPattern.test(location.href);
 };
-exports.hasCommentForm = function () { return select.exists('.js-previewable-comment-form'); };
+exports.isCommit = function () { return exports.isSingleCommit() || exports.isPRCommit() || (exports.isPRFiles() && select.exists('.full-commit')); };
+exports.isRepoRoot = function () {
+    return exports.isRepo() && /^(\/?$|\/tree\/)/.test(exports.getRepoPath()) && select.exists('.repository-meta-content');
+};
+exports.isHistoryForFile = function () { return exports.isRepo() && /^\/commits\/[0-9a-f]{5,40}\/.+/.test(exports.getRepoPath()); };
+exports.isGist = function () { return location.hostname.startsWith('gist.') || location.pathname.startsWith('gist/'); };
+/**
+ * BitBucket related detections
+ */
 exports.isBitBucketRepo = function () { return select.exists('#source-container'); };
+/**
+ * GitLab related detections
+ */
+exports.isGitLabRepo = function () { return select.exists('.project-show-files'); };
 
 
 /***/ }),
@@ -225,9 +241,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var GitHub_1 = __webpack_require__(3);
 var GitLab_1 = __webpack_require__(10);
 var BitBucket_1 = __webpack_require__(11);
+var GistGitHub_1 = __webpack_require__(12);
 GitHub_1.initGithub();
 GitLab_1.initGitLab();
 BitBucket_1.initBitBucket();
+GistGitHub_1.initGistGithub();
 
 
 /***/ }),
@@ -236,46 +254,9 @@ BitBucket_1.initBitBucket();
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Icons_1 = __webpack_require__(0);
 var PageDetect_1 = __webpack_require__(1);
-var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
 var DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 var QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
 var QUERY_PATH_SEGMENTS = 'js-path-segment';
@@ -290,21 +271,21 @@ function showIconsForSegments() {
     // first segment has always root folder icon
     if (firstSegment) {
         var spanEl = firstSegment.children[0];
-        spanEl.innerHTML = "<img src=\"" + getIconUrl(DEFAULT_ROOT_OPENED) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + spanEl.innerText + "</span>";
+        spanEl.innerHTML = "<img src=\"" + Icons_1.getIconUrl(DEFAULT_ROOT_OPENED) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + spanEl.innerText + "</span>";
     }
     // check if final segment is file or folder
     if (finalSegment) {
         var iconPath = window.location.href.includes('/blob/')
             ? Icons_1.getIconForFile(finalSegment.innerText)
             : Icons_1.getIconForOpenFolder(finalSegment.innerText);
-        finalSegment.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + finalSegment.innerText + "</span>";
+        finalSegment.innerHTML = "<img src=\"" + Icons_1.getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + finalSegment.innerText + "</span>";
     }
     // segments between first and last are always folders
     for (var i = 1; i < aSegments.length; i++) {
         var spanEl = aSegments[i];
         var aEl = spanEl.firstChild;
         var iconPath = Icons_1.getIconForOpenFolder(aEl.innerText);
-        aEl.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + aEl.innerText + "</span>";
+        aEl.innerHTML = "<img src=\"" + Icons_1.getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + aEl.innerText + "</span>";
     }
 }
 ;
@@ -334,7 +315,7 @@ function showRepoTreeIcons() {
             : Icons_1.getIconForFile(linkToEl.innerText.toLowerCase());
         // console.timeEnd('OBTAIN_ICON');
         // console.time('INJECT_IMG');
-        iconEl.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\">";
+        iconEl.innerHTML = "<img src=\"" + Icons_1.getIconUrl(iconPath) + "\" alt=\"icon\">";
         // console.timeEnd('INJECT_IMG');
     }
     // console.timeEnd('SHOWING_ICONS');
@@ -353,19 +334,6 @@ function showRepoTreeIcons() {
 //         element.insertBefore(iconEl.firstChild, element.firstChild);
 //     }
 // }
-var showGistIcons = function () { return __awaiter(_this, void 0, void 0, function () {
-    var fileInfos, i, fileInfo, gistName, iconPath;
-    return __generator(this, function (_a) {
-        fileInfos = document.querySelectorAll('.file-info');
-        for (i = 0; i < fileInfos.length; i++) {
-            fileInfo = fileInfos[i];
-            gistName = fileInfo.lastElementChild.firstElementChild.innerText;
-            iconPath = Icons_1.getIconForFile(gistName);
-            fileInfo.firstElementChild.innerHTML = "<img src=\"" + getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\">";
-        }
-        return [2 /*return*/];
-    });
-}); };
 var domLoaded = new Promise(function (resolve) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -383,9 +351,6 @@ function update(e) {
     }
     if (PageDetect_1.isCommit()) {
         // showDiffIcon();
-    }
-    if (PageDetect_1.isGist()) {
-        showGistIcons();
     }
 }
 function initGithub() {
@@ -511,7 +476,7 @@ module.exports = select;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Icons_1 = __webpack_require__(0);
-var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
+var PageDetect_1 = __webpack_require__(1);
 var QUERY_TREE_ITEMS = '.tree-item';
 function showRepoTreeIcons() {
     var treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
@@ -529,13 +494,26 @@ function showRepoTreeIcons() {
         var iconPath = nameEl.href.indexOf('/tree/') > 0
             ? Icons_1.getIconForFolder(name_1)
             : Icons_1.getIconForFile(name_1);
-        newIconEl.setAttribute('src', getIconUrl(iconPath));
+        newIconEl.setAttribute('src', Icons_1.getIconUrl(iconPath));
         newIconEl.setAttribute('class', 'vscode-icon');
         iconAndNameEls.replaceChild(newIconEl, iconEl);
     }
 }
+var domLoaded = new Promise(function (resolve) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+    }
+    else {
+        resolve();
+    }
+});
+function update(e) {
+    if (PageDetect_1.isGitLabRepo()) {
+        showRepoTreeIcons();
+    }
+}
 function initGitLab() {
-    showRepoTreeIcons();
+    update();
 }
 exports.initGitLab = initGitLab;
 
@@ -549,7 +527,6 @@ exports.initGitLab = initGitLab;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Icons_1 = __webpack_require__(0);
 var PageDetect_1 = __webpack_require__(1);
-var getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
 var QUERY_TREE_ITEMS = '.iterable-item > td:first-child';
 function showRepoTreeIcons() {
     var treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
@@ -565,7 +542,7 @@ function showRepoTreeIcons() {
             var iconEl = itemEl.firstElementChild.firstElementChild;
             var name_1 = itemEl.innerText.toLowerCase();
             var iconPath = Icons_1.getIconForFolder(name_1);
-            newIconEl.setAttribute('src', getIconUrl(iconPath));
+            newIconEl.setAttribute('src', Icons_1.getIconUrl(iconPath));
             itemEl.firstElementChild.replaceChild(newIconEl, iconEl);
         }
         else {
@@ -576,7 +553,7 @@ function showRepoTreeIcons() {
             var iconEl = itemEl.firstElementChild.firstElementChild.firstElementChild;
             var name_2 = itemEl.firstElementChild.innerText;
             var iconPath = Icons_1.getIconForFile(name_2);
-            newIconEl.setAttribute('src', getIconUrl(iconPath));
+            newIconEl.setAttribute('src', Icons_1.getIconUrl(iconPath));
             itemEl.firstElementChild.firstElementChild.replaceChild(newIconEl, iconEl);
         }
     }
@@ -610,6 +587,75 @@ function initBitBucket() {
     document.addEventListener('pjax:end', observeFragment);
 }
 exports.initBitBucket = initBitBucket;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var PageDetect_1 = __webpack_require__(1);
+var Icons_1 = __webpack_require__(0);
+var showGistIcons = function () { return __awaiter(_this, void 0, void 0, function () {
+    var fileInfos, i, fileInfo, gistName, iconPath;
+    return __generator(this, function (_a) {
+        fileInfos = document.querySelectorAll('.file-info');
+        for (i = 0; i < fileInfos.length; i++) {
+            fileInfo = fileInfos[i];
+            gistName = fileInfo.lastElementChild.firstElementChild.innerText;
+            iconPath = Icons_1.getIconForFile(gistName);
+            fileInfo.firstElementChild.innerHTML = "<img src=\"" + Icons_1.getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\">";
+        }
+        return [2 /*return*/];
+    });
+}); };
+function update(e) {
+    if (PageDetect_1.isGist()) {
+        showGistIcons();
+    }
+}
+function initGistGithub() {
+    update();
+}
+exports.initGistGithub = initGistGithub;
 
 
 /***/ })
