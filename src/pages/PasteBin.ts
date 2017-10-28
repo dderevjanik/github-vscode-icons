@@ -10,7 +10,6 @@ function showIconsForFiles() {
     for (let i = 1; i < pastes.length; i++) {
         // [TD: [IMG: ICON, A: NAME]] [TD: AGE] [TD: HITS] [TD: [A: SYNTAX]]
         const item = pastes[i];
-        const newIconEl = document.createElement('img');
 
         const iconAndNameEl = item.firstElementChild as HTMLTableDataCellElement;
         const iconEl = iconAndNameEl.firstElementChild as HTMLImageElement;
@@ -18,10 +17,9 @@ function showIconsForFiles() {
         const syntaxEl = item.childNodes[9] as HTMLAnchorElement;
         const syntaxName = syntaxEl.innerText;
 
-        console.log(syntaxName);
-
         const iconPath = getIconForPBSyntax(syntaxName);
 
+        const newIconEl = document.createElement('img');
         newIconEl.setAttribute('src', getIconUrl(iconPath));
         newIconEl.setAttribute('class', 'vscode-icon vsi-pb');
 

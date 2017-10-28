@@ -36,7 +36,7 @@ const reExt = /defaultExtension:.*'(.*?)'/;
             });
             const languagesJSON = JSON.stringify(languages, null, 2);
             writeFileSync('../languages.json', languagesJSON);
-            log(green(`> 'languages.json' file created`));
+            log(green(`> './languages.json' file created`));
         });
 })();
 

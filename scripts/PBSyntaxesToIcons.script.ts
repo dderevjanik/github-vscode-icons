@@ -15,7 +15,7 @@ const DEFAULT_FILE = 'default_file.svg';
 log(bgYellow(`(${filename}) Parsing Pastebin syntaxes`));
 
 const langaugesToExt = JSON.parse(readFileSync('./languages.json').toString());
-const extToIcons = JSON.parse(readFileSync('./src/iconsData/LanguagesToIcon.json').toString());
+const extToIcons = JSON.parse(readFileSync('./src/data/LanguagesToIcon.json').toString());
 const pastebinSyntaxes = JSON.parse(readFileSync('./PasteBinSyntaxes.json').toString());
 
 const pastebinSyntaxesToIcon = Object.keys(pastebinSyntaxes).reduce((acc, syntax) => {
@@ -33,5 +33,5 @@ const pastebinSyntaxesToIcon = Object.keys(pastebinSyntaxes).reduce((acc, syntax
     };
 }, {});
 
-writeFileSync('./src/iconsData/PBSyntaxToIcon.json', JSON.stringify(pastebinSyntaxesToIcon, null, 2))
-log(green('> ./scr/iconsData/PBSyntaxToIcon created'));
+writeFileSync('./src/data/PBSyntaxToIcon.json', JSON.stringify(pastebinSyntaxesToIcon, null, 2))
+log(green('> ./scr/data/PBSyntaxToIcon created'));

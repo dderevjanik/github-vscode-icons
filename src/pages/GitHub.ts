@@ -45,15 +45,10 @@ function showIconsForSegments() {
  * Show icons for repository files
  */
 function showRepoTreeIcons() {
-    // console.time('QUERY_ELEMENTS');
     const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
-    // console.timeEnd('QUERY_ELEMENTS');
-    // console.log(trEls.length);
-    // console.time('SHOWING_ICONS');
     for (let i = 0; i < trEls.length; i++) {
         const trEl = trEls[i];
 
-        // console.time('OBTAIN_EL');
         // [ICON_FOR_CONTENT] [CONTENT_NAME] [LAST_COMMIT_MESSAGE] [LAST_TIME_UPDATED]
         const iconEl = trEl.children[0];
         const contentEl = trEl.children[1];
@@ -62,36 +57,14 @@ function showRepoTreeIcons() {
 
         const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
         const name = linkToEl.innerText.toLowerCase();
-        // console.timeEnd('OBTAIN_EL');
 
-        // console.time('OBTAIN_ICON');
         const iconPath = linkToEl.href.indexOf('/tree/') > 0 // is Folder ?
             ? getIconForFolder(name.split('/').shift())
             : getIconForFile(linkToEl.innerText.toLowerCase());
-        // console.timeEnd('OBTAIN_ICON');
 
-        // console.time('INJECT_IMG');
         iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
-        // console.timeEnd('INJECT_IMG');
     }
-    // console.timeEnd('SHOWING_ICONS');
 };
-
-// DIFF ICONS ARE NOT COMPLETED YET
-// const showDiffIcon = async () => {
-//     const elements = document.getElementsByClassName('file-info');
-//     for (let i = 0; i < elements.length; i++) {
-//         const element = elements[i];
-//         const aEl = element.children[1] as HTMLAnchorElement;
-//         const filename = aEl.innerText.split('/').pop();
-//         const iconPath = getIconForFile(filename);
-
-//         const iconEl = document.createElement('div');
-//         iconEl.innerHTML = `<img class="vsi-icon-diff" src="${chrome.runtime.getURL('icons/' + iconPath)}" alt="icon" class="vscode-icon">`;
-
-//         element.insertBefore(iconEl.firstChild, element.firstChild);
-//     }
-// }
 
 const domLoaded = new Promise(resolve => {
     if (document.readyState === 'loading') {

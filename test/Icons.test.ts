@@ -1,4 +1,4 @@
-import { getIconForFile, getIconForFolder, getIconForOpenFolder } from '../src/Icons';
+import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconForPBSyntax } from '../src/utils/Icons';
 
 describe('Icons test', () => {
 
@@ -54,6 +54,14 @@ describe('Icons test', () => {
             ]);
         });
 
+        it('should return default icons for unknown', () => {
+            expect([
+                getIconForFile('undefined'),
+            ]).toEqual([
+                "default_file.svg"
+            ])
+        })
+
     });
 
     describe('folders', () => {
@@ -82,6 +90,40 @@ describe('Icons test', () => {
             ]);
         });
 
+        it('should return default icons for undefined and unknown', () => {
+            expect([
+                getIconForFolder(undefined),
+                getIconForOpenFolder('undefined')
+            ]).toEqual([
+                "default_folder.svg",
+                "default_folder_opened.svg"
+            ]);
+        })
+
     });
+
+    describe('syntaxes', () => {
+
+        it('should return icons for syntaxes', () => {
+            expect([
+                getIconForPBSyntax('JavaScript'),
+                getIconForPBSyntax('Python'),
+            ]).toEqual([
+                "file_type_light_js.svg",
+                "file_type_python.svg",
+            ]);
+        })
+
+        it('should return default icon for undefined and unknown', () => {
+            expect([
+                getIconForPBSyntax('unknown'),
+                getIconForPBSyntax(undefined)
+            ]).toEqual([
+                "default_file.svg",
+                "default_file.svg"
+            ])
+        })
+
+    })
 
 });

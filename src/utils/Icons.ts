@@ -1,11 +1,11 @@
 type NAME_TO_ICON = { [name: string]: string };
 
-const folderNamesToIcon = require('../iconsData/FolderNamesToIcon.json') as NAME_TO_ICON;
-const fileExtensions1ToIcon = require('../iconsData/FileExtensions1ToIcon.json') as NAME_TO_ICON;
-const fileExtensions2ToIcon = require('../iconsData/FileExtensions2ToIcon.json') as NAME_TO_ICON;
-const fileNamesToIcon = require('../iconsData/FileNamesToIcon.json') as NAME_TO_ICON;
-const languagesToIcon = require('../iconsData/LanguagesToIcon.json') as NAME_TO_ICON;
-const PBSyntaxesToIcon = require('../iconsData/PBSyntaxToIcon.json') as NAME_TO_ICON;
+const folderNamesToIcon = require('../data/FolderNamesToIcon.json') as NAME_TO_ICON;
+const fileExtensions1ToIcon = require('../data/FileExtensions1ToIcon.json') as NAME_TO_ICON;
+const fileExtensions2ToIcon = require('../data/FileExtensions2ToIcon.json') as NAME_TO_ICON;
+const fileNamesToIcon = require('../data/FileNamesToIcon.json') as NAME_TO_ICON;
+const languagesToIcon = require('../data/LanguagesToIcon.json') as NAME_TO_ICON;
+const PBSyntaxesToIcon = require('../data/PBSyntaxToIcon.json') as NAME_TO_ICON;
 
 /**
  * Retrieve url of icon within chrome

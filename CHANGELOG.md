@@ -8,12 +8,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
-- support for [gitlab.com](https://about.gitlab.com/)
-- support for [bitbucket.org](https://bitbucket.org/)
+- Support for [gitlab.com](https://about.gitlab.com/)
+    - Displays icons in Repo Tree
+- Support for [bitbucket.org](https://bitbucket.org/)
+    - Displays icons in Repo Tree
+- support for [pastebin.com](https://pastebin.com/)
+    - Display icons in user profile
 
 ### Changed
 
-- changed structure of project to be more abstract for several web-based GIT hostings (Github, Gitlab, Bitbucket and Gist)
+- Changed structure of project to be more abstract for several web-based GIT hostings (Github, Gitlab, Bitbucket and Gist) and even for Pastebin
 
 ## [1.0.5] - 2017-10-24
 

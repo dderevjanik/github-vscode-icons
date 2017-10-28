@@ -11,7 +11,7 @@ const log = console.log;
 const filename = Path.basename(__filename);
 const iconsJSONFile = readFileSync('./icons.json');
 const languagesJSONFile = readFileSync('./languages.json');
-const PATH_ICONSDATA = './src/iconsData';
+const PATH_ICONSDATA = './src/data';
 
 type IconKey = string;
 
