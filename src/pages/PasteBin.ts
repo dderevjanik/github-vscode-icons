@@ -1,7 +1,8 @@
 import { getIconForPBSyntax, getIconUrl, DEFAULT_FILE } from '../utils/Icons';
-import { isPastebinUserList } from '../utils/PageDetect';
+import { isPastebinUserList, isPasteOpen } from '../utils/PageDetect';
 
 const QUERY_PASTEBIN_ITEMS = '.maintable>tbody>tr';
+const QUERY_PASTEBIN_PASTE = '#code_buttons>span:last-child';
 
 function showIconsForFiles() {
     const pastes = document.querySelectorAll(QUERY_PASTEBIN_ITEMS);
@@ -28,6 +29,10 @@ function showIconsForFiles() {
     }
 }
 
+function showIconForPaste() {
+    // TODO:
+}
+
 const domLoaded = new Promise(resolve => {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -39,6 +44,8 @@ const domLoaded = new Promise(resolve => {
 function update(e?: any) {
     if (isPastebinUserList) {
         showIconsForFiles();
+    } else if (isPasteOpen) {
+        showIconForPaste();
     }
 }
 

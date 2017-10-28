@@ -114,3 +114,5 @@ export const isGitLabRepo = () => select.exists('.project-show-files');
  */
 export const isPastebinUserList = () => (location.href.indexOf('pastebin.com/u/') > 0)
   && select.exists('table.maintable');
+
+export const isPasteOpen = () => select.exists('#code_frame2');

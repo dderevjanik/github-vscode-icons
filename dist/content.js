@@ -249,6 +249,7 @@ exports.isGitLabRepo = function () { return select.exists('.project-show-files')
  */
 exports.isPastebinUserList = function () { return (location.href.indexOf('pastebin.com/u/') > 0)
     && select.exists('table.maintable'); };
+exports.isPasteOpen = function () { return select.exists('#code_frame2'); };
 
 
 /***/ }),
@@ -696,6 +697,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Icons_1 = __webpack_require__(0);
 var PageDetect_1 = __webpack_require__(1);
 var QUERY_PASTEBIN_ITEMS = '.maintable>tbody>tr';
+var QUERY_PASTEBIN_PASTE = '#code_buttons>span:last-child';
 function showIconsForFiles() {
     var pastes = document.querySelectorAll(QUERY_PASTEBIN_ITEMS);
     // skip first tr, which is header
@@ -714,6 +716,9 @@ function showIconsForFiles() {
         iconAndNameEl.replaceChild(newIconEl, iconEl);
     }
 }
+function showIconForPaste() {
+    // TODO:
+}
 var domLoaded = new Promise(function (resolve) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -725,6 +730,9 @@ var domLoaded = new Promise(function (resolve) {
 function update(e) {
     if (PageDetect_1.isPastebinUserList) {
         showIconsForFiles();
+    }
+    else if (PageDetect_1.isPasteOpen) {
+        showIconForPaste();
     }
 }
 function initPasteBin() {
