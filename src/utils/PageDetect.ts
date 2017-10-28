@@ -108,3 +108,9 @@ export const isBitBucketRepo = () => select.exists('#source-container');
  * GitLab related detections
  */
 export const isGitLabRepo = () => select.exists('.project-show-files');
+
+/**
+ * Pastebin related detections
+ */
+export const isPastebinUserList = () => (location.href.indexOf('pastebin.com/u/') > 0)
+  && select.exists('table.maintable');

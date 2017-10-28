@@ -75,6 +75,7 @@ var fileExtensions1ToIcon = __webpack_require__(5);
 var fileExtensions2ToIcon = __webpack_require__(6);
 var fileNamesToIcon = __webpack_require__(7);
 var languagesToIcon = __webpack_require__(8);
+var PBSyntaxesToIcon = __webpack_require__(9);
 /**
  * Retrieve url of icon within chrome
  */
@@ -141,6 +142,20 @@ function getIconForFile(fileName) {
 }
 exports.getIconForFile = getIconForFile;
 /**
+ * Get icon for a pastebin syntaxes
+ * @desc list of supported syntaxes https://pastebin.com/languages
+ * @param syntaxName name of syntax to icon for
+ * @return icon filename
+ */
+function getIconForPBSyntax(syntaxName) {
+    var syntaxIcon = PBSyntaxesToIcon[syntaxName];
+    if (syntaxIcon !== undefined) {
+        return syntaxIcon;
+    }
+    return exports.DEFAULT_FILE;
+}
+exports.getIconForPBSyntax = getIconForPBSyntax;
+/**
  * Get icon for an opened folder
  * @param folderName name of opened folder to icon for
  * @return icon filename
@@ -161,7 +176,7 @@ exports.getIconForOpenFolder = getIconForOpenFolder;
 
 // COPIED FROM https://github.com/sindresorhus/refined-github/blob/master/src/libs/page-detect.js
 Object.defineProperty(exports, "__esModule", { value: true });
-var select = __webpack_require__(9);
+var select = __webpack_require__(10);
 exports.isDashboard = function () { return location.pathname === '/' || /^(\/orgs\/[^/]+)?\/dashboard/.test(location.pathname); };
 exports.isTrending = function () { return location.pathname.startsWith('/trending'); };
 exports.getRepoPath = function () { return location.pathname.replace(/^\/[^/]+\/[^/]+/, ''); };
@@ -229,6 +244,11 @@ exports.isBitBucketRepo = function () { return select.exists('#source-container'
  * GitLab related detections
  */
 exports.isGitLabRepo = function () { return select.exists('.project-show-files'); };
+/**
+ * Pastebin related detections
+ */
+exports.isPastebinUserList = function () { return (location.href.indexOf('pastebin.com/u/') > 0)
+    && select.exists('table.maintable'); };
 
 
 /***/ }),
@@ -239,13 +259,15 @@ exports.isGitLabRepo = function () { return select.exists('.project-show-files')
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var GitHub_1 = __webpack_require__(3);
-var GitLab_1 = __webpack_require__(10);
-var BitBucket_1 = __webpack_require__(11);
-var GistGitHub_1 = __webpack_require__(12);
+var GitLab_1 = __webpack_require__(11);
+var BitBucket_1 = __webpack_require__(12);
+var GistGitHub_1 = __webpack_require__(13);
+var PasteBin_1 = __webpack_require__(14);
 GitHub_1.initGithub();
 GitLab_1.initGitLab();
 BitBucket_1.initBitBucket();
 GistGitHub_1.initGistGithub();
+PasteBin_1.initPasteBin();
 
 
 /***/ }),
@@ -416,6 +438,12 @@ module.exports = {"al":"file_type_al.svg","ansible":"file_type_ansible.svg","g4"
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = {"ActionScript":"default_file.svg","ActionScript 3":"default_file.svg","AppleScript":"file_type_applescript.svg","ASP":"file_type_asp.svg","Autohotkey":"default_file.svg","AutoIt":"file_type_autoit.svg","Batch":"file_type_bat.svg","C":"file_type_c.svg","C (WinAPI)":"file_type_c.svg","C for Macs":"file_type_c.svg","C Intermediate Language":"file_type_c.svg","C#":"file_type_csharp.svg","C++":"file_type_cpp.svg","C++ (WinAPI)":"file_type_cpp.svg","C++ (with Qt extensions)":"file_type_cpp.svg","C: Loadrunner":"file_type_c.svg","Clojure":"file_type_clojure.svg","CMake":"file_type_cmake.svg","COBOL":"file_type_cobol.svg","CoffeeScript":"file_type_coffeescript.svg","CSS":"file_type_css.svg","D":"default_file.svg","Dart":"file_type_dartlang.svg","Diff":"file_type_diff.svg","ECMAScript":"file_type_light_js.svg","F#":"file_type_fsharp.svg","Fortran":"file_type_fortran.svg","Go":"file_type_go.svg","Groovy":"file_type_groovy.svg","Haskell":"file_type_haskell.svg","Haxe":"file_type_haxe.svg","HTML":"file_type_html.svg","HTML 5":"file_type_html.svg","INI file":"file_type_light_ini.svg","Java":"file_type_java.svg","Java 5":"file_type_java.svg","JavaScript":"file_type_light_js.svg","jQuery":"file_type_light_js.svg","JSON":"file_type_light_json.svg","Julia":"file_type_julia.svg","Kotlin":"file_type_kotlin.svg","Latex":"file_type_light_tex.svg","Lua":"file_type_lua.svg","Make":"file_type_makefile.svg","Markdown":"file_type_markdown.svg","Objective C":"default_file.svg","OCalm Brief":"file_type_ocaml.svg","OCaml":"file_type_ocaml.svg","Pascal":"file_type_delphi.svg","Perl":"file_type_perl.svg","Perl 6":"file_type_perl.svg","PHP":"file_type_php.svg","PHP Brief":"file_type_php.svg","PL/SQL":"file_type_sql.svg","PostgreSQL":"file_type_sql.svg","Power Shell":"file_type_powershell.svg","Prolog":"file_type_prolog.svg","Python":"file_type_python.svg","Python for S60":"file_type_python.svg","R":"file_type_r.svg","Ruby":"file_type_ruby.svg","Ruby Gnuplot":"file_type_ruby.svg","Rust":"file_type_rust.svg","Scala":"file_type_scala.svg","Smarty":"file_type_smarty.svg","SQL":"file_type_sql.svg","Swift":"file_type_swift.svg","VB.NET":"file_type_vb.svg","VBScript":"file_type_script.svg","VisualBasic":"file_type_vb.svg","XML":"file_type_xml.svg","YAML":"file_type_light_yaml.svg"}
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -469,7 +497,7 @@ module.exports = select;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,7 +547,7 @@ exports.initGitLab = initGitLab;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -590,7 +618,7 @@ exports.initBitBucket = initBitBucket;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -656,6 +684,53 @@ function initGistGithub() {
     update();
 }
 exports.initGistGithub = initGistGithub;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Icons_1 = __webpack_require__(0);
+var PageDetect_1 = __webpack_require__(1);
+var QUERY_PASTEBIN_ITEMS = '.maintable>tbody>tr';
+function showIconsForFiles() {
+    var pastes = document.querySelectorAll(QUERY_PASTEBIN_ITEMS);
+    // skip first tr, which is header
+    for (var i = 1; i < pastes.length; i++) {
+        // [TD: [IMG: ICON, A: NAME]] [TD: AGE] [TD: HITS] [TD: [A: SYNTAX]]
+        var item = pastes[i];
+        var newIconEl = document.createElement('img');
+        var iconAndNameEl = item.firstElementChild;
+        var iconEl = iconAndNameEl.firstElementChild;
+        var syntaxEl = item.childNodes[9];
+        var syntaxName = syntaxEl.innerText;
+        console.log(syntaxName);
+        var iconPath = Icons_1.getIconForPBSyntax(syntaxName);
+        newIconEl.setAttribute('src', Icons_1.getIconUrl(iconPath));
+        newIconEl.setAttribute('class', 'vscode-icon vsi-pb');
+        iconAndNameEl.replaceChild(newIconEl, iconEl);
+    }
+}
+var domLoaded = new Promise(function (resolve) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+    }
+    else {
+        resolve();
+    }
+});
+function update(e) {
+    if (PageDetect_1.isPastebinUserList) {
+        showIconsForFiles();
+    }
+}
+function initPasteBin() {
+    update();
+}
+exports.initPasteBin = initPasteBin;
 
 
 /***/ })

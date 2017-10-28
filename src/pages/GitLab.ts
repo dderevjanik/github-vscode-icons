@@ -34,7 +34,7 @@ const domLoaded = new Promise(resolve => {
     } else {
         resolve();
     }
-})
+});
 
 function update(e?: any) {
     if (isGitLabRepo()) {

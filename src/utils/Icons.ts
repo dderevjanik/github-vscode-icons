@@ -5,6 +5,7 @@ const fileExtensions1ToIcon = require('../iconsData/FileExtensions1ToIcon.json')
 const fileExtensions2ToIcon = require('../iconsData/FileExtensions2ToIcon.json') as NAME_TO_ICON;
 const fileNamesToIcon = require('../iconsData/FileNamesToIcon.json') as NAME_TO_ICON;
 const languagesToIcon = require('../iconsData/LanguagesToIcon.json') as NAME_TO_ICON;
+const PBSyntaxesToIcon = require('../iconsData/PBSyntaxToIcon.json') as NAME_TO_ICON;
 
 /**
  * Retrieve url of icon within chrome
@@ -71,6 +72,20 @@ export function getIconForFile(fileName: string) {
   }
 
   // if there's no icon for file, use default one
+  return DEFAULT_FILE;
+}
+
+/**
+ * Get icon for a pastebin syntaxes
+ * @desc list of supported syntaxes https://pastebin.com/languages
+ * @param syntaxName name of syntax to icon for
+ * @return icon filename
+ */
+export function getIconForPBSyntax(syntaxName: string) {
+  const syntaxIcon = PBSyntaxesToIcon[syntaxName];
+  if (syntaxIcon !== undefined) {
+    return syntaxIcon;
+  }
   return DEFAULT_FILE;
 }
 

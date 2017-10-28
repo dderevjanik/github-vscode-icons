@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "preprocess": "npm run preprocess:extractData && npm run preprocess:iconsData",
+    "preprocess": "npm run preprocess:extractData && npm run preprocess:iconsData && npm run preprocess:pastebin",
     "preprocess:extractData": "ts-node ./scripts/ExtractDataFromVSI.script.ts",
     "preprocess:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
+    "preprocess:pastebin": "ts-node ./scripts/PBSyntaxesToIcons.script.ts",
     "build": "npx webpack --config webpack.config.js",
     "lint": "prettier --write src/**/*.ts",
     "dev": "npx webpack --watch --config webpack.config.dev.js"

@@ -15,14 +15,7 @@
       "event.js"
     ],
     "matches": [
-      "http://bitbucket.org/*",
-      "https://bitbucket.org/*",
-      "http://github.com/*",
-      "https://github.com/*",
-      "http://gist.github.com/*",
-      "https://gist.github.com/*",
-      "http://gitlab.com/*",
-      "https://gitlab.com/*"
+      "*://*/*"
     ],
     "persistent": false
   },
@@ -35,14 +28,7 @@
         "content.css"
       ],
       "matches": [
-        "http://bitbucket.org/*",
-        "https://bitbucket.org/*",
-        "http://github.com/*",
-        "https://github.com/*",
-        "http://gist.github.com/*",
-        "https://gist.github.com/*",
-        "http://gitlab.com/*",
-        "https://gitlab.com/*"
+        "*://*/*"
       ],
       "js": [
         "content.js"
@@ -52,13 +38,10 @@
   ],
   "permissions": [
     "storage",
-    "http://bitbucket.org/*",
-    "https://bitbucket.org/*",
-    "http://github.com/*",
-    "https://github.com/*",
-    "http://gist.github.com/*",
-    "https://gist.github.com/*",
-    "http://gitlab.com/*",
-    "https://gitlab.com/*"
+    "*://bitbucket.org/*",
+    "*://github.com/*",
+    "*://gist.github.com/*",
+    "*://gitlab.com/*",
+    "*://pastebin.com/*"
   ]
 }
