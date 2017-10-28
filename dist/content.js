@@ -79,9 +79,7 @@ var PBSyntaxesToIcon = __webpack_require__(20);
 /**
  * Retrieve url of icon within chrome
  */
-exports.getIconUrl = function (iconFileName) {
-    return chrome.runtime.getURL('icons/' + iconFileName);
-};
+exports.getIconUrl = function (iconFileName) { return chrome.runtime.getURL('icons/' + iconFileName); };
 exports.DEFAULT_FOLDER = 'default_folder.svg';
 exports.DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
 exports.DEFAULT_FILE = 'default_file.svg';
@@ -247,8 +245,9 @@ exports.isGitLabRepo = function () { return select.exists('.project-show-files')
 /**
  * Pastebin related detections
  */
-exports.isPastebinUserList = function () { return (location.href.indexOf('pastebin.com/u/') > 0)
-    && select.exists('table.maintable'); };
+exports.isPastebinUserList = function () {
+    return location.href.indexOf('pastebin.com/u/') > 0 && select.exists('table.maintable');
+};
 exports.isPasteOpen = function () { return select.exists('#code_frame2'); };
 
 
@@ -322,7 +321,6 @@ function showIconsForSegments() {
         aEl.innerHTML = "<img src=\"" + Icons_1.getIconUrl(iconPath) + "\" alt=\"icon\" class=\"vscode-icon\"><span> " + aEl.innerText + "</span>";
     }
 }
-;
 /**
  * Show icons for repository files
  */
@@ -343,7 +341,6 @@ function showRepoTreeIcons() {
         iconEl.innerHTML = "<img src=\"" + Icons_1.getIconUrl(iconPath) + "\" alt=\"icon\">";
     }
 }
-;
 var domLoaded = new Promise(function (resolve) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -477,9 +474,7 @@ function showRepoTreeIcons() {
         if (i === 0 && name_1 === '..') {
             continue;
         }
-        var iconPath = nameEl.href.indexOf('/tree/') > 0
-            ? Icons_1.getIconForFolder(name_1)
-            : Icons_1.getIconForFile(name_1);
+        var iconPath = nameEl.href.indexOf('/tree/') > 0 ? Icons_1.getIconForFolder(name_1) : Icons_1.getIconForFile(name_1);
         newIconEl.setAttribute('src', Icons_1.getIconUrl(iconPath));
         newIconEl.setAttribute('class', 'vscode-icon');
         iconAndNameEls.replaceChild(newIconEl, iconEl);
@@ -523,8 +518,8 @@ function showRepoTreeIcons() {
         var isFolder = itemEl.className.includes('dirname');
         if (isFolder) {
             /**
-             * td > a > span
-             */
+                   * td > a > span
+                   */
             var iconEl = itemEl.firstElementChild.firstElementChild;
             var name_1 = itemEl.innerText.toLowerCase();
             var iconPath = Icons_1.getIconForFolder(name_1);
@@ -533,9 +528,9 @@ function showRepoTreeIcons() {
         }
         else {
             /**
-             * File is wrapped in another div element, like:
-             * td > div > a > span
-             */
+                   * File is wrapped in another div element, like:
+                   * td > div > a > span
+                   */
             var iconEl = itemEl.firstElementChild.firstElementChild.firstElementChild;
             var name_2 = itemEl.firstElementChild.innerText;
             var iconPath = Icons_1.getIconForFile(name_2);

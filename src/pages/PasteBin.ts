@@ -5,48 +5,48 @@ const QUERY_PASTEBIN_ITEMS = '.maintable>tbody>tr';
 const QUERY_PASTEBIN_PASTE = '#code_buttons>span:last-child';
 
 function showIconsForFiles() {
-    const pastes = document.querySelectorAll(QUERY_PASTEBIN_ITEMS);
-    // skip first tr, which is header
-    for (let i = 1; i < pastes.length; i++) {
-        // [TD: [IMG: ICON, A: NAME]] [TD: AGE] [TD: HITS] [TD: [A: SYNTAX]]
-        const item = pastes[i];
+  const pastes = document.querySelectorAll(QUERY_PASTEBIN_ITEMS);
+  // skip first tr, which is header
+  for (let i = 1; i < pastes.length; i++) {
+    // [TD: [IMG: ICON, A: NAME]] [TD: AGE] [TD: HITS] [TD: [A: SYNTAX]]
+    const item = pastes[i];
 
-        const iconAndNameEl = item.firstElementChild as HTMLTableDataCellElement;
-        const iconEl = iconAndNameEl.firstElementChild as HTMLImageElement;
+    const iconAndNameEl = item.firstElementChild as HTMLTableDataCellElement;
+    const iconEl = iconAndNameEl.firstElementChild as HTMLImageElement;
 
-        const syntaxEl = item.childNodes[9] as HTMLAnchorElement;
-        const syntaxName = syntaxEl.innerText;
+    const syntaxEl = item.childNodes[9] as HTMLAnchorElement;
+    const syntaxName = syntaxEl.innerText;
 
-        const iconPath = getIconForPBSyntax(syntaxName);
+    const iconPath = getIconForPBSyntax(syntaxName);
 
-        const newIconEl = document.createElement('img');
-        newIconEl.setAttribute('src', getIconUrl(iconPath));
-        newIconEl.setAttribute('class', 'vscode-icon vsi-pb');
+    const newIconEl = document.createElement('img');
+    newIconEl.setAttribute('src', getIconUrl(iconPath));
+    newIconEl.setAttribute('class', 'vscode-icon vsi-pb');
 
-        iconAndNameEl.replaceChild(newIconEl, iconEl);
-    }
+    iconAndNameEl.replaceChild(newIconEl, iconEl);
+  }
 }
 
 function showIconForPaste() {
-    // TODO:
+  // TODO:
 }
 
 const domLoaded = new Promise(resolve => {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', resolve);
-    } else {
-        resolve();
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', resolve);
+  } else {
+    resolve();
+  }
 });
 
 function update(e?: any) {
-    if (isPastebinUserList) {
-        showIconsForFiles();
-    } else if (isPasteOpen) {
-        showIconForPaste();
-    }
+  if (isPastebinUserList) {
+    showIconsForFiles();
+  } else if (isPasteOpen) {
+    showIconForPaste();
+  }
 }
 
 export function initPasteBin() {
-    update();
+  update();
 }

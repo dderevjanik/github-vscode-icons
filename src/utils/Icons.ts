@@ -10,8 +10,7 @@ const PBSyntaxesToIcon = require('../data/PBSyntaxToIcon.json') as NAME_TO_ICON;
 /**
  * Retrieve url of icon within chrome
  */
-export const getIconUrl = (iconFileName: string) =>
-  chrome.runtime.getURL('icons/' + iconFileName);
+export const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons/' + iconFileName);
 
 export const DEFAULT_FOLDER = 'default_folder.svg';
 export const DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';

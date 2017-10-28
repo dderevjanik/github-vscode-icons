@@ -9,13 +9,14 @@
 
 **Opera:** *WIP*
 
+**Supported websites:** Github (also Gist), Gitlab, Bitbucket and Pastebin
+
 ## About
 
-Extension for browser, which displays [vscode-icons](https://github.com/vscode-icons/vscode-icons) in github repository.
+Extension for browser, which displays [vscode-icons](https://github.com/vscode-icons/vscode-icons) in github, gitlab and bitbucket repositories. It also displays `vscode-icons` in user's pastebin list.
 
-If you're familiar with beautiful extension for vscode called `vscode-icons`, then you know that you need also one for Github. Brain will recognize different
-icons much faster and when you're spending several hours per day on github, this extension is for you. If you look at
-github repository with displayed `vscode-icons`, you'll get instant overview of used technologies by their specific icons (*look at screenshots below*).
+If you're familiar with beautiful extension for vscode called `vscode-icons`, then you know that you need also one for Web. Brain will recognize different
+icons much faster and when you're spending several hours per day on websites like github, gitlab or bitbucket, this extension is for you. If you look at github repository with displayed `vscode-icons`, you'll get instant overview of used technologies by their specific icons (*look at screenshots below*).
 
 ## Screenshots
 
