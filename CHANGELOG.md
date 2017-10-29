@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.6] - 2017-10-29
+
+- updated `vscode-icons` to 7.17.0, added 24 new icons, read more at vscode-icons [changelog](https://github.com/vscode-icons/vscode-icons/blob/master/CHANGELOG.md#7170-october-28-2017)
+- changed orange logo back to blue one, read more about this change at [vscode blogpost](https://code.visualstudio.com/blogs/2017/10/24/theicon)
+
 ## [1.0.5] - 2017-10-24
 
 ### Changed
 
-- `vscode-icons` 7.16.0, added 25 new icons, read more at vscode-icons [changelog](https://github.com/vscode-icons/vscode-icons/blob/master/CHANGELOG.md#7160-october-22-2017)
+- updated `vscode-icons` 7.16.0, added 25 new icons, read more at vscode-icons [changelog](https://github.com/vscode-icons/vscode-icons/blob/master/CHANGELOG.md#7160-october-22-2017)
 
 ## [1.0.4] - 2017-10-20
 
