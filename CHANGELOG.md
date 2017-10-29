@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [1.0.6] - 2017-10-24
+## [1.0.7] - 2017-11-DD
 
 ### Added
 
@@ -18,6 +18,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 
 - Changed structure of project to be more abstract for several web-based GIT hostings (Github, Gitlab, Bitbucket and Gist) and even for Pastebin
+
+## [1.0.6] - 2017-10-29
+
+- updated `vscode-icons` to 7.17.0, added 24 new icons, read more at vscode-icons [changelog](https://github.com/vscode-icons/vscode-icons/blob/master/CHANGELOG.md#7170-october-28-2017)
+- changed orange logo back to blue one, read more about this change at [vscode blogpost](https://code.visualstudio.com/blogs/2017/10/24/theicon)
 
 ## [1.0.5] - 2017-10-24
 

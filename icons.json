@@ -501,6 +501,9 @@
     "_f_apache": {
       "iconPath": "../../icons/file_type_apache.svg"
     },
+    "_f_apex": {
+      "iconPath": "../../icons/file_type_apex.svg"
+    },
     "_f_apib": {
       "iconPath": "../../icons/file_type_apib.svg"
     },
@@ -741,6 +744,9 @@
     "_f_light_drone": {
       "iconPath": "../../icons/file_type_light_drone.svg"
     },
+    "_f_drools": {
+      "iconPath": "../../icons/file_type_drools.svg"
+    },
     "_f_dustjs": {
       "iconPath": "../../icons/file_type_dustjs.svg"
     },
@@ -755,6 +761,9 @@
     },
     "_f_ejs": {
       "iconPath": "../../icons/file_type_ejs.svg"
+    },
+    "_f_elastic": {
+      "iconPath": "../../icons/file_type_elastic.svg"
     },
     "_f_elasticbeanstalk": {
       "iconPath": "../../icons/file_type_elasticbeanstalk.svg"
@@ -906,6 +915,9 @@
     "_f_hlsl": {
       "iconPath": "../../icons/file_type_hlsl.svg"
     },
+    "_f_host": {
+      "iconPath": "../../icons/file_type_host.svg"
+    },
     "_f_html": {
       "iconPath": "../../icons/file_type_html.svg"
     },
@@ -936,6 +948,15 @@
     "_f_light_ini": {
       "iconPath": "../../icons/file_type_light_ini.svg"
     },
+    "_f_io": {
+      "iconPath": "../../icons/file_type_io.svg"
+    },
+    "_f_light_io": {
+      "iconPath": "../../icons/file_type_light_io.svg"
+    },
+    "_f_iodine": {
+      "iconPath": "../../icons/file_type_iodine.svg"
+    },
     "_f_ionic": {
       "iconPath": "../../icons/file_type_ionic.svg"
     },
@@ -947,6 +968,9 @@
     },
     "_f_jbuilder": {
       "iconPath": "../../icons/file_type_jbuilder.svg"
+    },
+    "_f_jekyll": {
+      "iconPath": "../../icons/file_type_jekyll.svg"
     },
     "_f_jenkins": {
       "iconPath": "../../icons/file_type_jenkins.svg"
@@ -1053,11 +1077,17 @@
     "_f_lisp": {
       "iconPath": "../../icons/file_type_lisp.svg"
     },
+    "_f_livescript": {
+      "iconPath": "../../icons/file_type_livescript.svg"
+    },
     "_f_locale": {
       "iconPath": "../../icons/file_type_locale.svg"
     },
     "_f_log": {
       "iconPath": "../../icons/file_type_log.svg"
+    },
+    "_f_lolcode": {
+      "iconPath": "../../icons/file_type_lolcode.svg"
     },
     "_f_lsl": {
       "iconPath": "../../icons/file_type_lsl.svg"
@@ -1101,6 +1131,9 @@
     "_f_maxscript": {
       "iconPath": "../../icons/file_type_maxscript.svg"
     },
+    "_f_mediawiki": {
+      "iconPath": "../../icons/file_type_mediawiki.svg"
+    },
     "_f_mercurial": {
       "iconPath": "../../icons/file_type_mercurial.svg"
     },
@@ -1109,6 +1142,15 @@
     },
     "_f_mjml": {
       "iconPath": "../../icons/file_type_mjml.svg"
+    },
+    "_f_mlang": {
+      "iconPath": "../../icons/file_type_mlang.svg"
+    },
+    "_f_light_mlang": {
+      "iconPath": "../../icons/file_type_light_mlang.svg"
+    },
+    "_f_mojolicious": {
+      "iconPath": "../../icons/file_type_mojolicious.svg"
     },
     "_f_monotone": {
       "iconPath": "../../icons/file_type_monotone.svg"
@@ -1130,6 +1172,9 @@
     },
     "_f_node": {
       "iconPath": "../../icons/file_type_node.svg"
+    },
+    "_f_nodemon": {
+      "iconPath": "../../icons/file_type_nodemon.svg"
     },
     "_f_npm": {
       "iconPath": "../../icons/file_type_npm.svg"
@@ -1257,6 +1302,9 @@
     "_f_prolog": {
       "iconPath": "../../icons/file_type_prolog.svg"
     },
+    "_f_prometheus": {
+      "iconPath": "../../icons/file_type_prometheus.svg"
+    },
     "_f_protobuf": {
       "iconPath": "../../icons/file_type_protobuf.svg"
     },
@@ -1356,6 +1404,9 @@
     "_f_scala": {
       "iconPath": "../../icons/file_type_scala.svg"
     },
+    "_f_scilab": {
+      "iconPath": "../../icons/file_type_scilab.svg"
+    },
     "_f_script": {
       "iconPath": "../../icons/file_type_script.svg"
     },
@@ -1383,6 +1434,9 @@
     "_f_sketch": {
       "iconPath": "../../icons/file_type_sketch.svg"
     },
+    "_f_skipper": {
+      "iconPath": "../../icons/file_type_skipper.svg"
+    },
     "_f_slice": {
       "iconPath": "../../icons/file_type_slice.svg"
     },
@@ -1394,6 +1448,9 @@
     },
     "_f_smarty": {
       "iconPath": "../../icons/file_type_smarty.svg"
+    },
+    "_f_snort": {
+      "iconPath": "../../icons/file_type_snort.svg"
     },
     "_f_snyk": {
       "iconPath": "../../icons/file_type_snyk.svg"
@@ -1416,6 +1473,9 @@
     "_f_sqlite": {
       "iconPath": "../../icons/file_type_sqlite.svg"
     },
+    "_f_squirrel": {
+      "iconPath": "../../icons/file_type_squirrel.svg"
+    },
     "_f_sss": {
       "iconPath": "../../icons/file_type_sss.svg"
     },
@@ -1436,6 +1496,9 @@
     },
     "_f_stylus": {
       "iconPath": "../../icons/file_type_stylus.svg"
+    },
+    "_f_light_stylus": {
+      "iconPath": "../../icons/file_type_light_stylus.svg"
     },
     "_f_subversion": {
       "iconPath": "../../icons/file_type_subversion.svg"
@@ -1702,6 +1765,9 @@
     "_less": "_fd_less",
     "lib": "_fd_library",
     ".lib": "_fd_library",
+    "lang": "_fd_locale",
+    "language": "_fd_locale",
+    "languages": "_fd_locale",
     "locale": "_fd_locale",
     "locales": "_fd_locale",
     "i18n": "_fd_locale",
@@ -1864,6 +1930,9 @@
     "_less": "_fd_less_open",
     "lib": "_fd_library_open",
     ".lib": "_fd_library_open",
+    "lang": "_fd_locale_open",
+    "language": "_fd_locale_open",
+    "languages": "_fd_locale_open",
     "locale": "_fd_locale_open",
     "locales": "_fd_locale_open",
     "i18n": "_fd_locale_open",
@@ -2048,7 +2117,6 @@
     "css.map": "_f_cssmap",
     "db": "_f_db",
     "eco": "_f_docpad",
-    "dust": "_f_dustjs",
     "ejs": "_f_ejs",
     "el": "_f_emacs",
     "elc": "_f_emacs",
@@ -2100,13 +2168,13 @@
     "jsp": "_f_jsp",
     "key": "_f_key",
     "pem": "_f_key",
-    "ks": "_f_kos",
     "master": "_f_layout",
     "layout.html": "_f_layout",
     "layout.htm": "_f_layout",
     "enc": "_f_license",
     "hxp": "_f_lime",
     "liquid": "_f_liquid",
+    "ls": "_f_livescript",
     "log": "_f_log",
     "crec": "_f_lync",
     "ocrec": "_f_lync",
@@ -2205,6 +2273,7 @@
     "scssm": "_f_scss",
     "fish": "_f_shell",
     "sketch": "_f_sketch",
+    "eskip": "_f_skipper",
     "sln": "_f_sln",
     "sqlite": "_f_sqlite",
     "sqlite3": "_f_sqlite",
@@ -2418,6 +2487,7 @@
     ".mtn-ignore": "_f_monotone",
     ".node-version": "_f_node",
     ".nvmrc": "_f_node",
+    "nodemon.json": "_f_nodemon",
     ".npmignore": "_f_npm",
     ".npmrc": "_f_npm",
     "package.json": "_f_npm",
@@ -2572,6 +2642,7 @@
     "antlr": "_f_antlr",
     "anyscript": "_f_anyscript",
     "apacheconf": "_f_apache",
+    "apex": "_f_apex",
     "apiblueprint": "_f_apib",
     "applescript": "_f_applescript",
     "asp": "_f_asp",
@@ -2614,10 +2685,12 @@
     "diet": "_f_dlang",
     "dockerfile": "_f_docker",
     "doxygen": "_f_doxygen",
+    "drools": "_f_drools",
     "dustjs": "_f_dustjs",
     "dylan": "_f_dylan",
     "dylan-lid": "_f_dylan",
     "edge": "_f_edge",
+    "es": "_f_elastic",
     "elixir": "_f_elixir",
     "Eex": "_f_elixir",
     "HTML (Eex)": "_f_elixir",
@@ -2649,10 +2722,14 @@
     "hxml": "_f_haxe",
     "Haxe AST dump": "_f_haxe",
     "hlsl": "_f_hlsl",
+    "hosts": "_f_host",
     "html": "_f_html",
     "http": "_f_http",
     "ini": "_f_ini",
+    "io": "_f_io",
+    "iodine": "_f_iodine",
     "java": "_f_java",
+    "jekyll": "_f_jekyll",
     "jinja": "_f_jinja",
     "javascript": "_f_js",
     "json": "_f_json",
@@ -2664,6 +2741,7 @@
     "kotlin": "_f_kotlin",
     "less": "_f_less",
     "lisp": "_f_lisp",
+    "lolcode": "_f_lolcode",
     "lsl": "_f_lsl",
     "lua": "_f_lua",
     "makefile": "_f_makefile",
@@ -2671,7 +2749,11 @@
     "marko": "_f_marko",
     "matlab": "_f_matlab",
     "maxscript": "_f_maxscript",
+    "mediawiki": "_f_mediawiki",
     "mjml": "_f_mjml",
+    "mlang": "_f_mlang",
+    "powerquerymlanguage": "_f_mlang",
+    "mojolicious": "_f_mojolicious",
     "mson": "_f_mson",
     "nim": "_f_nim",
     "nimble": "_f_nim",
@@ -2697,6 +2779,7 @@
     "pde": "_f_processinglang",
     "abl": "_f_progress",
     "prolog": "_f_prolog",
+    "prometheus": "_f_prometheus",
     "proto3": "_f_protobuf",
     "proto": "_f_protobuf",
     "jade": "_f_pug",
@@ -2718,18 +2801,22 @@
     "rust": "_f_rust",
     "sbt": "_f_sbt",
     "scala": "_f_scala",
+    "scilab": "_f_scilab",
     "vbscript": "_f_script",
     "scss": "_f_scss",
     "sdl": "_f_sdlang",
     "shaderlab": "_f_shaderlab",
     "shellscript": "_f_shell",
     "silverstripe": "_f_silverstripe",
+    "eskip": "_f_skipper",
     "slice": "_f_slice",
     "slim": "_f_slim",
     "smarty": "_f_smarty",
+    "snort": "_f_snort",
     "solidity": "_f_solidity",
     "sqf": "_f_sqf",
     "sql": "_f_sql",
+    "squirrel": "_f_squirrel",
     "stylus": "_f_stylus",
     "Swagger": "_f_swagger",
     "swagger": "_f_swagger",
@@ -2737,6 +2824,7 @@
     "terraform": "_f_terraform",
     "tex": "_f_tex",
     "latex": "_f_tex",
+    "bibtex": "_f_tex",
     "plaintext": "_f_text",
     "textile": "_f_textile",
     "toml": "_f_toml",
@@ -2841,6 +2929,9 @@
       "_less": "_fd_less",
       "lib": "_fd_library",
       ".lib": "_fd_library",
+      "lang": "_fd_locale",
+      "language": "_fd_locale",
+      "languages": "_fd_locale",
       "locale": "_fd_locale",
       "locales": "_fd_locale",
       "i18n": "_fd_locale",
@@ -3003,6 +3094,9 @@
       "_less": "_fd_less_open",
       "lib": "_fd_library_open",
       ".lib": "_fd_library_open",
+      "lang": "_fd_locale_open",
+      "language": "_fd_locale_open",
+      "languages": "_fd_locale_open",
       "locale": "_fd_locale_open",
       "locales": "_fd_locale_open",
       "i18n": "_fd_locale_open",
@@ -3187,7 +3281,6 @@
       "css.map": "_f_cssmap",
       "db": "_f_light_db",
       "eco": "_f_light_docpad",
-      "dust": "_f_dustjs",
       "ejs": "_f_ejs",
       "el": "_f_emacs",
       "elc": "_f_emacs",
@@ -3239,13 +3332,13 @@
       "jsp": "_f_jsp",
       "key": "_f_key",
       "pem": "_f_key",
-      "ks": "_f_kos",
       "master": "_f_layout",
       "layout.html": "_f_layout",
       "layout.htm": "_f_layout",
       "enc": "_f_license",
       "hxp": "_f_lime",
       "liquid": "_f_liquid",
+      "ls": "_f_livescript",
       "log": "_f_log",
       "crec": "_f_lync",
       "ocrec": "_f_lync",
@@ -3344,6 +3437,7 @@
       "scssm": "_f_scss",
       "fish": "_f_shell",
       "sketch": "_f_sketch",
+      "eskip": "_f_skipper",
       "sln": "_f_sln",
       "sqlite": "_f_sqlite",
       "sqlite3": "_f_sqlite",
@@ -3557,6 +3651,7 @@
       ".mtn-ignore": "_f_monotone",
       ".node-version": "_f_node",
       ".nvmrc": "_f_node",
+      "nodemon.json": "_f_nodemon",
       ".npmignore": "_f_npm",
       ".npmrc": "_f_npm",
       "package.json": "_f_npm",
@@ -3711,6 +3806,7 @@
       "antlr": "_f_antlr",
       "anyscript": "_f_anyscript",
       "apacheconf": "_f_apache",
+      "apex": "_f_apex",
       "apiblueprint": "_f_apib",
       "applescript": "_f_applescript",
       "asp": "_f_asp",
@@ -3753,10 +3849,12 @@
       "diet": "_f_dlang",
       "dockerfile": "_f_docker",
       "doxygen": "_f_doxygen",
+      "drools": "_f_drools",
       "dustjs": "_f_dustjs",
       "dylan": "_f_dylan",
       "dylan-lid": "_f_dylan",
       "edge": "_f_edge",
+      "es": "_f_elastic",
       "elixir": "_f_elixir",
       "Eex": "_f_elixir",
       "HTML (Eex)": "_f_elixir",
@@ -3788,10 +3886,14 @@
       "hxml": "_f_haxe",
       "Haxe AST dump": "_f_haxe",
       "hlsl": "_f_hlsl",
+      "hosts": "_f_host",
       "html": "_f_html",
       "http": "_f_http",
       "ini": "_f_light_ini",
+      "io": "_f_light_io",
+      "iodine": "_f_iodine",
       "java": "_f_java",
+      "jekyll": "_f_jekyll",
       "jinja": "_f_jinja",
       "javascript": "_f_light_js",
       "json": "_f_light_json",
@@ -3803,6 +3905,7 @@
       "kotlin": "_f_kotlin",
       "less": "_f_less",
       "lisp": "_f_lisp",
+      "lolcode": "_f_lolcode",
       "lsl": "_f_lsl",
       "lua": "_f_lua",
       "makefile": "_f_makefile",
@@ -3810,7 +3913,11 @@
       "marko": "_f_marko",
       "matlab": "_f_matlab",
       "maxscript": "_f_maxscript",
+      "mediawiki": "_f_mediawiki",
       "mjml": "_f_mjml",
+      "mlang": "_f_light_mlang",
+      "powerquerymlanguage": "_f_light_mlang",
+      "mojolicious": "_f_mojolicious",
       "mson": "_f_mson",
       "nim": "_f_nim",
       "nimble": "_f_nim",
@@ -3836,6 +3943,7 @@
       "pde": "_f_processinglang",
       "abl": "_f_progress",
       "prolog": "_f_prolog",
+      "prometheus": "_f_prometheus",
       "proto3": "_f_protobuf",
       "proto": "_f_protobuf",
       "jade": "_f_pug",
@@ -3857,25 +3965,30 @@
       "rust": "_f_rust",
       "sbt": "_f_sbt",
       "scala": "_f_scala",
+      "scilab": "_f_scilab",
       "vbscript": "_f_script",
       "scss": "_f_scss",
       "sdl": "_f_sdlang",
       "shaderlab": "_f_light_shaderlab",
       "shellscript": "_f_shell",
       "silverstripe": "_f_silverstripe",
+      "eskip": "_f_skipper",
       "slice": "_f_slice",
       "slim": "_f_slim",
       "smarty": "_f_smarty",
+      "snort": "_f_snort",
       "solidity": "_f_light_solidity",
       "sqf": "_f_sqf",
       "sql": "_f_sql",
-      "stylus": "_f_stylus",
+      "squirrel": "_f_squirrel",
+      "stylus": "_f_light_stylus",
       "Swagger": "_f_swagger",
       "swagger": "_f_swagger",
       "swift": "_f_swift",
       "terraform": "_f_terraform",
       "tex": "_f_light_tex",
       "latex": "_f_light_tex",
+      "bibtex": "_f_light_tex",
       "plaintext": "_f_text",
       "textile": "_f_textile",
       "toml": "_f_toml",

@@ -124,6 +124,7 @@
   ".mtn-ignore": "file_type_monotone.svg",
   ".node-version": "file_type_node.svg",
   ".nvmrc": "file_type_node.svg",
+  "nodemon.json": "file_type_nodemon.svg",
   ".npmignore": "file_type_npm.svg",
   ".npmrc": "file_type_npm.svg",
   "package.json": "file_type_npm.svg",
