@@ -7,13 +7,13 @@ import { initPasteBin } from './pages/PasteBin';
 const host = location.host;
 
 if (host.includes('github') && !host.includes('gist')) {
-    initGithub();
+  initGithub();
 } else if (host.includes('gitlab')) {
-    initGitLab();
+  initGitLab();
 } else if (host.includes('bitbucket')) {
-    initBitBucket();
+  initBitBucket();
 } else if (host.includes('gist') && !host.includes('github')) {
-    initGistGithub();
+  initGistGithub();
 } else if (host.includes('pastebin')) {
-    initPasteBin();
+  initPasteBin();
 }
