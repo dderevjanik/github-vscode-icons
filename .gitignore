@@ -1,4 +1,5 @@
 dist/*.zip
+build/*.zip
 
 # Logs
 content.js.map

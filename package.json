@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "preprocess": "npm run preprocess:extractData && npm run preprocess:iconsData",
-    "preprocess:extractData": "ts-node ./scripts/ExtractDataFromVSI.script.ts",
-    "preprocess:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
-    "build": "npx webpack --config webpack.config.js",
+    "preprocess": "npm run script:extractData && npm run script:iconsData",
+    "script:extractData": "ts-node ./scripts/ExtractDataFromVSI.script.ts",
+    "script:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
+    "script:makeZip": "ts-node ./scripts/MakeZipFromDist.script.ts",
+    "build": "npx webpack --config webpack.config.js && npm run script:makeZip",
     "lint": "prettier --write src/**/*.ts",
     "dev": "npx webpack --watch --config webpack.config.dev.js"
   },
@@ -39,11 +40,13 @@
   },
   "homepage": "https://github.com/dderevjanik/github-vscode-icons#readme",
   "dependencies": {
+    "@types/archiver": "^2.0.1",
     "@types/chalk": "^0.4.31",
     "@types/chrome": "0.0.49",
     "@types/jest": "^21.1.4",
     "@types/node": "^8.0.31",
     "@types/node-fetch": "^1.6.7",
+    "archiver": "^2.1.0",
     "select-dom": "^4.1.1"
   },
   "devDependencies": {
