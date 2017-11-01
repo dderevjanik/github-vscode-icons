@@ -41,7 +41,7 @@ function showIconsForSegments() {
     const iconPath = getIconForOpenFolder(aEl.innerText);
     aEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" class="vscode-icon"><span> ${aEl.innerText}</span>`;
   }
-};
+}
 
 /**
  * Show icons for repository files
@@ -67,9 +67,10 @@ function showRepoTreeIcons() {
     // console.timeEnd('OBTAIN_EL');
 
     // console.time('OBTAIN_ICON');
-    const iconPath = linkToEl.href.indexOf('/tree/') > 0 // is Folder ?
-      ? getIconForFolder(name.split('/').shift())
-      : getIconForFile(linkToEl.innerText.toLowerCase());
+    const iconPath =
+      linkToEl.href.indexOf('/tree/') > 0 // is Folder ?
+        ? getIconForFolder(name.split('/').shift())
+        : getIconForFile(linkToEl.innerText.toLowerCase());
     // console.timeEnd('OBTAIN_ICON');
 
     // console.time('INJECT_IMG');
@@ -77,7 +78,7 @@ function showRepoTreeIcons() {
     // console.timeEnd('INJECT_IMG');
   }
   // console.timeEnd('SHOWING_ICONS');
-};
+}
 
 // DIFF ICONS ARE NOT COMPLETED YET
 // const showDiffIcon = async () => {

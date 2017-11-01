@@ -46,7 +46,6 @@
     "@types/jest": "^21.1.4",
     "@types/node": "^8.0.31",
     "@types/node-fetch": "^1.6.7",
-    "archiver": "^2.1.0",
     "select-dom": "^4.1.1"
   },
   "devDependencies": {
@@ -59,6 +58,7 @@
     "ts-loader": "^2.3.7",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
+    "archiver": "^2.1.0",
     "webpack": "^3.6.0"
   }
 }

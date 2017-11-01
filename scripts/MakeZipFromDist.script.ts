@@ -11,13 +11,13 @@ const log = console.log;
 const filename = Path.basename(__filename);
 
 (function () {
-    log(bgYellow(`(${filename}) Creating 'github-vsci-${manifestVersion}.zip' ready to upload to stores`));
-    const distZip = createWriteStream(`./dist/${archiveName}-${manifestVersion}.zip`);
+    log(bgYellow(`(${filename}) Creating '${archiveName}-${manifestVersion}.zip' ready to upload to stores`));
+    const distZip = createWriteStream(`${process.cwd()}/dist/${archiveName}-${manifestVersion}.zip`);
     const archive = Archiver('zip', { zlib: { level: 9 } });
 
     distZip.on('close', () => {
         log(archive.pointer() + ' total bytes');
-        log(green(`${archiveName}-${manifestVersion}.zip created`));
+        log(green(`> '${archiveName}-${manifestVersion}.zip' file created`));
     });
 
     archive.pipe(distZip);
