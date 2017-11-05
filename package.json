@@ -53,7 +53,6 @@
   "devDependencies": {
     "archiver": "^2.1.0",
     "chalk": "^2.1.0",
-    "fetch": "^1.1.0",
     "jest": "^21.2.1",
     "node-fetch": "^1.7.3",
     "prettier": "^1.7.4",

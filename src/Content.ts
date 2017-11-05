@@ -4,7 +4,7 @@ import { initBitBucket } from './pages/BitBucket';
 import { initGistGithub } from './pages/GistGitHub';
 import { initPasteBin } from './pages/PasteBin';
 
-const host = location.host;
+const { host } = location;
 
 if (host.includes('github') && !host.includes('gist')) {
   initGithub();

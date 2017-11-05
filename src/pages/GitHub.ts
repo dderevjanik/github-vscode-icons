@@ -1,7 +1,12 @@
-import { getIconForFolder, getIconForOpenFolder, getIconForFile, getIconUrl } from '../utils/Icons';
+import {
+  getIconForFolder,
+  getIconForOpenFolder,
+  getIconForFile,
+  getIconUrl,
+  DEFAULT_ROOT_OPENED
+} from '../utils/Icons';
 import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
 
-const DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
 const QUERY_PATH_SEGMENTS = 'js-path-segment';
 const QUERY_LAST_PATH_SEGMENT = 'final-path';
