@@ -10,8 +10,8 @@ function showRepoTreeIcons() {
     const newIconEl = document.createElement('img');
 
     // [ICON_AND_NAME] [LAST_COMMIT_MESSAGE] [AGE]
-    const iconAndNameEls = itemEl.firstElementChild;
-    const iconEl = iconAndNameEls.firstElementChild;
+    const iconAndNameEls = itemEl.firstElementChild!;
+    const iconEl = iconAndNameEls.firstElementChild!;
     const nameEl = iconAndNameEls.lastElementChild as HTMLAnchorElement;
 
     const name = nameEl.innerText.toLowerCase();

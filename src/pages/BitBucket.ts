@@ -16,21 +16,21 @@ function showRepoTreeIcons() {
       /**
              * td > a > span
              */
-      const iconEl = itemEl.firstElementChild.firstElementChild as HTMLSpanElement;
+      const iconEl = itemEl.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = itemEl.innerText.toLowerCase();
       const iconPath = getIconForFolder(name);
       newIconEl.setAttribute('src', getIconUrl(iconPath));
-      itemEl.firstElementChild.replaceChild(newIconEl, iconEl);
+      itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
     } else {
       /**
              * File is wrapped in another div element, like:
              * td > div > a > span
              */
-      const iconEl = itemEl.firstElementChild.firstElementChild.firstElementChild as HTMLSpanElement;
+      const iconEl = itemEl.firstElementChild!.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = (itemEl.firstElementChild as HTMLDivElement).innerText;
       const iconPath = getIconForFile(name);
       newIconEl.setAttribute('src', getIconUrl(iconPath));
-      itemEl.firstElementChild.firstElementChild.replaceChild(newIconEl, iconEl);
+      itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);
     }
   }
 }

@@ -3,7 +3,7 @@ const Webpack = require('webpack');
 
 const baseConfig = {
     entry: {
-        'content': './src/Index.ts'
+        'content': './src/Content.ts'
     },
     target: 'web',
     output: {

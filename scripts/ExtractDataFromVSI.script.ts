@@ -16,27 +16,26 @@ const reKey = /(.*?):/;
 const reIds = /ids:.*'(.*?)'/;
 const reExt = /defaultExtension:.*'(.*?)'/;
 
-(async function () {
-    log(bgYellow(`(${filename}) Downloading vscode languages`));
+(async function() {
+  log(bgYellow(`(${filename}) Downloading vscode languages`));
 
-    fetch(LANG_URL, {})
-        .then((res) => res.text())
-        .then((body) => {
-            const bodyLines = body.split('\n').slice(3, -2);
-            const languages: any = {};
-            const keyIdExt = bodyLines.map((fLine: string) => {
-                const line = fLine.trim();
-                const key = reKey.exec(line);
-                // const ids = reIds.exec(line);
-                const ext = reIds.exec(line);
+  fetch(LANG_URL, {})
+    .then(res => res.text())
+    .then(body => {
+      const bodyLines = body.split('\n').slice(3, -2);
+      const languages: any = {};
+      const keyIdExt = bodyLines.map((fLine: string) => {
+        const line = fLine.trim();
+        const key = reKey.exec(line);
+        // const ids = reIds.exec(line);
+        const ext = reIds.exec(line);
 
-                languages[key[1]] = {
-                    defaultExtension: ext[1]
-                };
-            });
-            const languagesJSON = JSON.stringify(languages, null, 2);
-            writeFileSync('../languages.json', languagesJSON);
-            log(green(`> './languages.json' file created`));
-        });
+        languages[key[1]] = {
+          defaultExtension: ext[1]
+        };
+      });
+      const languagesJSON = JSON.stringify(languages, null, 2);
+      writeFileSync('../languages.json', languagesJSON);
+      log(green(`> './languages.json' file created`));
+    });
 })();
-

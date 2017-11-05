@@ -55,7 +55,7 @@ function showRepoTreeIcons() {
     // const messageEl = trEl.children[2]; Unused
     // const ageEl = trEl.children[3]; Unused
 
-    const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
+    const linkToEl = contentEl.firstElementChild!.firstElementChild as HTMLAnchorElement;
     const name = linkToEl.innerText.toLowerCase();
 
     const iconPath =
@@ -95,17 +95,17 @@ export function initGithub() {
     const navigation = document.querySelector('include-fragment.file-navigation');
     const diffContainer = document.querySelector('.js-diff-progressive-container');
     if (ajaxFiles) {
-      observer.observe(ajaxFiles.parentNode, {
+      observer.observe(ajaxFiles.parentNode!, {
         childList: true
       });
     }
     if (navigation) {
-      observer.observe(navigation.parentNode, {
+      observer.observe(navigation.parentNode!, {
         childList: true
       });
     }
     if (diffContainer) {
-      observer.observe(diffContainer.parentNode, {
+      observer.observe(diffContainer.parentNode!, {
         childList: true
       });
     }
