@@ -4,13 +4,15 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/dderevjanik/github-vscode-icons/badge.svg)](https://snyk.io/test/github/dderevjanik/github-vscode-icons)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-**Chrome:** [Download extension from store](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github)
+**Download For:**
+[![chrome-favicon](docs/icons/chrome-favicon.png) Chrome](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github),
+![opera-favicon](docs/icons/opera-favicon.png) *Opera*
 
-**Firefox:** *Not supported yet*
-
-**Opera:** *WIP*
-
-**Supported websites:** Github (also Gist), Gitlab, Bitbucket and Pastebin
+**Supported websites:**
+![github-favicon](docs/icons/github-favicon.ico) Github (also Gist),
+![gitlab-favicon](docs/icons/gitlab-favicon.ico) Gitlab,
+![bitbucket-favicon](docs/icons/bitbucket-favicon.png) Bitbucket,
+![pastebin-favicon](docs/icons/pastebin-favicon.ico) Pastebin
 
 ## About
 
@@ -27,18 +29,33 @@ icons much faster and when you're spending several hours per day on websites lik
 
 ## Development
 
-To stay updated with `vscode-icons`, you need to extract compiled `icons.json` from `vscode-icons` everytime when it updates.
+To stay updated with `vscode-icons`, you need to extract compiled `icons.json` from `vscode-icons` everytime when it updates
 After that, you need run script called `npm run preprocess`, which will generate definition chunks from `icons.json` for easier
 work with them.
 
 Goals:
 
-- [x] Display icons for repo (first screenshot)
-- [x] Display icons for path segments (second screenshot)
-- [ ] Display icons for path segments in file-history
-- [ ] Display icons for diff pages
-- [ ] Support BitBucket
-- [ ] Support GitLab
-- [ ] Support PasteBin
-- [x] Add tests
-- [ ] Automatically generate artifact from `vscode-icons` using docker and extract `icons.json`
+- ![github-favicon](./docs/icons/github-favicon.ico) GitHub (with Gist)
+    - [x] Display icons in Repo Tree
+    - [x] Display icons in Path segments
+    - [x] Display icons in Gist
+- ![gitlab-favicon](./docs/icons/gitlab-favicon.ico) GitLab
+    - [x] Display icons in Repo Tree
+    - [ ] Display icons in Path segments
+- ![bitbucket-favicon](./docs/icons/bitbucket-favicon.png) BitBucket
+    - [x] Display icons in Repo Tree
+    - [ ] Display icons in Path segments
+- ![pastebin-favicon](./docs/icons/pastebin-favicon.ico) Pastebin
+    - [x] Display icons in user's profile
+- ![sourceforge-favicon](./docs/icons/sourceforge-favicon.ico) SourceForge
+    - [ ] Display icons in Repo Tree
+- Test
+    - [x] Test for filenames
+    - [x] Test for extensions
+    - [x] Test for languages
+    - [x] Test for folders
+    - [ ] Test for pastebin syntaxes
+- Automation
+    - [x] Create `zip` archive from `output` folder
+    - [ ] Copy icons from generated `vscode-icons` artifact
+    - [ ] Update `icons.json` from generated `vscode-icons` artifact
