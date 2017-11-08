@@ -102,7 +102,7 @@ export const isBitBucketRepo = () => select.exists('#source-container');
 /**
  * GitLab related detections
  */
-export const isGitLabRepo = () => select.exists('.project-show-files');
+export const isGitLabRepo = () => select.exists('.tree-content-holder');
 
 /**
  * Pastebin related detections

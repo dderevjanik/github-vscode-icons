@@ -53,6 +53,7 @@ td.icon > img  {
 
 .bb-icon {
     margin-right: 10px;
+    vertical-align: text-top;
 }
 
 /**

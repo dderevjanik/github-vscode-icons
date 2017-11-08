@@ -9,9 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 - Support for [gitlab.com](https://about.gitlab.com/)
-    - Displays icons in Repo Tree
+    - Display icons in Repo Tree
 - Support for [bitbucket.org](https://bitbucket.org/)
-    - Displays icons in Repo Tree
+    - Display icons in Repo Tree
 - support for [pastebin.com](https://pastebin.com/)
     - Display icons in user profile
 

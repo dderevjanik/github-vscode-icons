@@ -27,7 +27,7 @@ function showRepoTreeIcons() {
              * td > div > a > span
              */
       const iconEl = itemEl.firstElementChild!.firstElementChild!.firstElementChild as HTMLSpanElement;
-      const name = (itemEl.firstElementChild as HTMLDivElement).innerText;
+      const name = (itemEl.firstElementChild as HTMLDivElement).innerText.toLowerCase();
       const iconPath = getIconForFile(name);
       newIconEl.setAttribute('src', getIconUrl(iconPath));
       itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);

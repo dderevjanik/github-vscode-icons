@@ -1,3 +1,6 @@
+# Build
+*.js
+
 # Maps
 *.js.map
 
