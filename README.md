@@ -23,9 +23,7 @@ icons much faster and when you're spending several hours per day on websites lik
 
 ## Screenshots
 
-![screen_repo](docs/screen_repo.jpg)
-
-![screen_path](docs/screen_path.jpg)
+![screen_repo](./docs/screenshots/repo_screens.png)
 
 ## Development
 

@@ -6,12 +6,12 @@
   "scripts": {
     "test": "jest",
     "test:dev": "jest --watch",
-    "preprocess": "npm run script:extractData && npm run script:iconsData && npm run script:pastebin",
+    "preprocess": "npm run script:extractData && npm run script:iconsData",
     "script:extractData": "ts-node ./scripts/ExtractDataFromVSI.script.ts",
     "script:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
     "script:makeZip": "ts-node ./scripts/MakeZipFromDist.script.ts",
-    "script:pastebin": "ts-node ./scripts/PBSyntaxesToIcons.script.ts",
-    "build": "npm run preprocess && npx webpack --config webpack.config.prod.js && npm run script:makeZip",
+    "build": "npm run test && npx webpack --config webpack.config.dev.js && npm run script:makeZip",
+    "prod": "npm run test && npx webpack --config webpack.config.prod.js && npm run script:makeZip",
     "lint": "prettier --write src/**/*.ts",
     "dev": "npx webpack --watch --config webpack.config.dev.js"
   },
