@@ -7,7 +7,7 @@
     "48": "icon48.png",
     "16": "icon16.png"
   },
-  "version": "1.6",
+  "version": "1.7",
   "author": "Daniel Derevjanik <daniel.derevjanik@gmail.com>",
   "offline_enabled": true,
   "background": {
@@ -42,6 +42,7 @@
     "*://github.com/*",
     "*://gist.github.com/*",
     "*://gitlab.com/*",
-    "*://pastebin.com/*"
+    "*://pastebin.com/*",
+    "*://sourceforge.net/*"
   ]
 }

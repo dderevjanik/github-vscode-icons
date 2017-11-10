@@ -12,7 +12,8 @@
 ![github-favicon](docs/icons/github-favicon.ico) Github (also Gist),
 ![gitlab-favicon](docs/icons/gitlab-favicon.ico) Gitlab,
 ![bitbucket-favicon](docs/icons/bitbucket-favicon.png) Bitbucket,
-![pastebin-favicon](docs/icons/pastebin-favicon.ico) Pastebin
+![pastebin-favicon](docs/icons/pastebin-favicon.ico) Pastebin,
+![sourceforge-favicon](./docs/icons/sourceforge-favicon.ico) SourceForge
 
 ## About
 
@@ -46,13 +47,13 @@ Goals:
 - ![pastebin-favicon](./docs/icons/pastebin-favicon.ico) Pastebin
     - [x] Display icons in user's profile
 - ![sourceforge-favicon](./docs/icons/sourceforge-favicon.ico) SourceForge
-    - [ ] Display icons in Repo Tree
+    - [x] Display icons in Repo Tree
 - Test
     - [x] Test for filenames
     - [x] Test for extensions
     - [x] Test for languages
     - [x] Test for folders
-    - [ ] Test for pastebin syntaxes
+    - [x] Test for pastebin syntaxes
 - Automation
     - [x] Create `zip` archive from `output` folder
     - [ ] Copy icons from generated `vscode-icons` artifact

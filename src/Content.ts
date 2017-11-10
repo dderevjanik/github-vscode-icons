@@ -3,8 +3,11 @@ import { initGitLab } from './pages/GitLab';
 import { initBitBucket } from './pages/BitBucket';
 import { initGistGithub } from './pages/GistGitHub';
 import { initPasteBin } from './pages/PasteBin';
+import { initSourceForge } from './pages/SourceForge';
 
 const { host } = location;
+
+console.log(host);
 
 if (host.includes('github') && !host.includes('gist')) {
   initGithub();
@@ -16,4 +19,6 @@ if (host.includes('github') && !host.includes('gist')) {
   initGistGithub();
 } else if (host.includes('pastebin')) {
   initPasteBin();
+} else if (host.includes('sourceforge')) {
+  initSourceForge();
 }

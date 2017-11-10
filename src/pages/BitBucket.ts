@@ -14,8 +14,11 @@ function showRepoTreeIcons() {
     const isFolder = itemEl.className.includes('dirname');
     if (isFolder) {
       /**
-             * td > a > span
-             */
+       * [TR:
+       *  [TD: [A: [SPAN: icon], folderName ]]
+       * ]
+       */
+
       const iconEl = itemEl.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = itemEl.innerText.toLowerCase();
       const iconPath = getIconForFolder(name);
@@ -23,9 +26,14 @@ function showRepoTreeIcons() {
       itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
     } else {
       /**
-             * File is wrapped in another div element, like:
-             * td > div > a > span
-             */
+       * [TR:
+       *  [TD: [DIV: [A: [SPAN: icon], fileName]]],
+       *  [TD: [DIV: size]],
+       *  [TD: [DIV: [TIME: time]]],
+       *  [TD: [DIV: message]]
+       * ]
+       */
+
       const iconEl = itemEl.firstElementChild!.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = (itemEl.firstElementChild as HTMLDivElement).innerText.toLowerCase();
       const iconPath = getIconForFile(name);

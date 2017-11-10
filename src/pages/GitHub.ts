@@ -52,13 +52,18 @@ function showIconsForSegments() {
 function showRepoTreeIcons() {
   const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
   for (let i = 0; i < trEls.length; i++) {
+    /**
+     * [TR:
+     *  [TD: [SVG: icon]],
+     *  [TD: [SPAN: [A: name]]],
+     *  [TD: [SPAN: [A: message]]],
+     *  [TD: [SPAN: [TIME-AGO: ago]]],
+     * ]
+     */
     const trEl = trEls[i];
 
-    // [ICON_FOR_CONTENT] [CONTENT_NAME] [LAST_COMMIT_MESSAGE] [LAST_TIME_UPDATED]
     const iconEl = trEl.children[0];
     const contentEl = trEl.children[1];
-    // const messageEl = trEl.children[2]; Unused
-    // const ageEl = trEl.children[3]; Unused
 
     const linkToEl = contentEl.firstElementChild!.firstElementChild as HTMLAnchorElement;
     const name = linkToEl.innerText.toLowerCase();

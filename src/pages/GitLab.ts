@@ -6,10 +6,16 @@ const QUERY_TREE_ITEMS = '.tree-item';
 function showRepoTreeIcons() {
   const treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
   for (let i = 0; i < treeItems.length; i++) {
+    /**
+     * [TR:
+     *  [TD: [[I: icon], [A: [SPAN: name]]]],
+     *  [TD: [SPAN: [A: message]]],
+     *  [TD: [TIME: ago]]
+     * ]
+     */
     const itemEl = treeItems[i];
     const newIconEl = document.createElement('img');
 
-    // [ICON_AND_NAME] [LAST_COMMIT_MESSAGE] [AGE]
     const iconAndNameEls = itemEl.firstElementChild!;
     const iconEl = iconAndNameEls.firstElementChild!;
     const nameEl = iconAndNameEls.lastElementChild as HTMLAnchorElement;

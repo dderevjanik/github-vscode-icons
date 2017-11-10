@@ -12,8 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
     - Display icons in Repo Tree
 - Support for [bitbucket.org](https://bitbucket.org/)
     - Display icons in Repo Tree
-- support for [pastebin.com](https://pastebin.com/)
+- Support for [pastebin.com](https://pastebin.com/)
     - Display icons in user profile
+- Support for [sourceforge.com](https://sourceforge.net)
+    - Display icons in project files
 
 ### Changed
 

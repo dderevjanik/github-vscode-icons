@@ -83,7 +83,7 @@ export function getIconForFile(fileName: string) {
  */
 export function getIconForPBSyntax(syntaxName: string) {
   const syntaxIcon = PBSyntaxesToIcon[syntaxName];
-  if (syntaxIcon !== undefined) {
+  if (syntaxIcon !== undefined && syntaxIcon !== '') {
     return syntaxIcon;
   }
   return DEFAULT_FILE;

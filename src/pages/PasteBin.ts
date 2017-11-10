@@ -8,7 +8,16 @@ function showIconsForFiles() {
   const pastes = document.querySelectorAll(QUERY_PASTEBIN_ITEMS);
   // skip first tr, which is header
   for (let i = 1; i < pastes.length; i++) {
-    // [TD: [IMG: ICON, A: NAME]] [TD: AGE] [TD: HITS] [TD: [A: SYNTAX]]
+    /**
+     * [TR:
+     *  [TD: [[IMAGE: icon], [A: name]]],
+     *  [TD: added],
+     *  [TD: expires],
+     *  [TD: hits],
+     *  [TD: [A: syntax]],
+     *  [TD: ?]
+     * ]
+     */
     const item = pastes[i];
 
     const iconAndNameEl = item.firstElementChild as HTMLTableDataCellElement;
