@@ -10,6 +10,13 @@
   "version": "1.7",
   "author": "Daniel Derevjanik <daniel.derevjanik@gmail.com>",
   "offline_enabled": true,
+  "browser_action": {
+    "default_icon": {
+      "128": "icon128.png",
+      "48": "icon48.png"
+    },
+    "default_popup": "popup.html"
+  },
   "background": {
     "scripts": [
       "event.js"
