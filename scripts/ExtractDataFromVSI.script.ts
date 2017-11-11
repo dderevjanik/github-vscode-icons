@@ -16,7 +16,7 @@ const reKey = /(.*?):/;
 const reIds = /ids:.*'(.*?)'/;
 const reExt = /defaultExtension:.*'(.*?)'/;
 
-(async function() {
+(async function () {
   log(bgYellow(`(${filename}) Downloading vscode languages`));
 
   fetch(LANG_URL, {})

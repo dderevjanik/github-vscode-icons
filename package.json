@@ -12,7 +12,7 @@
     "script:makeZip": "ts-node ./scripts/MakeZipFromDist.script.ts",
     "build": "npm run test && npx webpack --config webpack.config.dev.js && npm run script:makeZip",
     "prod": "npm run test && npx webpack --config webpack.config.prod.js && npm run script:makeZip",
-    "lint": "prettier --write src/**/*.ts",
+    "lint": "prettier --write packages/**/*.ts",
     "dev": "npx webpack --watch --config webpack.config.dev.js"
   },
   "repository": {

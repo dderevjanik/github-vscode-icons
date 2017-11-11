@@ -11,7 +11,7 @@ const log = console.log;
 const filename = Path.basename(__filename);
 const iconsJSONFile = readFileSync('./icons.json');
 const languagesJSONFile = readFileSync('./languages.json');
-const PATH_ICONSDATA = './src/data';
+const PATH_ICONSDATA = './packages/content/data';
 
 type IconKey = string;
 
@@ -60,7 +60,7 @@ const writeFile = (path: string, callback: () => any) => {
         const folderNames = Object.keys(icons.light.folderNames).reduce((acc, folderName) => ({
             ...acc,
             [folderName]: iconToPath[
-            icons.light.folderNames[folderName]
+                icons.light.folderNames[folderName]
             ]
         }), {});
         return folderNames;
@@ -75,7 +75,7 @@ const writeFile = (path: string, callback: () => any) => {
                 return {
                     ...acc,
                     [fileExtension]: iconToPath[
-                    icons.light.fileExtensions[fileExtension]
+                        icons.light.fileExtensions[fileExtension]
                     ]
                 };
             }
@@ -90,7 +90,7 @@ const writeFile = (path: string, callback: () => any) => {
                 return {
                     ...acc,
                     [fileExtension]: iconToPath[
-                    icons.light.fileExtensions[fileExtension]
+                        icons.light.fileExtensions[fileExtension]
                     ]
                 };
             }
@@ -104,7 +104,7 @@ const writeFile = (path: string, callback: () => any) => {
         const fileNames = Object.keys(icons.light.fileNames).reduce((acc, fileName) => ({
             ...acc,
             [fileName]: iconToPath[
-            icons.light.fileNames[fileName]
+                icons.light.fileNames[fileName]
             ]
         }), {});
         return fileNames;

@@ -55,10 +55,11 @@
     // "skipLibCheck": true
   },
   "files": [
-    "src/Content.ts"
+    "packages/content/Content.ts",
+    "packages/popup/Popup.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "packages/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

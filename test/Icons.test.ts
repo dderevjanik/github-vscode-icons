@@ -1,4 +1,4 @@
-import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconForPBSyntax } from '../src/utils/Icons';
+import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconForPBSyntax } from '../packages/content/utils/Icons';
 
 describe('Icons test', () => {
 

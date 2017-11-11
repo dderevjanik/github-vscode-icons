@@ -1,12 +1,12 @@
 type NAME_TO_ICON = { [name: string]: string };
 import { existsSync } from 'fs';
 
-const folderNamesToIcon = require('../src/data/FolderNamesToIcon.json') as NAME_TO_ICON;
-const fileExtensions1ToIcon = require('../src/data/FileExtensions1ToIcon.json') as NAME_TO_ICON;
-const fileExtensions2ToIcon = require('../src/data/FileExtensions2ToIcon.json') as NAME_TO_ICON;
-const fileNamesToIcon = require('../src/data/FileNamesToIcon.json') as NAME_TO_ICON;
-const languagesToIcon = require('../src/data/LanguagesToIcon.json') as NAME_TO_ICON;
-const PBSyntaxesToIcon = require('../src/data/PBSyntaxToIcon.json') as NAME_TO_ICON;
+const folderNamesToIcon = require('../packages/content/data/FolderNamesToIcon.json') as NAME_TO_ICON;
+const fileExtensions1ToIcon = require('../packages/content/data/FileExtensions1ToIcon.json') as NAME_TO_ICON;
+const fileExtensions2ToIcon = require('../packages/content/data/FileExtensions2ToIcon.json') as NAME_TO_ICON;
+const fileNamesToIcon = require('../packages/content/data/FileNamesToIcon.json') as NAME_TO_ICON;
+const languagesToIcon = require('../packages/content/data/LanguagesToIcon.json') as NAME_TO_ICON;
+const PBSyntaxesToIcon = require('../packages/content/data/PBSyntaxToIcon.json') as NAME_TO_ICON;
 
 describe('Check if all icon files exists on disk', () => {
 
