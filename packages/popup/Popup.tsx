@@ -5,7 +5,7 @@ type AppState = {
     version: string;
     showIcons: {
         github: boolean;
-        gist: boolean;
+        githubgist: boolean;
         gitlab: boolean;
         bitbucket: boolean;
         pastebin: boolean;
@@ -17,7 +17,7 @@ const initialStorage: AppState = {
     version: chrome.runtime.getManifest().version,
     showIcons: {
         github: true,
-        gist: true,
+        githubgist: true,
         gitlab: true,
         bitbucket: true,
         pastebin: true,
@@ -56,19 +56,21 @@ class Popup extends React.Component<AppState, AppState> {
                 <h3>vscode-icons for:</h3>
                 <div>
                     {hostings.map((hosting, index) => (
-                        <div key={index} className="form-group">
+                        <div key={index} className="form-group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <label className="form-checkbox">
+                                {hosting}
                                 <input
                                     type="checkbox"
                                     checked={this.state.showIcons[hosting]}
                                     onChange={(_: any) => this.handleToggleClick(hosting)}
                                 />
-                                <i className="form-icon" /> {hosting}
-                                {hosting}
+                                <i className="form-icon" />
                             </label>
+                            <img src={chrome.runtime.getURL(`favicons/${hosting}-favicon.ico`)} width="16" height="16" />
                         </div>
                     ))}
                 </div>
+                {/* <button onClick={this.handleResetButton}>Reset</button> */}
             </div>
         );
     }

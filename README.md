@@ -5,15 +5,15 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 **Download For:**
-[![chrome-favicon](docs/icons/chrome-favicon.png) Chrome](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github),
-![opera-favicon](docs/icons/opera-favicon.png) *Opera*
+[![chrome-favicon](build/favicons/chrome-favicon.png) Chrome](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github),
+![opera-favicon](build/favicons/opera-favicon.png) *Opera*
 
 **Supported websites:**
-![github-favicon](docs/icons/github-favicon.ico) Github (also Gist),
-![gitlab-favicon](docs/icons/gitlab-favicon.ico) Gitlab,
-![bitbucket-favicon](docs/icons/bitbucket-favicon.png) Bitbucket,
-![pastebin-favicon](docs/icons/pastebin-favicon.ico) Pastebin,
-![sourceforge-favicon](./docs/icons/sourceforge-favicon.ico) SourceForge
+![github-favicon](build/favicons/github-favicon.ico) Github (also Gist),
+![gitlab-favicon](build/favicons/gitlab-favicon.ico) Gitlab,
+![bitbucket-favicon](build/favicons/bitbucket-favicon.ico) Bitbucket,
+![pastebin-favicon](build/favicons/pastebin-favicon.ico) Pastebin,
+![sourceforge-favicon](./build/favicons/sourceforge-favicon.ico) SourceForge
 
 ## About
 
@@ -34,19 +34,19 @@ work with them.
 
 Goals:
 
-- ![github-favicon](./docs/icons/github-favicon.ico) GitHub (with Gist)
+- ![github-favicon](./build/favicons/github-favicon.ico) GitHub (with Gist)
     - [x] Display icons in Repo Tree
     - [x] Display icons in Path segments
     - [x] Display icons in Gist
-- ![gitlab-favicon](./docs/icons/gitlab-favicon.ico) GitLab
+- ![gitlab-favicon](./build/favicons/gitlab-favicon.ico) GitLab
     - [x] Display icons in Repo Tree
     - [ ] Display icons in Path segments
-- ![bitbucket-favicon](./docs/icons/bitbucket-favicon.png) BitBucket
+- ![bitbucket-favicon](./build/favicons/bitbucket-favicon.ico) BitBucket
     - [x] Display icons in Repo Tree
     - [ ] Display icons in Path segments
-- ![pastebin-favicon](./docs/icons/pastebin-favicon.ico) Pastebin
+- ![pastebin-favicon](./build/favicons/pastebin-favicon.ico) Pastebin
     - [x] Display icons in user's profile
-- ![sourceforge-favicon](./docs/icons/sourceforge-favicon.ico) SourceForge
+- ![sourceforge-favicon](./build/favicons/sourceforge-favicon.ico) SourceForge
     - [x] Display icons in Repo Tree
 - Test
     - [x] Test for filenames
