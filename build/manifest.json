@@ -19,7 +19,7 @@
   },
   "background": {
     "scripts": [
-      "event.js"
+      "background.js"
     ],
     "matches": [
       "*://*/*"

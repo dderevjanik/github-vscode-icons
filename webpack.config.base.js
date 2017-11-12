@@ -4,7 +4,8 @@ const Webpack = require('webpack');
 const baseConfig = {
     entry: {
         'content': './packages/content/Content.ts',
-        'popup': './packages/popup/Popup.tsx'
+        'popup': './packages/popup/Popup.tsx',
+        'background': './packages/background/Background.ts'
     },
     target: 'web',
     output: {

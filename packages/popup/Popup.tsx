@@ -1,56 +1,48 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { LocalStorage } from '../common/LocalStorage';
+import { sendMessage } from '../common/Messenger';
 
-type AppState = {
-    version: string;
-    showIcons: {
-        github: boolean;
-        githubgist: boolean;
-        gitlab: boolean;
-        bitbucket: boolean;
-        pastebin: boolean;
-        sourceforge: boolean;
-    },
+type State = {
+    storage: LocalStorage
 };
 
-const initialStorage: AppState = {
-    version: chrome.runtime.getManifest().version,
-    showIcons: {
-        github: true,
-        githubgist: true,
-        gitlab: true,
-        bitbucket: true,
-        pastebin: true,
-        sourceforge: true
-    }
-}
+type Props = {
+    storage: LocalStorage
+};
 
-class Popup extends React.Component<AppState, AppState> {
-    constructor(props: AppState) {
+class Popup extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
-        this.state = props;
+        this.state = {
+            storage: props.storage
+        };
     }
 
-    handleToggleClick = (hosting: keyof AppState['showIcons']) => {
-        const newState: AppState = {
-            ...this.state,
+    handleToggleClick = (hosting: keyof LocalStorage['showIcons']) => {
+        const prevStorage = this.state.storage;
+        const newStorage: LocalStorage = {
+            ...prevStorage,
             showIcons: {
-                ...this.state.showIcons,
-                [hosting]: !this.state.showIcons[hosting]
+                ...prevStorage.showIcons,
+                [hosting]: !prevStorage.showIcons[hosting]
             }
         };
-        chrome.storage.local.set(newState);
-        this.setState(newState);
+        sendMessage({ type: 'STORAGE_SET', storage: newStorage });
+        this.setState({
+            storage: newStorage
+        });
     }
 
-    handleResetButton = () => {
-        const defaultState = initialStorage;
-        chrome.storage.local.set(defaultState);
-        this.setState(defaultState);
+    handleResetButton = async () => {
+        const defaultState = await sendMessage({ type: 'STORAGE_RESET' }) as LocalStorage;
+        this.setState({
+            storage: defaultState
+        });
     }
 
     render() {
-        const hostings = Object.keys(this.props.showIcons) as (keyof AppState['showIcons'])[];
+        const hostings = Object.keys(this.props.storage.showIcons) as (keyof LocalStorage['showIcons'])[];
         return (
             <div id="settings">
                 <h3>vscode-icons for:</h3>
@@ -61,7 +53,7 @@ class Popup extends React.Component<AppState, AppState> {
                                 {hosting}
                                 <input
                                     type="checkbox"
-                                    checked={this.state.showIcons[hosting]}
+                                    checked={this.state.storage.showIcons[hosting]}
                                     onChange={(_: any) => this.handleToggleClick(hosting)}
                                 />
                                 <i className="form-icon" />
@@ -76,14 +68,11 @@ class Popup extends React.Component<AppState, AppState> {
     }
 }
 
-chrome.storage.local.get((storage) => {
-    let store = storage as AppState;
-    if (store.version === undefined) {
-        // Extension is installed
-        store = initialStorage;
-    }
+(async function () {
+    const storage = await sendMessage({ type: 'STORAGE_GET' }) as LocalStorage;
+    console.log(storage);
     ReactDOM.render(
-        <Popup {...store} />,
+        <Popup storage={storage} />,
         document.getElementById('app') as HTMLDivElement
     );
-});
+})();
