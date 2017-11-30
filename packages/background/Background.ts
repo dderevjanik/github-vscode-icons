@@ -1,12 +1,10 @@
 import { LocalStorage, initialStorage, getStorage, setStorage, resetStorage } from '../common/LocalStorage';
 import { onMessage, sendMessage } from '../common/Messenger';
-import { setServers } from 'dns';
 
 onMessage(async (message, _, sendResponse) => {
     switch (message.type) {
         case 'STORAGE_GET': {
             const storage = await getStorage();
-            console.log(storage);
             sendResponse(storage);
             break;
         }

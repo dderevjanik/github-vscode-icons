@@ -1,16 +1,18 @@
 /**
- * This file is accessible only from Background
+ * This file is accessible only from extension's Background
  */
+import { SupportedHostings } from './SupportedHostings'
 
 export type LocalStorage = {
+    /**
+     * Extension version
+     */
     version: string;
+    /**
+     * List of showed/hidden icons for specific hosts
+     */
     showIcons: {
-        github: boolean;
-        githubgist: boolean;
-        gitlab: boolean;
-        bitbucket: boolean;
-        pastebin: boolean;
-        sourceforge: boolean;
+        [Hosting in SupportedHostings]: boolean;
     },
 };
 

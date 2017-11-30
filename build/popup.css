@@ -6,6 +6,7 @@ body {
     width: 300px;
 }
 
-#settings {
-    padding: 10px;
+.vsi-icon {
+    width: 16px;
+    height: 16px;
 }
