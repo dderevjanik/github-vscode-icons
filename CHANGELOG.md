@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
+- Updated `vscode-icons` to 7.18.1, added 15 new icons, read more at vscode-icons [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
 - Changed structure of project to be more abstract for several web-based GIT hostings (Github, Gitlab, Bitbucket and Gist) and even for Pastebin
 
 ## [1.0.6] - 2017-10-29

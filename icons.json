@@ -120,6 +120,12 @@
     "_fd_css_open": {
       "iconPath": "../../icons/folder_type_css_opened.svg"
     },
+    "_fd_cypress": {
+      "iconPath": "../../icons/folder_type_cypress.svg"
+    },
+    "_fd_cypress_open": {
+      "iconPath": "../../icons/folder_type_cypress_opened.svg"
+    },
     "_fd_db": {
       "iconPath": "../../icons/folder_type_db.svg"
     },
@@ -555,6 +561,9 @@
     "_f_bazaar": {
       "iconPath": "../../icons/file_type_bazaar.svg"
     },
+    "_f_bazel": {
+      "iconPath": "../../icons/file_type_bazel.svg"
+    },
     "_f_binary": {
       "iconPath": "../../icons/file_type_binary.svg"
     },
@@ -590,6 +599,9 @@
     },
     "_f_cakephp": {
       "iconPath": "../../icons/file_type_cakephp.svg"
+    },
+    "_f_cargo": {
+      "iconPath": "../../icons/file_type_cargo.svg"
     },
     "_f_cert": {
       "iconPath": "../../icons/file_type_cert.svg"
@@ -698,6 +710,9 @@
     },
     "_f_cvs": {
       "iconPath": "../../icons/file_type_cvs.svg"
+    },
+    "_f_cypress": {
+      "iconPath": "../../icons/file_type_cypress.svg"
     },
     "_f_dal": {
       "iconPath": "../../icons/file_type_dal.svg"
@@ -1047,6 +1062,9 @@
     "_f_light_kite": {
       "iconPath": "../../icons/file_type_light_kite.svg"
     },
+    "_f_kivy": {
+      "iconPath": "../../icons/file_type_kivy.svg"
+    },
     "_f_kos": {
       "iconPath": "../../icons/file_type_kos.svg"
     },
@@ -1250,6 +1268,9 @@
     },
     "_f_phpunit": {
       "iconPath": "../../icons/file_type_phpunit.svg"
+    },
+    "_f_pip": {
+      "iconPath": "../../icons/file_type_pip.svg"
     },
     "_f_plantuml": {
       "iconPath": "../../icons/file_type_plantuml.svg"
@@ -1717,6 +1738,7 @@
     ".initializers": "_fd_config",
     "css": "_fd_css",
     "_css": "_fd_css",
+    "cypress": "_fd_cypress",
     "db": "_fd_db",
     "database": "_fd_db",
     "sql": "_fd_db",
@@ -1753,6 +1775,8 @@
     "icons": "_fd_images",
     "icon": "_fd_images",
     "ico": "_fd_images",
+    "screenshot": "_fd_images",
+    "screenshots": "_fd_images",
     "include": "_fd_include",
     "includes": "_fd_include",
     "incl": "_fd_include",
@@ -1882,6 +1906,7 @@
     ".initializers": "_fd_config_open",
     "css": "_fd_css_open",
     "_css": "_fd_css_open",
+    "cypress": "_fd_cypress_open",
     "db": "_fd_db_open",
     "database": "_fd_db_open",
     "sql": "_fd_db_open",
@@ -1918,6 +1943,8 @@
     "icons": "_fd_images_open",
     "icon": "_fd_images_open",
     "ico": "_fd_images_open",
+    "screenshot": "_fd_images_open",
+    "screenshots": "_fd_images_open",
     "include": "_fd_include_open",
     "includes": "_fd_include_open",
     "incl": "_fd_include_open",
@@ -2092,6 +2119,7 @@
     "scpt": "_f_binary",
     "scptd": "_f_binary",
     "so": "_f_binary",
+    "cake": "_f_cake",
     "csr": "_f_cert",
     "crt": "_f_cert",
     "cer": "_f_cert",
@@ -2281,7 +2309,13 @@
     "sss": "_f_sss",
     "storyboard": "_f_storyboard",
     "story.js": "_f_storybook",
+    "story.jsx": "_f_storybook",
+    "story.ts": "_f_storybook",
+    "story.tsx": "_f_storybook",
     "stories.js": "_f_storybook",
+    "stories.jsx": "_f_storybook",
+    "stories.ts": "_f_storybook",
+    "stories.tsx": "_f_storybook",
     "svg": "_f_svg",
     "tcl": "_f_tcl",
     "exp": "_f_tcl",
@@ -2376,6 +2410,8 @@
     ".buckconfig": "_f_buckbuild",
     "gemfile": "_f_bundler",
     "gemfile.lock": "_f_bundler",
+    "cargo.toml": "_f_cargo",
+    "cargo.lock": "_f_cargo",
     "chefignore": "_f_chef",
     "berksfile": "_f_chef",
     "berksfile.lock": "_f_chef",
@@ -2397,6 +2433,8 @@
     "crowdin.yml": "_f_crowdin",
     ".csslintrc": "_f_csslint",
     ".cvsignore": "_f_cvs",
+    "cypress.json": "_f_cypress",
+    "cypress.env.json": "_f_cypress",
     ".boringignore": "_f_darcs",
     "dependencies.yml": "_f_dependencies",
     ".dockerignore": "_f_docker",
@@ -2502,10 +2540,13 @@
     "phpunit": "_f_phpunit",
     "phpunit.xml": "_f_phpunit",
     "phpunit.xml.dist": "_f_phpunit",
+    "pipfile": "_f_pip",
+    "pipfile.lock": "_f_pip",
     ".postcssrc.js": "_f_postcss",
     "postcss.config.js": "_f_postcss",
     ".prettierrc": "_f_prettier",
     "prettier.config.js": "_f_prettier",
+    ".prettierignore": "_f_prettier",
     "procfile": "_f_procfile",
     "protractor.conf.js": "_f_protractor",
     "protractor.conf.coffee": "_f_protractor",
@@ -2524,6 +2565,7 @@
     ".snyk": "_f_snyk",
     ".stylelintrc": "_f_stylelint",
     ".stylelintignore": "_f_stylelint",
+    ".stylelintcache": "_f_stylelint",
     "stylelint.config.js": "_f_stylelint",
     "stylelint.config.json": "_f_stylelint",
     "stylelint.config.yaml": "_f_stylelint",
@@ -2620,6 +2662,9 @@
     "webpack.prod.js": "_f_webpack",
     "webpack.prod.coffee": "_f_webpack",
     "webpack.prod.ts": "_f_webpack",
+    "webpack.prod.conf.js": "_f_webpack",
+    "webpack.prod.conf.coffee": "_f_webpack",
+    "webpack.prod.conf.ts": "_f_webpack",
     "webpack.mix.js": "_f_webpack",
     "webpack.mix.coffee": "_f_webpack",
     "webpack.mix.ts": "_f_webpack",
@@ -2652,13 +2697,13 @@
     "autoit": "_f_autoit",
     "avro": "_f_avro",
     "bat": "_f_bat",
+    "bazel": "_f_bazel",
     "blade": "_f_blade",
     "laravel-blade": "_f_blade",
     "bolt": "_f_bolt",
     "c": "_f_c",
     "c-al": "_f_c_al",
     "cabal": "_f_cabal",
-    "cake": "_f_cake",
     "cfml": "_f_cf",
     "lang-cfml": "_f_cf",
     "cfc": "_f_cfc",
@@ -2737,6 +2782,7 @@
     "json5": "_f_json5",
     "julia": "_f_julia",
     "juliamarkdown": "_f_julia",
+    "kivy": "_f_kivy",
     "kos": "_f_kos",
     "kotlin": "_f_kotlin",
     "less": "_f_less",
@@ -2881,6 +2927,7 @@
       ".initializers": "_fd_config",
       "css": "_fd_css",
       "_css": "_fd_css",
+      "cypress": "_fd_cypress",
       "db": "_fd_db",
       "database": "_fd_db",
       "sql": "_fd_db",
@@ -2917,6 +2964,8 @@
       "icons": "_fd_images",
       "icon": "_fd_images",
       "ico": "_fd_images",
+      "screenshot": "_fd_images",
+      "screenshots": "_fd_images",
       "include": "_fd_include",
       "includes": "_fd_include",
       "incl": "_fd_include",
@@ -3046,6 +3095,7 @@
       ".initializers": "_fd_config_open",
       "css": "_fd_css_open",
       "_css": "_fd_css_open",
+      "cypress": "_fd_cypress_open",
       "db": "_fd_db_open",
       "database": "_fd_db_open",
       "sql": "_fd_db_open",
@@ -3082,6 +3132,8 @@
       "icons": "_fd_images_open",
       "icon": "_fd_images_open",
       "ico": "_fd_images_open",
+      "screenshot": "_fd_images_open",
+      "screenshots": "_fd_images_open",
       "include": "_fd_include_open",
       "includes": "_fd_include_open",
       "incl": "_fd_include_open",
@@ -3256,6 +3308,7 @@
       "scpt": "_f_binary",
       "scptd": "_f_binary",
       "so": "_f_binary",
+      "cake": "_f_cake",
       "csr": "_f_cert",
       "crt": "_f_cert",
       "cer": "_f_cert",
@@ -3445,7 +3498,13 @@
       "sss": "_f_sss",
       "storyboard": "_f_storyboard",
       "story.js": "_f_storybook",
+      "story.jsx": "_f_storybook",
+      "story.ts": "_f_storybook",
+      "story.tsx": "_f_storybook",
       "stories.js": "_f_storybook",
+      "stories.jsx": "_f_storybook",
+      "stories.ts": "_f_storybook",
+      "stories.tsx": "_f_storybook",
       "svg": "_f_svg",
       "tcl": "_f_tcl",
       "exp": "_f_tcl",
@@ -3540,6 +3599,8 @@
       ".buckconfig": "_f_buckbuild",
       "gemfile": "_f_bundler",
       "gemfile.lock": "_f_bundler",
+      "cargo.toml": "_f_cargo",
+      "cargo.lock": "_f_cargo",
       "chefignore": "_f_chef",
       "berksfile": "_f_chef",
       "berksfile.lock": "_f_chef",
@@ -3561,6 +3622,8 @@
       "crowdin.yml": "_f_crowdin",
       ".csslintrc": "_f_csslint",
       ".cvsignore": "_f_cvs",
+      "cypress.json": "_f_cypress",
+      "cypress.env.json": "_f_cypress",
       ".boringignore": "_f_darcs",
       "dependencies.yml": "_f_dependencies",
       ".dockerignore": "_f_docker",
@@ -3666,10 +3729,13 @@
       "phpunit": "_f_phpunit",
       "phpunit.xml": "_f_phpunit",
       "phpunit.xml.dist": "_f_phpunit",
+      "pipfile": "_f_pip",
+      "pipfile.lock": "_f_pip",
       ".postcssrc.js": "_f_postcss",
       "postcss.config.js": "_f_postcss",
       ".prettierrc": "_f_light_prettier",
       "prettier.config.js": "_f_light_prettier",
+      ".prettierignore": "_f_light_prettier",
       "procfile": "_f_procfile",
       "protractor.conf.js": "_f_protractor",
       "protractor.conf.coffee": "_f_protractor",
@@ -3688,6 +3754,7 @@
       ".snyk": "_f_snyk",
       ".stylelintrc": "_f_light_stylelint",
       ".stylelintignore": "_f_light_stylelint",
+      ".stylelintcache": "_f_light_stylelint",
       "stylelint.config.js": "_f_light_stylelint",
       "stylelint.config.json": "_f_light_stylelint",
       "stylelint.config.yaml": "_f_light_stylelint",
@@ -3784,6 +3851,9 @@
       "webpack.prod.js": "_f_webpack",
       "webpack.prod.coffee": "_f_webpack",
       "webpack.prod.ts": "_f_webpack",
+      "webpack.prod.conf.js": "_f_webpack",
+      "webpack.prod.conf.coffee": "_f_webpack",
+      "webpack.prod.conf.ts": "_f_webpack",
       "webpack.mix.js": "_f_webpack",
       "webpack.mix.coffee": "_f_webpack",
       "webpack.mix.ts": "_f_webpack",
@@ -3816,13 +3886,13 @@
       "autoit": "_f_autoit",
       "avro": "_f_avro",
       "bat": "_f_bat",
+      "bazel": "_f_bazel",
       "blade": "_f_blade",
       "laravel-blade": "_f_blade",
       "bolt": "_f_bolt",
       "c": "_f_c",
       "c-al": "_f_c_al",
       "cabal": "_f_cabal",
-      "cake": "_f_cake",
       "cfml": "_f_cf",
       "lang-cfml": "_f_cf",
       "cfc": "_f_cfc",
@@ -3901,6 +3971,7 @@
       "json5": "_f_light_json5",
       "julia": "_f_julia",
       "juliamarkdown": "_f_julia",
+      "kivy": "_f_kivy",
       "kos": "_f_kos",
       "kotlin": "_f_kotlin",
       "less": "_f_less",
@@ -4008,5 +4079,6 @@
       "yaml-tmlanguage": "_f_light_yaml",
       "yang": "_f_yang"
     }
-  }
+  },
+  "hidesExplorerArrows": false
 }
