@@ -1,6 +1,1 @@
-export type SupportedHostings = 'github'
-    | 'githubgist'
-    | 'gitlab'
-    | 'bitbucket'
-    | 'pastebin'
-    | 'sourceforge';
+export type SupportedHostings = 'github' | 'githubgist' | 'gitlab' | 'bitbucket' | 'pastebin' | 'sourceforge';

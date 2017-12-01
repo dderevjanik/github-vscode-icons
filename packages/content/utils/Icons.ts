@@ -14,6 +14,7 @@ export const getIconUrl = (iconFileName: string) => chrome.runtime.getURL('icons
 
 export const DEFAULT_FOLDER = 'default_folder.svg';
 export const DEFAULT_FOLDER_OPENED = 'default_folder_opened.svg';
+export const DEFAULT_ROOT = 'default_root_folder.svg';
 export const DEFAULT_ROOT_OPENED = 'default_root_folder_opened.svg';
 export const DEFAULT_FILE = 'default_file.svg';
 

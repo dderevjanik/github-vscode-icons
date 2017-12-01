@@ -10,13 +10,13 @@ import { initSourceForge } from '../pages/SourceForge';
  * @param host - will show icons on page for host
  */
 export function showIconsForHosting(host: SupportedHostings) {
-	const funcsToShowIcons: { [H in SupportedHostings]: () => void } = {
-		bitbucket: initBitBucket,
-		githubgist: initGistGithub,
-		github: initGithub,
-		gitlab: initGitLab,
-		pastebin: initPasteBin,
-		sourceforge: initSourceForge
-	};
-	funcsToShowIcons[host]();
+  const funcsToShowIcons: { [H in SupportedHostings]: () => void } = {
+    bitbucket: initBitBucket,
+    githubgist: initGistGithub,
+    github: initGithub,
+    gitlab: initGitLab,
+    pastebin: initPasteBin,
+    sourceforge: initSourceForge
+  };
+  funcsToShowIcons[host]();
 }

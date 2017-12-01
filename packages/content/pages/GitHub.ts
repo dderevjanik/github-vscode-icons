@@ -3,7 +3,8 @@ import {
   getIconForOpenFolder,
   getIconForFile,
   getIconUrl,
-  DEFAULT_ROOT_OPENED
+  DEFAULT_ROOT_OPENED,
+  DEFAULT_ROOT
 } from '../utils/Icons';
 import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
 
@@ -60,18 +61,24 @@ function showRepoTreeIcons() {
      *  [TD: [SPAN: [TIME-AGO: ago]]],
      * ]
      */
-    const trEl = trEls[i];
+    const trEl = trEls[i] as Element;
 
-    const iconEl = trEl.children[0];
-    const contentEl = trEl.children[1];
+    const iconEl = trEl.children[0] as Element;
+    const iconSVGEl = iconEl.children[0] as SVGElement;
+    const contentEl = trEl.children[1] as Element;
 
-    const linkToEl = contentEl.firstElementChild!.firstElementChild as HTMLAnchorElement;
+    const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
     const name = linkToEl.innerText.toLowerCase();
 
-    const iconPath =
-      linkToEl.href.indexOf('/tree/') > 0 // is Folder ?
-        ? getIconForFolder(name.split('/').shift())
-        : getIconForFile(linkToEl.innerText.toLowerCase());
+    const iconSVGClassName = iconSVGEl.className.baseVal;
+    let iconPath = '';
+    if (iconSVGClassName.includes('octicon-file-text')) {
+      iconPath = getIconForFile(linkToEl.innerText.toLowerCase());
+    } else if (iconSVGClassName.includes('octicon-file-directory')) {
+      iconPath = getIconForFolder(name.split('/').shift());
+    } else if (iconSVGClassName.includes('octicon-file-submodule')) {
+      iconPath = DEFAULT_ROOT;
+    }
 
     iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
   }
