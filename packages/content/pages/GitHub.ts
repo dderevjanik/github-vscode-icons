@@ -4,7 +4,8 @@ import {
   getIconForFile,
   getIconUrl,
   DEFAULT_ROOT_OPENED,
-  DEFAULT_ROOT
+  DEFAULT_ROOT,
+  DEFAULT_FILE
 } from '../utils/Icons';
 import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
 
@@ -78,6 +79,8 @@ function showRepoTreeIcons() {
       iconPath = getIconForFolder(name.split('/').shift());
     } else if (iconSVGClassName.includes('octicon-file-submodule')) {
       iconPath = DEFAULT_ROOT;
+    } else if (iconSVGClassName.includes('octicon-file-symlink-file')) {
+      iconPath = DEFAULT_FILE;
     }
 
     iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
