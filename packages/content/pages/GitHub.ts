@@ -73,13 +73,13 @@ function showRepoTreeIcons() {
 
     const iconSVGClassName = iconSVGEl.className.baseVal;
     let iconPath = '';
-    if (iconSVGClassName.includes('octicon-file-text')) {
+    if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.endsWith('octicon-file')) {
       iconPath = getIconForFile(linkToEl.innerText.toLowerCase());
-    } else if (iconSVGClassName.includes('octicon-file-directory')) {
+    } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
       iconPath = getIconForFolder(name.split('/').shift());
-    } else if (iconSVGClassName.includes('octicon-file-submodule')) {
+    } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
       iconPath = DEFAULT_ROOT;
-    } else if (iconSVGClassName.includes('octicon-file-symlink-file')) {
+    } else if (iconSVGClassName.endsWith('octicon-file-symlink-file')) {
       iconPath = DEFAULT_FILE;
     }
 

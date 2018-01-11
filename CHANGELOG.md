@@ -4,11 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [1.0.7] - 2018-01-DD
+## [1.0.7] - 2018-01-11
 
 ### Added
 
-- Added Popup, where you can turn off/on vsi for specific hostings
 - Support for [gitlab.com](https://about.gitlab.com/)
     - Display icons in Repo Tree
 - Support for [bitbucket.org](https://bitbucket.org/)
@@ -20,13 +19,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
-- Updated `vscode-icons` to 7.19.1, added 25 new icons, read more at vscode-icons [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
+- Updated `vscode-icons` to 7.19.0, added 25 new icons, read more at vscode-icons [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
 - Changed structure of project to be more abstract for several web-based GIT hostings (Github, Gitlab, Bitbucket and Gist) and even for Pastebin
 
 ### Fixes
 
-- Fixed git submodule icon not showing on GH pages
-- Temporally fixed symlink icon on GH
+- [Github] no icon for submodule
+- [Github] temporally fixed bug with `symlink` files
+- [Github] not showing file icons
 
 ## [1.0.6] - 2017-10-29
 
