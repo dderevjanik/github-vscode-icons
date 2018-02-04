@@ -59,6 +59,38 @@ td.icon > img  {
 /**
  * GitLab
  */
+.fa.fa-folder.fa-fw {
+    width: 18px;
+    height: 14px;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
+    background-size: 18px 14px;
+}
+
+.fa.fa-file-text-o.fa-fw {
+    width: 18px;
+    height: 14px;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
+    background-size: 18px 14px;
+}
+
+.fa.fa-file-folder-o.fa-fw {
+    width: 18px;
+    height: 14px;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
+    background-size: 18px 14px;
+}
+
+.fa.fa-folder.fa-fw::before {
+    content: "";
+}
+
+.fa.fa-file-text-o.fa-fw::before {
+    content: "";
+}
+
+.fa.fa-file-folder-o.fa-fw::before {
+    content: "";
+}
 
 /**
  * Pastebin
