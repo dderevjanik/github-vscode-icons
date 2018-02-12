@@ -1,4 +1,4 @@
-import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconUrl } from '../utils/Icons';
+import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconUrl, DEFAULT_ROOT } from '../utils/Icons';
 import { isBitBucketRepo } from '../utils/PageDetect';
 
 const QUERY_TREE_ITEMS = '.iterable-item > td:first-child';
@@ -11,8 +11,8 @@ function showRepoTreeIcons() {
     const newIconEl = document.createElement('img');
     newIconEl.setAttribute('class', 'vscode-icon bb-icon');
 
-    const isFolder = itemEl.className.includes('dirname');
-    if (isFolder) {
+    if (itemEl.className.includes('dirname')) {
+      // FOLDER
       /**
        * [TR:
        *  [TD: [A: [SPAN: icon], folderName ]]
@@ -24,7 +24,8 @@ function showRepoTreeIcons() {
       const iconPath = getIconForFolder(name);
       newIconEl.setAttribute('src', getIconUrl(iconPath));
       itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
-    } else {
+    } else if (itemEl.className.includes('filename')) {
+      // FILE
       /**
        * [TR:
        *  [TD: [DIV: [A: [SPAN: icon], fileName]]],
@@ -39,6 +40,20 @@ function showRepoTreeIcons() {
       const iconPath = getIconForFile(name);
       newIconEl.setAttribute('src', getIconUrl(iconPath));
       itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);
+    } else if (itemEl.className.includes('subreponame')) {
+      // SUBMODULE
+      /**
+       * [TR:
+       *  [TD:
+       *    [SPAN: icon ]
+       *    [A: subRepoName ]
+       *    [A: linkToSubRepo ]
+       *  ]
+       * ]
+       */
+      const iconEl = itemEl.firstElementChild! as HTMLSpanElement;
+      newIconEl.setAttribute('src', getIconUrl(DEFAULT_ROOT));
+      itemEl.replaceChild(newIconEl, iconEl);
     }
   }
 }

@@ -50,10 +50,42 @@ td.icon > img  {
 /**
  * BitBucket
  */
-
 .bb-icon {
     margin-right: 10px;
     vertical-align: text-top;
+}
+
+.aui-iconfont-devtools-folder-closed:before {
+    width: 16px;
+    height: 16px;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
+    background-size: 16px 16px;
+}
+
+.aui-iconfont-devtools-submodule:before {
+    width: 16px;
+    height: 16px;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
+    background-size: 16px 16px;
+}
+
+.aui-iconfont-devtools-file:before {
+    width: 16px;
+    height: 16px;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
+    background-size: 16px 16px;
+}
+
+.aui-iconfont-devtools-folder-closed:before {
+    content: "" !important;
+}
+
+.aui-iconfont-devtools-submodule:before {
+    content: "" !important;
+}
+
+.aui-iconfont-devtools-file:before {
+    content: "" !important;
 }
 
 /**
