@@ -1,5 +1,6 @@
 import { getIconForPBSyntax, getIconUrl, DEFAULT_FILE } from '../utils/Icons';
 import { isPastebinUserList, isPasteOpen } from '../utils/PageDetect';
+import { mutate } from 'fastdom';
 
 const QUERY_PASTEBIN_ITEMS = '.maintable>tbody>tr';
 const QUERY_PASTEBIN_PASTE = '#code_buttons>span:last-child';
@@ -29,10 +30,12 @@ function showIconsForFiles() {
     const iconPath = getIconForPBSyntax(syntaxName);
 
     const newIconEl = document.createElement('img');
-    newIconEl.setAttribute('src', getIconUrl(iconPath));
-    newIconEl.setAttribute('class', 'vscode-icon vsi-pb');
+    mutate(() => {
+      newIconEl.setAttribute('src', getIconUrl(iconPath));
+      newIconEl.setAttribute('class', 'vscode-icon vsi-pb');
 
-    iconAndNameEl.replaceChild(newIconEl, iconEl);
+      iconAndNameEl.replaceChild(newIconEl, iconEl);
+    });
   }
 }
 

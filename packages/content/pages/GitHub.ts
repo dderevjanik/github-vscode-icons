@@ -8,6 +8,7 @@ import {
   DEFAULT_FILE
 } from '../utils/Icons';
 import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
+import { mutate } from 'fastdom';
 
 const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
 const QUERY_PATH_SEGMENTS = 'js-path-segment';
@@ -83,7 +84,9 @@ function showRepoTreeIcons() {
       iconPath = DEFAULT_FILE;
     }
 
-    iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
+    mutate(() => {
+      iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
+    })
   }
 }
 
@@ -130,8 +133,9 @@ export function initGithub() {
       });
     }
   };
-
+  console.time('RENDER');
   update();
+  console.timeEnd('RENDER');
   observeFragment();
   document.addEventListener('pjax:end', update); // Update on page change
   document.addEventListener('pjax:end', observeFragment);

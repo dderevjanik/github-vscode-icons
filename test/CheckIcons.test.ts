@@ -6,7 +6,7 @@ const fileExtensions1ToIcon = require('../packages/content/data/FileExtensions1T
 const fileExtensions2ToIcon = require('../packages/content/data/FileExtensions2ToIcon.json') as NAME_TO_ICON;
 const fileNamesToIcon = require('../packages/content/data/FileNamesToIcon.json') as NAME_TO_ICON;
 const languagesToIcon = require('../packages/content/data/LanguagesToIcon.json') as NAME_TO_ICON;
-const PBSyntaxesToIcon = require('../packages/content/data/PBSyntaxToIcon.json') as NAME_TO_ICON;
+const PBSyntaxesToIcon = require('../packages/content/data/PastebinSyntaxesToIcon.json') as NAME_TO_ICON;
 
 describe('Check if all icon files exists on disk', () => {
 

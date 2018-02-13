@@ -1,18 +1,16 @@
 /**
  * Script will create json data, which contains dictionaries for runtime,
- * where `key` is name of folder
- * we want icon for and `value` is icon's filename.
+ * where `key` is name of folder we want icon for and `value` is icon's filename.
  */
 import * as Path from 'path';
 import { writeFileSync, readFileSync } from 'fs';
-import { bgYellow, green } from 'chalk';
-
+import Ch from 'chalk';
 const log = console.log;
 const filename = Path.basename(__filename);
 const iconsJSONFile = readFileSync('./icons.json');
-const languagesJSONFile = readFileSync('./languages.json');
+const vsiLanguagesFile = readFileSync('./languages-vsi.json');
+const vscodeLanguagesFile = readFileSync('./languages-vscode.json');
 const PATH_ICONSDATA = './packages/content/data';
-
 type IconKey = string;
 
 const icons = JSON.parse(iconsJSONFile.toString()) as {
@@ -29,7 +27,7 @@ const icons = JSON.parse(iconsJSONFile.toString()) as {
     }
 };
 
-const langauges = JSON.parse(languagesJSONFile.toString()) as {
+const languages = JSON.parse(vsiLanguagesFile.toString()) as {
     [language: string]: {
         ids: string | string[];
         defaultExtension: string;
@@ -42,13 +40,13 @@ const writeFile = (path: string, callback: () => any) => {
         path,
         JSON.stringify(result, null, 2)
     );
-    log(green(`> '${path}' file created`));
+    log(Ch.green(`> '${path}' file created`));
 }
 
 // create mini-json files
 
 (async function () {
-    log(bgYellow(`(${filename}) Creating mini-json files from definitions`));
+    log(Ch.bgYellow(`(${filename}) Creating mini-json files from definitions`));
 
     const iconToPath: any = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
         ...acc,
@@ -111,10 +109,15 @@ const writeFile = (path: string, callback: () => any) => {
     });
 
     // Languages to Icon
+    const vscodeLanguages = JSON.parse(vscodeLanguagesFile.toString()) as {
+        [languageId: string]: {
+            extensions: [string]
+        }
+    };
     writeFile(`${PATH_ICONSDATA}/LanguagesToIcon.json`, () => {
-        const languagesIds = Object.keys(langauges).reduce((acc, languageId) => {
-            const languageDef = langauges[languageId];
-            const languageExtension = languageDef.defaultExtension;
+        const languagesIds = Object.keys(languages).reduce((acc, languageId) => {
+            const language = languages[languageId];
+            const defaultExtension = language.defaultExtension;
             const iconFileName = icons.languageIds[languageId];
 
             // sometimes, icon for language not exists, so skip it
@@ -128,16 +131,30 @@ const writeFile = (path: string, callback: () => any) => {
             const withoutPrefix = iconFileName.slice(3); // remove prefix "_f_"
             const lightIconFileName = `_f_light_${withoutPrefix}`;
             const existsLightTheme = icons.iconDefinitions[lightIconFileName]; // try to find light theme of icon
+            const iconPath = existsLightTheme
+                ? iconToPath[lightIconFileName]
+                : iconToPath[iconFileName];
 
-            const langaugeIcon = {
-                [languageDef.defaultExtension]: existsLightTheme
-                    ? iconToPath[lightIconFileName]
-                    : iconToPath[iconFileName]
-            };
-            return {
-                ...acc,
-                ...langaugeIcon
-            };
+            // Are there any language extensions supported by vscode ?
+            if (vscodeLanguages[languageId]) {
+                const supportedExtensions = vscodeLanguages[languageId].extensions;
+                const languageExtensions: { [ext: string]: string } = {};
+                supportedExtensions.forEach((extension) => {
+                    // slice(1) - remove dot (e.g. ".cpp" to "cpp")
+                    languageExtensions[extension.slice(1)] = iconPath;
+                });
+                return {
+                    ...acc,
+                    ...languageExtensions
+                }
+            } else {
+                console.log(iconPath);
+                return {
+                    ...acc,
+                    [language.defaultExtension]: iconPath
+                };
+            }
+
         }, {});
         return languagesIds;
     });

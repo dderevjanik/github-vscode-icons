@@ -5,7 +5,7 @@ const fileExtensions1ToIcon = require('../data/FileExtensions1ToIcon.json') as N
 const fileExtensions2ToIcon = require('../data/FileExtensions2ToIcon.json') as NAME_TO_ICON;
 const fileNamesToIcon = require('../data/FileNamesToIcon.json') as NAME_TO_ICON;
 const languagesToIcon = require('../data/LanguagesToIcon.json') as NAME_TO_ICON;
-const PBSyntaxesToIcon = require('../data/PBSyntaxToIcon.json') as NAME_TO_ICON;
+const PBSyntaxesToIcon = require('../data/PastebinSyntaxesToIcon.json') as NAME_TO_ICON;
 
 /**
  * Retrieve url of icon within chrome
@@ -28,6 +28,9 @@ export function getIconForFolder(folderName: string) {
   return folderIcon ? folderIcon : DEFAULT_FOLDER;
 }
 
+let prevExtension: null | string = null;
+let prevIcon: null | string = null;
+
 /**
  * Get icon for a file
  * @param fileName name of file to find icon for
@@ -42,7 +45,7 @@ export function getIconForFile(fileName: string) {
 
   // match by File Extension
   const extensions = fileName.split('.');
-  if (extensions.length > 1) {
+  if (extensions.length > 2) {
     const ext1 = extensions.pop();
     const ext2 = extensions.pop();
     // check for `.js.map`, `test.tsx`, ...
@@ -51,14 +54,24 @@ export function getIconForFile(fileName: string) {
       return iconFromExtension2;
     }
     // check for `.js`, `tsx`, ...
+    if (ext1 === prevExtension) {
+      return prevIcon;
+    }
     const iconFromExtension1 = fileExtensions1ToIcon[ext1];
     if (iconFromExtension1 !== undefined) {
+      prevExtension = ext1;
+      prevIcon = iconFromExtension1;
       return iconFromExtension1;
     }
   } else {
     const ext = extensions.pop();
+    if (ext === prevExtension) {
+      return prevIcon;
+    }
     const iconFromExtension = fileExtensions1ToIcon[ext];
     if (iconFromExtension !== undefined) {
+      prevExtension = ext;
+      prevIcon = iconFromExtension;
       return iconFromExtension;
     }
   }

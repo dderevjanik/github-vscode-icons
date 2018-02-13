@@ -130,3 +130,11 @@ td.icon > img  {
 .vsi-pb {
     margin: 10px 7px 0 -5px
 }
+
+/**
+ * Source Forge
+ */
+.vscode-icon.sf-icon {
+    width:  20px;
+    height: 20px;
+}

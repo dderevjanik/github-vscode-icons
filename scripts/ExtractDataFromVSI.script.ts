@@ -5,7 +5,7 @@
  */
 import * as Path from 'path';
 import fetch from 'node-fetch';
-import { bgYellow, green } from 'chalk';
+import Ch from 'chalk';
 import { writeFileSync } from 'fs';
 
 const log = console.log;
@@ -17,7 +17,7 @@ const reIds = /ids:.*'(.*?)'/;
 const reExt = /defaultExtension:.*'(.*?)'/;
 
 (async function () {
-  log(bgYellow(`(${filename}) Downloading vscode languages`));
+  log(Ch.bgYellow(`(${filename}) Downloading vscode languages`));
 
   fetch(LANG_URL, {})
     .then(res => res.text())
@@ -35,7 +35,7 @@ const reExt = /defaultExtension:.*'(.*?)'/;
         };
       });
       const languagesJSON = JSON.stringify(languages, null, 2);
-      writeFileSync('../languages.json', languagesJSON);
-      log(green(`> './languages.json' file created`));
+      writeFileSync('../languages-vsi.json', languagesJSON);
+      log(Ch.green(`> './languages-vsi.json' file created`));
     });
 })();

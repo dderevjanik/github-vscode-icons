@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.8] - 2018-MM-DD
+
+### Added
+
+- Support for over **166 file extensions** for current languages
+- [BitBucket] Loading icon
+- [Dev] Typings (`d.ts`) for json files
+- [Dev] [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to recommended extension
+- [Dev] Re-arranged npm scripts
+
+### Changed
+
+- **Extremely improved performance**
+- Extended prettier to lint `.json` and `.tsx` files
+
+### Fixes
+
+- [BitBucket] fixed issue with `subrepo` icon
+- [SourceForge] updated to match new design
+
 ## [1.0.7] - 2018-01-11
 
 ### Added

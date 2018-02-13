@@ -1,5 +1,6 @@
 import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconUrl, DEFAULT_ROOT } from '../utils/Icons';
 import { isBitBucketRepo } from '../utils/PageDetect';
+import { mutate } from 'fastdom';
 
 const QUERY_TREE_ITEMS = '.iterable-item > td:first-child';
 
@@ -22,8 +23,10 @@ function showRepoTreeIcons() {
       const iconEl = itemEl.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = itemEl.innerText.toLowerCase();
       const iconPath = getIconForFolder(name);
-      newIconEl.setAttribute('src', getIconUrl(iconPath));
-      itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
+      mutate(() => {
+        newIconEl.setAttribute('src', getIconUrl(iconPath));
+        itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
+      });
     } else if (itemEl.className.includes('filename')) {
       // FILE
       /**
@@ -38,8 +41,10 @@ function showRepoTreeIcons() {
       const iconEl = itemEl.firstElementChild!.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = (itemEl.firstElementChild as HTMLDivElement).innerText.toLowerCase();
       const iconPath = getIconForFile(name);
-      newIconEl.setAttribute('src', getIconUrl(iconPath));
-      itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);
+      mutate(() => {
+        newIconEl.setAttribute('src', getIconUrl(iconPath));
+        itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);
+      });
     } else if (itemEl.className.includes('subreponame')) {
       // SUBMODULE
       /**
@@ -52,8 +57,10 @@ function showRepoTreeIcons() {
        * ]
        */
       const iconEl = itemEl.firstElementChild! as HTMLSpanElement;
-      newIconEl.setAttribute('src', getIconUrl(DEFAULT_ROOT));
-      itemEl.replaceChild(newIconEl, iconEl);
+      mutate(() => {
+        newIconEl.setAttribute('src', getIconUrl(DEFAULT_ROOT));
+        itemEl.replaceChild(newIconEl, iconEl);
+      });
     }
   }
 }
