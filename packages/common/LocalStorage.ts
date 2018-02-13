@@ -5,12 +5,12 @@ import { SupportedHostings } from './SupportedHostings';
 
 export type LocalStorage = {
   /**
-     * Extension version
-     */
+   * Extension version
+   */
   version: string;
   /**
-     * List of showed/hidden icons for specific hosts
-     */
+   * List of showed/hidden icons for specific hosts
+   */
   showIcons: { [Hosting in SupportedHostings]: boolean };
 };
 

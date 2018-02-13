@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - [Dev] Typings (`d.ts`) for json files
 - [Dev] [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to recommended extension
 - [Dev] Re-arranged npm scripts
+- [Dev] Better script handling
 
 ### Changed
 

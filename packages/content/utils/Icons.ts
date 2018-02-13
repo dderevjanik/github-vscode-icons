@@ -54,11 +54,13 @@ export function getIconForFile(fileName: string) {
       return iconFromExtension2;
     }
     // check for `.js`, `tsx`, ...
+
     if (ext1 === prevExtension) {
       return prevIcon;
     }
     const iconFromExtension1 = fileExtensions1ToIcon[ext1];
     if (iconFromExtension1 !== undefined) {
+      // memoization
       prevExtension = ext1;
       prevIcon = iconFromExtension1;
       return iconFromExtension1;
@@ -70,6 +72,7 @@ export function getIconForFile(fileName: string) {
     }
     const iconFromExtension = fileExtensions1ToIcon[ext];
     if (iconFromExtension !== undefined) {
+      // memoization
       prevExtension = ext;
       prevIcon = iconFromExtension;
       return iconFromExtension;

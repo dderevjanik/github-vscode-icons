@@ -25,9 +25,9 @@ function showIconsForSegments() {
   // first segment has always root folder icon
   if (firstSegment) {
     const spanEl = firstSegment.children[0] as HTMLSpanElement;
-    spanEl.innerHTML = `<img src="${getIconUrl(
-      DEFAULT_ROOT_OPENED
-    )}" alt="icon" class="vscode-icon"><span> ${spanEl.innerText}</span>`;
+    spanEl.innerHTML = `<img src="${getIconUrl(DEFAULT_ROOT_OPENED)}" alt="icon" class="vscode-icon"><span> ${
+      spanEl.innerText
+    }</span>`;
   }
 
   // check if final segment is file or folder
@@ -35,9 +35,9 @@ function showIconsForSegments() {
     const iconPath = window.location.href.includes('/blob/')
       ? getIconForFile(finalSegment.innerText)
       : getIconForOpenFolder(finalSegment.innerText);
-    finalSegment.innerHTML = `<img src="${getIconUrl(
-      iconPath
-    )}" alt="icon" class="vscode-icon"><span> ${finalSegment.innerText}</span>`;
+    finalSegment.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" class="vscode-icon"><span> ${
+      finalSegment.innerText
+    }</span>`;
   }
 
   // segments between first and last are always folders
@@ -84,9 +84,9 @@ function showRepoTreeIcons() {
       iconPath = DEFAULT_FILE;
     }
 
-    mutate(() => {
+    const x = mutate(() => {
       iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
-    })
+    });
   }
 }
 

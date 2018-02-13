@@ -2,16 +2,16 @@ import { SupportedHostings } from './SupportedHostings';
 
 type HostData = {
   /**
-     * Hosting full name
-     */
+   * Hosting full name
+   */
   fullName: string;
   /**
-     * Favicon url
-     */
+   * Favicon url
+   */
   favicon: string;
   /**
-     * Used to match host url
-     */
+   * Used to match host url
+   */
   host: string;
 };
 

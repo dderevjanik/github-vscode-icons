@@ -7,15 +7,17 @@
   "scripts": {
     "test": "jest",
     "test:dev": "jest --watch",
-    "preprocess": "npm run script:extractData && npm run script:iconsData",
-    "script:extractData": "ts-node ./scripts/ExtractDataFromVSI.script.ts",
-    "script:iconsData": "ts-node ./scripts/CreateIconsData.script.ts",
-    "script:makeZip": "ts-node ./scripts/MakeZipFromDist.script.ts",
-    "build:dev": "npm run test && npx webpack --config webpack.config.dev.js && npm run script:makeZip",
-    "build:prod": "npm run test && npx webpack --config webpack.config.prod.js && npm run script:makeZip",
+    "test:scripts":
+      "npm run script:extract-data-from-vsi && npm run script:create-icons-data && npm run script:make-zip",
+    "preprocess": "npm run script:extract-data-from-vsi && npm run script:create-icons-data",
+    "script:extract-data-from-vsi": "ts-node ./scripts/extract-data-from-vsi.script.ts",
+    "script:create-icons-data": "ts-node ./scripts/create-icons-data.script.ts",
+    "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
+    "build:dev": "npm run test && npx webpack --config webpack.config.dev.js && npm run script:make-zip",
+    "build:prod": "npm run test && npx webpack --config webpack.config.prod.js && npm run script:make-zip",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
-    "ling:packages": "prettier --write ./packages/**/*.{.ts,json,d.ts,.tsx}",
-    "lint:json": "prettier --write ./*.json",
+    "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
+    "lint:json": "prettier --parser json --write ./*.json",
     "lint:typings": "prettier --write ./typings/**/*.d.ts",
     "dev": "npx webpack --watch --config webpack.config.dev.js",
     "dev:prod": "npx webpack --watch --config webpack.config.prod.js"
@@ -33,11 +35,7 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
     "collectCoverage": false,
     "testEnvironment": "node"
   },

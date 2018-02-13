@@ -1,9 +1,9 @@
-declare module "*languages-vscode.json" {
-    const json: {
-        [languageId: string]: {
-            extensions: string[];
-            filenames: string[];
-        }
+declare module '*languages-vscode.json' {
+  const json: {
+    [languageId: string]: {
+      extensions: string[];
+      filenames: string[];
     };
-    export default json;
+  };
+  export default json;
 }

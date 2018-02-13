@@ -2,11 +2,9 @@
  * Script will create json data, which contains dictionaries for runtime,
  * where `key` is name of folder we want icon for and `value` is icon's filename.
  */
-import * as Path from 'path';
+import { script } from './utils';
 import { writeFileSync, readFileSync } from 'fs';
 import Ch from 'chalk';
-const log = console.log;
-const filename = Path.basename(__filename);
 const iconsJSONFile = readFileSync('./icons.json');
 const vsiLanguagesFile = readFileSync('./languages-vsi.json');
 const vscodeLanguagesFile = readFileSync('./languages-vscode.json');
@@ -40,14 +38,12 @@ const writeFile = (path: string, callback: () => any) => {
         path,
         JSON.stringify(result, null, 2)
     );
-    log(Ch.green(`> '${path}' file created`));
+    console.log(Ch.green(`> '${path}' file created`));
 }
 
 // create mini-json files
 
-(async function () {
-    log(Ch.bgYellow(`(${filename}) Creating mini-json files from definitions`));
-
+script(__filename, 'Creating mini-json files from definitions', ({ log }, exit) => {
     const iconToPath: any = Object.keys(icons.iconDefinitions).reduce((acc, icon) => ({
         ...acc,
         [icon]: icons.iconDefinitions[icon].iconPath.split('/').pop()
@@ -143,12 +139,13 @@ const writeFile = (path: string, callback: () => any) => {
                     // slice(1) - remove dot (e.g. ".cpp" to "cpp")
                     languageExtensions[extension.slice(1)] = iconPath;
                 });
+                // Override default extension
+                languageExtensions[language.defaultExtension] = iconPath;
                 return {
                     ...acc,
                     ...languageExtensions
                 }
             } else {
-                console.log(iconPath);
                 return {
                     ...acc,
                     [language.defaultExtension]: iconPath
@@ -158,5 +155,5 @@ const writeFile = (path: string, callback: () => any) => {
         }, {});
         return languagesIds;
     });
-
-})();
+    exit();
+});
