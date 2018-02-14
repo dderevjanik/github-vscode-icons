@@ -7,8 +7,7 @@
   "scripts": {
     "test": "jest",
     "test:dev": "jest --watch",
-    "test:scripts":
-      "npm run script:extract-data-from-vsi && npm run script:create-icons-data && npm run script:make-zip",
+    "test:scripts": "npm run script:extract-data-from-vsi && npm run script:create-icons-data && npm run script:make-zip",
     "preprocess": "npm run script:extract-data-from-vsi && npm run script:create-icons-data",
     "script:extract-data-from-vsi": "ts-node ./scripts/extract-data-from-vsi.script.ts",
     "script:create-icons-data": "ts-node ./scripts/create-icons-data.script.ts",
@@ -35,7 +34,11 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "collectCoverage": false,
     "testEnvironment": "node"
   },
@@ -68,6 +71,7 @@
     "ts-loader": "^2.3.7",
     "ts-node": "^3.3.0",
     "typescript": "^2.7.1",
+    "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.11.0"
   }
 }

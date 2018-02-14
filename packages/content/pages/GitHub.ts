@@ -27,7 +27,7 @@ function showIconsForSegments() {
     const spanEl = firstSegment.children[0] as HTMLSpanElement;
     spanEl.innerHTML = `<img src="${getIconUrl(DEFAULT_ROOT_OPENED)}" alt="icon" class="vscode-icon"><span> ${
       spanEl.innerText
-    }</span>`;
+      }</span>`;
   }
 
   // check if final segment is file or folder
@@ -37,7 +37,7 @@ function showIconsForSegments() {
       : getIconForOpenFolder(finalSegment.innerText);
     finalSegment.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" class="vscode-icon"><span> ${
       finalSegment.innerText
-    }</span>`;
+      }</span>`;
   }
 
   // segments between first and last are always folders
@@ -133,9 +133,7 @@ export function initGithub() {
       });
     }
   };
-  console.time('RENDER');
   update();
-  console.timeEnd('RENDER');
   observeFragment();
   document.addEventListener('pjax:end', update); // Update on page change
   document.addEventListener('pjax:end', observeFragment);

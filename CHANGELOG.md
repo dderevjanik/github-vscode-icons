@@ -8,17 +8,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
-- Support for over **166 file extensions** for current languages
+- Support for new **166 file extensions** for current languages
 - [BitBucket] Loading icon
 - [Dev] Typings (`d.ts`) for json files
 - [Dev] [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to recommended extension
-- [Dev] Re-arranged npm scripts
-- [Dev] Better script handling
 
 ### Changed
 
 - **Extremely improved performance**
 - Extended prettier to lint `.json` and `.tsx` files
+- [Dev] Typescript now targeting `ES6`
+- [Dev] Re-arranged npm scripts
+- [Dev] Better npm script handling
 
 ### Fixes
 
