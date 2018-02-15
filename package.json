@@ -7,13 +7,9 @@
   "scripts": {
     "test": "jest",
     "test:dev": "jest --watch",
-    "test:scripts": "npm run script:extract-data-from-vsi && npm run script:create-icons-data && npm run script:make-zip",
-    "preprocess": "npm run script:extract-data-from-vsi && npm run script:create-icons-data",
-    "script:extract-data-from-vsi": "ts-node ./scripts/extract-data-from-vsi.script.ts",
-    "script:create-icons-data": "ts-node ./scripts/create-icons-data.script.ts",
     "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
     "build:dev": "npm run test && npx webpack --config webpack.config.dev.js && npm run script:make-zip",
-    "build:prod": "npm run test && npx webpack --config webpack.config.prod.js && npm run script:make-zip",
+    "build:prod": "npx webpack --config webpack.config.prod.js && npm run script:make-zip",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
     "lint:json": "prettier --parser json --write ./*.json",
@@ -59,7 +55,8 @@
     "fastdom": "^1.0.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "select-dom": "^4.1.1"
+    "select-dom": "^4.1.1",
+    "vscode-icons-js": "^1.0.0"
   },
   "devDependencies": {
     "archiver": "^2.1.1",

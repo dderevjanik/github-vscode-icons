@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - [Dev] Typescript now targeting `ES6`
 - [Dev] Re-arranged npm scripts
 - [Dev] Better npm script handling
+- [Dev] Removed icons data generation (replaced with [vscode-icons-js](https://github.com/dderevjanik/vscode-icons-js))
 
 ### Fixes
 
