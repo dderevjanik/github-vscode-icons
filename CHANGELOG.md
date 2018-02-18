@@ -4,18 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [1.0.8] - 2018-MM-DD
+## [1.0.8] - 2018-02-18
 
 ### Added
 
-- Support for new **166 file extensions** for current languages
 - [BitBucket] Loading icon
 - [Dev] Typings (`d.ts`) for json files
 - [Dev] [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to recommended extension
 
 ### Changed
 
+- Updated `vscode-icons` to 7.20.0, added 16 new file icons, read more at vscode-icons [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
 - **Extremely improved performance**
+- File extensions defined in vscode languages extensions are now showing properly (**166** file extensions)
 - Extended prettier to lint `.json` and `.tsx` files
 - [Dev] Typescript now targeting `ES6`
 - [Dev] Re-arranged npm scripts

@@ -79,7 +79,7 @@ function showRepoTreeIcons() {
     } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
       iconPath = getIconForFolder(name.split('/').shift());
     } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
-      iconPath = DEFAULT_ROOT;
+      iconPath = getIconForFolder('submodules');
     } else if (iconSVGClassName.endsWith('octicon-file-symlink-file')) {
       iconPath = DEFAULT_FILE;
     }

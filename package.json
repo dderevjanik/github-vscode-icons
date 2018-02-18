@@ -56,7 +56,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "select-dom": "^4.1.1",
-    "vscode-icons-js": "^1.0.0"
+    "vscode-icons-js": "^1.0.1"
   },
   "devDependencies": {
     "archiver": "^2.1.1",

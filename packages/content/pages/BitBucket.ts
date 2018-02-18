@@ -58,7 +58,7 @@ function showRepoTreeIcons() {
        */
       const iconEl = itemEl.firstElementChild! as HTMLSpanElement;
       mutate(() => {
-        newIconEl.setAttribute('src', getIconUrl(DEFAULT_ROOT));
+        newIconEl.setAttribute('src', getIconUrl(getIconForFolder('submodules')));
         itemEl.replaceChild(newIconEl, iconEl);
       });
     }
