@@ -1,5 +1,14 @@
 type NAME_TO_ICON = { [name: string]: string };
-export { getIconForFile, getIconForFolder, getIconForOpenFolder, DEFAULT_FILE, DEFAULT_FOLDER, DEFAULT_FOLDER_OPENED, DEFAULT_ROOT_OPENED, DEFAULT_ROOT } from 'vscode-icons-js';
+export {
+  getIconForFile,
+  getIconForFolder,
+  getIconForOpenFolder,
+  DEFAULT_FILE,
+  DEFAULT_FOLDER,
+  DEFAULT_FOLDER_OPENED,
+  DEFAULT_ROOT_OPENED,
+  DEFAULT_ROOT
+} from 'vscode-icons-js';
 import { DEFAULT_FILE } from 'vscode-icons-js';
 
 const PBSyntaxesToIcon = require('../data/PastebinSyntaxesToIcon.json') as NAME_TO_ICON;
