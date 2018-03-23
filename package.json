@@ -1,6 +1,6 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "show vscode-icons in github repository",
   "main": "index.js",
   "private": true,
@@ -8,14 +8,14 @@
     "test": "jest",
     "test:dev": "jest --watch",
     "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
-    "build:dev": "npm run test && npx webpack --config webpack.config.dev.js && npm run script:make-zip",
-    "build:prod": "npx webpack --config webpack.config.prod.js && npm run script:make-zip",
+    "build:dev": "npm run test && webpack --mode development --config webpack.config.js && npm run script:make-zip",
+    "build:prod": "webpack --mode production --config webpack.config.js && npm run script:make-zip",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
     "lint:json": "prettier --parser json --write ./*.json",
     "lint:typings": "prettier --write ./typings/**/*.d.ts",
-    "dev": "npx webpack --watch --config webpack.config.dev.js",
-    "dev:prod": "npx webpack --watch --config webpack.config.prod.js"
+    "dev": "webpack --mode development --watch --config webpack.config.js",
+    "dev:prod": "webpack --mode development --watch --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -56,7 +56,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "select-dom": "^4.1.1",
-    "vscode-icons-js": "^1.1.1"
+    "vscode-icons-js": "^1.1.2"
   },
   "devDependencies": {
     "archiver": "^2.1.1",
@@ -65,10 +65,10 @@
     "node-fetch": "^1.7.3",
     "prettier": "^1.11.1",
     "ts-jest": "^21.2.4",
-    "ts-loader": "^2.3.7",
+    "ts-loader": "^4.1.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.7.2",
-    "uglifyjs-webpack-plugin": "^1.2.4",
-    "webpack": "^3.11.0"
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13"
   }
 }
