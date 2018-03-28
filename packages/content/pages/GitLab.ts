@@ -1,6 +1,7 @@
 import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconUrl } from '../utils/Icons';
 import { isGitLabRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
+import { getFolderIcon, getFileIcon } from '../utils/Dev';
 
 const QUERY_TREE_ITEMS = '.tree-item';
 
@@ -25,7 +26,7 @@ function showRepoTreeIcons() {
     if (i === 0 && name === '..') {
       continue;
     }
-    const iconPath = nameEl.href.indexOf('/tree/') > 0 ? getIconForFolder(name) : getIconForFile(name);
+    const iconPath = nameEl.href.indexOf('/tree/') > 0 ? getFolderIcon(name) : getFileIcon(name);
 
     mutate(() => {
       newIconEl.setAttribute('src', getIconUrl(iconPath));

@@ -1,4 +1,5 @@
 import { getIconForFile, getIconForFolder, getIconForOpenFolder, getIconUrl, DEFAULT_ROOT } from '../utils/Icons';
+import { getFileIcon, getFolderIcon } from '../utils/Dev';
 import { isBitBucketRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 
@@ -22,7 +23,7 @@ function showRepoTreeIcons() {
 
       const iconEl = itemEl.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = itemEl.innerText.toLowerCase();
-      const iconPath = getIconForFolder(name);
+      const iconPath = getFolderIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
         itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
@@ -40,7 +41,7 @@ function showRepoTreeIcons() {
 
       const iconEl = itemEl.firstElementChild!.firstElementChild!.firstElementChild as HTMLSpanElement;
       const name = (itemEl.firstElementChild as HTMLDivElement).innerText.toLowerCase();
-      const iconPath = getIconForFile(name);
+      const iconPath = getFileIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
         itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);
