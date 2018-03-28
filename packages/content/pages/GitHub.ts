@@ -9,6 +9,7 @@ import {
 } from '../utils/Icons';
 import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
+import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
 const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
 const QUERY_PATH_SEGMENTS = 'js-path-segment';
@@ -75,9 +76,9 @@ function showRepoTreeIcons() {
     const iconSVGClassName = iconSVGEl.className.baseVal;
     let iconPath = '';
     if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.endsWith('octicon-file')) {
-      iconPath = getIconForFile(linkToEl.innerText.toLowerCase());
+      iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
     } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
-      iconPath = getIconForFolder(name.split('/').shift());
+      iconPath = getFolderIcon(name.split('/').shift());
     } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
       iconPath = getIconForFolder('submodules');
     } else if (iconSVGClassName.endsWith('octicon-file-symlink-file')) {
