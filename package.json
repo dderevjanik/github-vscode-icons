@@ -1,6 +1,6 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "show vscode-icons in github repository",
   "main": "index.js",
   "private": true,
@@ -58,7 +58,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "select-dom": "^4.1.1",
-    "vscode-icons-js": "^1.1.1"
+    "vscode-icons-js": "^1.1.2"
   },
   "devDependencies": {
     "archiver": "^2.1.1",

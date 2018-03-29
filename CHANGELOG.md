@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.10] - 2018-03-23
+
+### Changed
+
+- Updated `vscode-icons` to 7.22.0, added 13 new icons  [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
+
 ## [1.0.9] - 2018-03-18
 
-### Fixes
+### Changed
 
 - Updated `vscode-icons` to 7.21.0 [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
 
