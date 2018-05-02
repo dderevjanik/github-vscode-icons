@@ -1,6 +1,7 @@
 import { getIconForFile, getIconForFolder, getIconUrl } from '../utils/Icons';
 import { isSourceForgeFiles } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
+import { getFolderIcon, getFileIcon } from '../utils/Dev';
 
 const QUERY_SOURCEFORGE_ITEMS = '#files_list>tbody>tr';
 
@@ -27,7 +28,7 @@ function showIconsForFiles() {
       const iconEl = iconAndNameEl.firstElementChild as HTMLSpanElement;
       const nameEl = iconAndNameEl.lastElementChild as HTMLAnchorElement;
       const name = nameEl.innerText.toLowerCase();
-      const iconPath = getIconForFolder(name);
+      const iconPath = getFolderIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
         iconAndNameEl.replaceChild(newIconEl, iconEl);
@@ -44,7 +45,7 @@ function showIconsForFiles() {
 
       const nameEl = iconAndNameEl.firstElementChild as HTMLAnchorElement;
       const name = nameEl.innerText.toLowerCase();
-      const iconPath = getIconForFile(name);
+      const iconPath = getFileIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
         iconAndNameEl.insertBefore(newIconEl, nameEl);

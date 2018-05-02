@@ -8,14 +8,16 @@
     "test": "jest",
     "test:dev": "jest --watch",
     "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
-    "build:dev": "npm run test && webpack --mode development --config webpack.config.js && npm run script:make-zip",
-    "build:prod": "webpack --mode production --config webpack.config.js && npm run script:make-zip",
+    "manifest:prod": "cross-env NODE_ENV=production ts-node ./scripts/create-manifest.ts",
+    "manifest:dev": "cross-env NODE_ENV=development ts-node ./scripts/create-manifest.ts",
+    "build:dev": "npm run test && npm run manifest:dev && webpack --mode development --config webpack.config.js && npm run script:make-zip",
+    "build:prod": "npm run manifest:prod && webpack --mode production --config webpack.config.js && npm run script:make-zip",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
     "lint:json": "prettier --parser json --write ./*.json",
     "lint:typings": "prettier --write ./typings/**/*.d.ts",
-    "dev": "webpack --mode development --watch --config webpack.config.js",
-    "dev:prod": "webpack --mode production --watch --config webpack.config.js"
+    "dev": "npm run manifest:dev && webpack --mode development --watch --config webpack.config.js",
+    "dev:prod": "npm run manifest:prod && webpack --mode production --watch --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -61,6 +63,7 @@
   "devDependencies": {
     "archiver": "^2.1.1",
     "chalk": "^2.3.2",
+    "cross-env": "^5.1.4",
     "jest": "^21.2.1",
     "node-fetch": "^1.7.3",
     "prettier": "^1.11.1",
@@ -68,7 +71,7 @@
     "ts-loader": "^4.1.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.7.2",
-    "webpack": "^4.2.0",
+    "webpack": "^4.3.0",
     "webpack-cli": "^2.0.13"
   }
 }
