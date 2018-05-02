@@ -1,10 +1,10 @@
 .idea/
 
 # Build
-*.js
+build/*.js
 
 # Maps
-*.js.map
+build/*.js.map
 
 # Logs
 logs

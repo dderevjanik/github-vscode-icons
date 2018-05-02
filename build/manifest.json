@@ -7,7 +7,7 @@
     "48": "icon48.png",
     "16": "icon16.png"
   },
-  "version": "1.10",
+  "version": "1.11",
   "author": "Daniel Derevjanik <daniel.derevjanik@gmail.com>",
   "offline_enabled": true,
   "browser_action": {

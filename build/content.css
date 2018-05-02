@@ -50,7 +50,7 @@ td.icon > img  {
 /**
  * BitBucket
  */
-.bb-icon {
+/* .bb-icon {
     margin-right: 10px;
     vertical-align: text-top;
 }
@@ -86,41 +86,41 @@ td.icon > img  {
 
 .aui-iconfont-devtools-file:before {
     content: "" !important;
-}
+} */
 
 /**
  * GitLab
  */
-.fa.fa-folder.fa-fw {
+.tree-item > td > .fa.fa-folder.fa-fw {
     width: 18px;
     height: 14px;
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
     background-size: 18px 14px;
 }
 
-.fa.fa-file-text-o.fa-fw {
+.tree-item > td > .fa.fa-file-text-o.fa-fw {
     width: 18px;
     height: 14px;
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
     background-size: 18px 14px;
 }
 
-.fa.fa-file-folder-o.fa-fw {
+.tree-item > td > .fa.fa-file-folder-o.fa-fw {
     width: 18px;
     height: 14px;
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/animation.gif');
     background-size: 18px 14px;
 }
 
-.fa.fa-folder.fa-fw::before {
+.tree-item > td > .fa.fa-folder.fa-fw::before {
     content: "";
 }
 
-.fa.fa-file-text-o.fa-fw::before {
+.tree-item > td > .fa.fa-file-text-o.fa-fw::before {
     content: "";
 }
 
-.fa.fa-file-folder-o.fa-fw::before {
+.tree-item > td > .fa.fa-file-folder-o.fa-fw::before {
     content: "";
 }
 

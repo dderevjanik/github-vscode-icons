@@ -1,6 +1,6 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "show vscode-icons in github repository",
   "main": "index.js",
   "private": true,
@@ -15,7 +15,7 @@
     "lint:json": "prettier --parser json --write ./*.json",
     "lint:typings": "prettier --write ./typings/**/*.d.ts",
     "dev": "webpack --mode development --watch --config webpack.config.js",
-    "dev:prod": "webpack --mode development --watch --config webpack.config.js"
+    "dev:prod": "webpack --mode production --watch --config webpack.config.js"
   },
   "repository": {
     "type": "git",
