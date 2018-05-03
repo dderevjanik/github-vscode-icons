@@ -3,64 +3,51 @@ import { getFileIcon, getFolderIcon } from '../utils/Dev';
 import { isBitBucketRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 
-const QUERY_TREE_ITEMS = '.iterable-item > td:first-child';
+const QUERY_TREE_ITEMS = 'div[spacing="comfortable"] > div > div > div > div > table > tbody > tr';
 
 function showRepoTreeIcons() {
   const treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
+  console.log(treeItems);
   for (let i = 0; i < treeItems.length; i++) {
+    /**
+     * [TR:
+     *  [TD: [DIV: [A: [SPAN: [SVG: icon]]]]]
+     *  [TD: [A: name]]
+     * ]
+     */
     const itemEl = treeItems[i] as HTMLDivElement;
+    const iconAnchorEl = itemEl.firstChild!.firstChild!.firstChild! as HTMLAnchorElement;
+    const iconEl = iconAnchorEl.firstChild! as HTMLSpanElement;
+    const nameAnchorEl = itemEl.children[1].firstChild! as HTMLAnchorElement;
 
     const newIconEl = document.createElement('img');
     newIconEl.setAttribute('class', 'vscode-icon bb-icon');
 
-    if (itemEl.className.includes('dirname')) {
+    if (iconAnchorEl.href === '..') {
+      // ..
+      continue;
+    } else if (iconAnchorEl.href.endsWith('/')) {
       // FOLDER
-      /**
-       * [TR:
-       *  [TD: [A: [SPAN: icon], folderName ]]
-       * ]
-       */
-
-      const iconEl = itemEl.firstElementChild!.firstElementChild as HTMLSpanElement;
-      const name = itemEl.innerText.toLowerCase();
+      const name = nameAnchorEl.innerText.toLowerCase();
       const iconPath = getFolderIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
-        itemEl.firstElementChild!.replaceChild(newIconEl, iconEl);
-      });
-    } else if (itemEl.className.includes('filename')) {
-      // FILE
-      /**
-       * [TR:
-       *  [TD: [DIV: [A: [SPAN: icon], fileName]]],
-       *  [TD: [DIV: size]],
-       *  [TD: [DIV: [TIME: time]]],
-       *  [TD: [DIV: message]]
-       * ]
-       */
-
-      const iconEl = itemEl.firstElementChild!.firstElementChild!.firstElementChild as HTMLSpanElement;
-      const name = (itemEl.firstElementChild as HTMLDivElement).innerText.toLowerCase();
-      const iconPath = getFileIcon(name);
-      mutate(() => {
-        newIconEl.setAttribute('src', getIconUrl(iconPath));
-        itemEl.firstElementChild!.firstElementChild!.replaceChild(newIconEl, iconEl);
+        iconAnchorEl.replaceChild(newIconEl, iconEl);
       });
     } else if (itemEl.className.includes('subreponame')) {
-      // SUBMODULE
-      /**
-       * [TR:
-       *  [TD:
-       *    [SPAN: icon ]
-       *    [A: subRepoName ]
-       *    [A: linkToSubRepo ]
-       *  ]
-       * ]
-       */
+      // TODO: SUBMODULE
       const iconEl = itemEl.firstElementChild! as HTMLSpanElement;
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(getIconForFolder('submodules')));
-        itemEl.replaceChild(newIconEl, iconEl);
+        iconAnchorEl.replaceChild(newIconEl, iconEl);
+      });
+    } else {
+      // FILE
+      const name = nameAnchorEl.innerText.toLowerCase();
+      const iconPath = getFileIcon(name);
+      mutate(() => {
+        newIconEl.setAttribute('src', getIconUrl(iconPath));
+        iconAnchorEl.replaceChild(newIconEl, iconEl);
       });
     }
   }
@@ -81,11 +68,14 @@ function update(e?: any) {
 }
 
 export function initBitBucket() {
-  const observer = new MutationObserver(update);
+  const observer = new MutationObserver(() => {
+    console.log('mutationZZZZZZZ');
+    update();
+  });
   const observeFragment = () => {
-    const ajaxFiles = document.getElementById('source-container');
-    if (ajaxFiles) {
-      observer.observe(ajaxFiles, {
+    const tableEl = document.querySelector('div[spacing="comfortable"] > div > div > div > div > table > tbody');
+    if (tableEl) {
+      observer.observe(tableEl, {
         childList: true
       });
     }

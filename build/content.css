@@ -50,10 +50,11 @@ td.icon > img  {
 /**
  * BitBucket
  */
-/* .bb-icon {
-    margin-right: 10px;
+.bb-icon {
+    height: 24px !important;
     vertical-align: text-top;
 }
+/*
 
 .aui-iconfont-devtools-folder-closed:before {
     width: 16px;

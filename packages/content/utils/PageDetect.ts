@@ -63,7 +63,8 @@ export const isGist = () => location.hostname.startsWith('gist.') || location.pa
 /**
  * BitBucket related detections
  */
-export const isBitBucketRepo = () => select.exists('#source-container');
+export const isBitBucketRepo = () =>
+  select.exists('div[spacing="comfortable"] > div > div > div > div > table > tbody > tr > td:first-child');
 
 /**
  * GitLab related detections

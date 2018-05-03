@@ -31,7 +31,7 @@ const manifest = {
       css: ['content.css'],
       matches: ['*://*/*'],
       js: ['content.js'],
-      runt_at: 'document_start'
+      runt_at: 'document_end'
     }
   ],
   permissions: [
