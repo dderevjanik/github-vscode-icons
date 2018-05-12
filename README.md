@@ -11,7 +11,7 @@
 **Supported websites:**
 ![github-favicon](build/favicons/github-favicon.ico) Github (also Gist),
 ![gitlab-favicon](build/favicons/gitlab-favicon.ico) Gitlab,
-![bitbucket-favicon](build/favicons/bitbucket-favicon.ico) Bitbucket,
+![bitbucket-favicon](build/favicons/bitbucket-favicon.ico) Bitbucket (WIP),
 ![pastebin-favicon](build/favicons/pastebin-favicon.ico) Pastebin,
 ![sourceforge-favicon](./build/favicons/sourceforge-favicon.ico) SourceForge
 
@@ -32,3 +32,8 @@ Go to [changelog](./CHANGELOG.md) to see latest changes
 
 To stay updated with `vscode-icons`, you need to extract compiled `icons.json` from `vscode-icons` everytime when it updates.
 After that, you need run script called `npm run preprocess`, which will generate definition chunks (categorized icons) from `icons.json` for easier and faster work with them.
+
+## Related
+
+- [vscode-icons](https://github.com/vscode-icons/vscode-icons) extension for vscode
+- [vscode-icons-js](https://github.com/dderevjanik/vscode-icons-js) File specific icons from vscode [vscode-icons](https://github.com/vscode-icons/vscode-icons) extension inspired by file-icons-js
