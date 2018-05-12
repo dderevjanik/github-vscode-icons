@@ -22,7 +22,6 @@ const manifest = {
   },
   background: {
     scripts: ['background.js'],
-    matches: ['*://*/*'],
     persistent: false
   },
   web_accessible_resources: ['icons/*.svg', 'images/*.gif'],
@@ -31,7 +30,7 @@ const manifest = {
       css: ['content.css'],
       matches: ['*://*/*'],
       js: ['content.js'],
-      runt_at: 'document_end'
+      run_at: 'document_end'
     }
   ],
   permissions: [
@@ -45,7 +44,7 @@ const manifest = {
   ]
 };
 
-export const createManifest = () => {
+export const createChromeManifest = () => {
   if (process.env.NODE_ENV === 'development') {
     // FOR DEVELOPMENT;
     (manifest.browser_action as any)['default_popup'] = 'popup.html';

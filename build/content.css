@@ -7,7 +7,7 @@ td.icon {
 }
 
 td.icon > .octicon {
-    display: none; /* don't how old icon */
+    display: none; /* don't show old icon */
     width: 16px;
 }
 td.icon > .spinner {

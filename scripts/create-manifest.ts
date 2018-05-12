@@ -3,10 +3,10 @@
  */
 import { script } from './utils';
 import { writeFileSync } from 'fs';
-import { createManifest } from '../packages/Manifest';
+import { createChromeManifest } from '../packages/ManifestChrome';
 
 script(__filename, `Creating  manifest.json`, ({ log, Ch }, exit) => {
-  const manifest = createManifest();
+  const manifest = createChromeManifest();
   const manifestJSON = JSON.stringify(manifest, null, 2);
   writeFileSync('./build/manifest.json', manifestJSON);
   exit();

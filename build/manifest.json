@@ -20,9 +20,6 @@
     "scripts": [
       "background.js"
     ],
-    "matches": [
-      "*://*/*"
-    ],
     "persistent": false
   },
   "web_accessible_resources": [
@@ -40,7 +37,7 @@
       "js": [
         "content.js"
       ],
-      "runt_at": "document_end"
+      "run_at": "document_end"
     }
   ],
   "permissions": [
