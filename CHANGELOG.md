@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.13] - 2018-08-02
+
+### Changed
+
+- Updated `vscode-icons` to 7.25.0 [changelog](https://marketplace.visualstudio.com/items/robertohuertasm.vscode-icons/changelog)
+
+### Fixes
+
+- Filenames like `Jenkinsfile`, which are defined by vscode language extension, now
+works
+
 ## [1.0.12] - 2018-06-07
 
 ### Changed
