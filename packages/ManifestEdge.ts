@@ -9,6 +9,7 @@ export const createEdgeManifest = () => {
    * API Bridge polyfill
    * https://docs.microsoft.com/en-us/microsoft-edge/extensions/guides/porting-chrome-extensions
    */
+  // @ts-ignore
   manifest['-ms-preload'] = {
     backgroundScript: 'backgroundScriptsAPIBridge.js',
     contentScript: 'contentScriptsAPIBridge.js'

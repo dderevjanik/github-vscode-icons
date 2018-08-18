@@ -1,21 +1,24 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "show vscode-icons in github repository",
   "main": "index.js",
   "private": true,
   "scripts": {
     "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
-    "manifest:prod": "cross-env NODE_ENV=production ts-node ./scripts/create-manifest.ts",
-    "manifest:dev": "cross-env NODE_ENV=development ts-node ./scripts/create-manifest.ts",
-    "build:dev": "npm run test && npm run manifest:dev && webpack --mode development --config webpack.config.js && npm run script:make-zip",
-    "build:prod": "npm run manifest:prod && webpack --mode production --config webpack.config.js && npm run script:make-zip",
+    "manifest:firefox": "ts-node ./scripts/create-manifest.ts",
+    "manifest:chrome": "BROWSER=CHROME ts-node ./scripts/create-manifest.ts",
+    "manifest:edge": "BROWSER=EDGE ts-node ./scripts/create-manifest.ts",
+    "manifest:dev": "NODE_ENV=development npm run manifest:chrome",
+    "build:firefox": "BROWSER=FIREFOX npm run manifest:firefox; BROWSER=FIREFOX npm run script:make-zip",
+    "build:chrome": "BROWSER=CHROME npm run manifest:chrome; BROWSER=CHROME npm run script:make-zip",
+    "build:edge": "BROWSER=EDGE npm run manifest:edge; BROWSER=EDGE npm run script:make-zip",
+    "build:prod":
+      "NODE_ENV=production; webpack --mode production --config webpack.config.js; npm run build:firefox; npm run build:chrome; npm run build:edge",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
     "lint:json": "prettier --parser json --write ./*.json",
-    "lint:typings": "prettier --write ./typings/**/*.d.ts",
-    "dev": "npm run manifest:dev && webpack --mode development --watch --config webpack.config.js",
-    "dev:prod": "npm run manifest:prod && webpack --mode production --watch --config webpack.config.js"
+    "lint:typings": "prettier --write ./typings/**/*.d.ts"
   },
   "repository": {
     "type": "git",
