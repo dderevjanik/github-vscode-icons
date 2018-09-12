@@ -6,12 +6,13 @@
 
 **Download For:**
 [![chrome-favicon](build/favicons/chrome-favicon.png) Chrome](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github),
+[![firefox-favicon](build/favicons/firefox-favicon.png) Firefox](https://addons.mozilla.org/en-GB/firefox/addon/github-vscode-icons/)
 ![opera-favicon](build/favicons/opera-favicon.png) *Opera*
 
 **Supported websites:**
 ![github-favicon](build/favicons/github-favicon.ico) Github (also Gist),
 ![gitlab-favicon](build/favicons/gitlab-favicon.ico) Gitlab,
-![bitbucket-favicon](build/favicons/bitbucket-favicon.ico) Bitbucket (WIP),
+<!-- ![bitbucket-favicon](build/favicons/bitbucket-favicon.ico) Bitbucket (WIP), -->
 ![pastebin-favicon](build/favicons/pastebin-favicon.ico) Pastebin,
 ![sourceforge-favicon](./build/favicons/sourceforge-favicon.ico) SourceForge
 

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.14] - 2018-09-12
+
+### Fixes
+
+- vscode-icons not showing after latest GH update
+
 ## [1.0.13] - 2018-08-02
 
 ### Changed
