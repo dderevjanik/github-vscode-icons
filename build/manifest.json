@@ -9,6 +9,7 @@
   },
   "version": "1.13",
   "author": "Daniel Derevjanik <daniel.derevjanik@gmail.com>",
+  "offline_enabled": true,
   "browser_action": {
     "default_icon": {
       "48": "icon48.png",
@@ -18,7 +19,8 @@
   "background": {
     "scripts": [
       "background.js"
-    ]
+    ],
+    "persistent": false
   },
   "web_accessible_resources": [
     "icons/*.svg",
@@ -46,5 +48,9 @@
     "*://gitlab.com/*",
     "*://pastebin.com/*",
     "*://sourceforge.net/*"
-  ]
+  ],
+  "-ms-preload": {
+    "backgroundScript": "backgroundScriptsAPIBridge.js",
+    "contentScript": "contentScriptsAPIBridge.js"
+  }
 }
