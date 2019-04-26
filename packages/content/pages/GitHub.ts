@@ -67,7 +67,9 @@ function showRepoTreeIcons() {
     const trEl = trEls[i] as Element;
 
     const iconEl = trEl.children[0] as Element;
-    const iconSVGEl = iconEl.children[0] as SVGElement;
+    const iconSVGEl = (iconEl.children[0] as HTMLElement).tagName === 'svg'
+      ? iconEl.children[0] as SVGElement
+      : iconEl.children[0].children[1] as SVGElement; // Refined GH extension
     const contentEl = trEl.children[1] as Element;
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;

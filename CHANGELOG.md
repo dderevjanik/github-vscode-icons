@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.18] - 2019-04-26
+
+### Fixes
+
+- Fixed [issue with Refined Github](https://github.com/dderevjanik/github-vscode-icons/issues/8)
+
 ## [1.0.17] - 2019-04-23
 
 ### Changed
