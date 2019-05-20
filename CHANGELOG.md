@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.19] - 2019-05-20
+
+### Fixes
+
+- Fixed (again) [issue with Refined Github](https://github.com/dderevjanik/github-vscode-icons/issues/8)
+
+### Changed
+
+- Added support [for symlink directory](https://github.com/dderevjanik/github-vscode-icons/issues/9) (`octicon-file-symlink-directory`)
+- Added better error reporting
+    - In console, you can see better error messages
+    - If icon cannot be set, leave loading icon
+
 ## [1.0.18] - 2019-04-26
 
 ### Fixes

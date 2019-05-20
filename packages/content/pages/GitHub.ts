@@ -65,31 +65,38 @@ function showRepoTreeIcons() {
      * ]
      */
     const trEl = trEls[i] as Element;
-
     const iconEl = trEl.children[0] as Element;
     const iconSVGEl = (iconEl.children[0] as HTMLElement).tagName === 'svg'
       ? iconEl.children[0] as SVGElement
-      : iconEl.children[0].children[1] as SVGElement; // Refined GH extension
+      : iconEl.children[0].children[0] as SVGElement; // Refined GH extension
     const contentEl = trEl.children[1] as Element;
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
     const name = linkToEl.innerText.toLowerCase();
 
-    const iconSVGClassName = iconSVGEl.className.baseVal;
     let iconPath = '';
-    if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.endsWith('octicon-file')) {
-      iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
-    } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
-      iconPath = getFolderIcon(name.split('/').shift());
-    } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
-      iconPath = getIconForFolder('submodules');
-    } else if (iconSVGClassName.endsWith('octicon-file-symlink-file')) {
-      iconPath = DEFAULT_FILE;
+    if (iconSVGEl) {
+      const iconSVGClassName = iconSVGEl.className.baseVal;
+      if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.endsWith('octicon-file')) {
+        iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
+      } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
+        iconPath = getFolderIcon(name.split('/').shift());
+      } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
+        iconPath = getIconForFolder('submodules');
+      } else if (iconSVGClassName.endsWith('octicon-file-symlink-file')) {
+        iconPath = DEFAULT_FILE;
+      } else if (iconSVGClassName.endsWith('octicon-file-symlink-directory')) {
+        iconPath = DEFAULT_FILE;
+      } else {
+        console.error(`Unknown filetype: "${iconSVGClassName}" for ${i}. row, please report`);
+        continue;
+      }
+      const x = mutate(() => {
+        iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" data-index="${i}">`;
+      });
+    } else {
+      console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
     }
-
-    const x = mutate(() => {
-      iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon">`;
-    });
   }
 }
 

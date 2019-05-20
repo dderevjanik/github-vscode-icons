@@ -11,7 +11,7 @@ const manifest = {
     '48': 'icon48.png',
     '16': 'icon16.png'
   },
-  version: '1.18',
+  version: '1.19',
   author: 'Daniel Derevjanik <daniel.derevjanik@gmail.com>',
   offline_enabled: true,
   browser_action: {
