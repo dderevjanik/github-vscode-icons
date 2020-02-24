@@ -11,7 +11,7 @@ import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGis
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
-const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
+const QUERY_NAVIGATION_ITEMS = 'table.js-navigation-container>tbody:last-child>tr.js-navigation-item';
 const QUERY_PATH_SEGMENTS = 'js-path-segment';
 const QUERY_LAST_PATH_SEGMENT = 'final-path';
 
@@ -72,7 +72,6 @@ function showRepoTreeIcons() {
     const contentEl = trEl.children[1] as Element;
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
-    const name = linkToEl.innerText.toLowerCase();
 
     let iconPath = '';
     if (iconSVGEl) {
@@ -80,6 +79,7 @@ function showRepoTreeIcons() {
       if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.endsWith('octicon-file')) {
         iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
       } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
+        const name = linkToEl.innerText.toLowerCase();
         iconPath = getFolderIcon(name.split('/').shift());
       } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
         iconPath = getIconForFolder('submodules');
@@ -92,7 +92,7 @@ function showRepoTreeIcons() {
         continue;
       }
       const x = mutate(() => {
-        iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" data-index="${i}">`;
+        iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" data-index="${i}" width="16" height="18">`;
       });
     } else {
       console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
