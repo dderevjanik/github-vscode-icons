@@ -11,7 +11,7 @@ import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGis
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
-const QUERY_NAVIGATION_ITEMS = '.file-wrap>table>tbody:last-child>tr.js-navigation-item';
+const QUERY_NAVIGATION_ITEMS = 'table.js-navigation-container>tbody:last-child>tr.js-navigation-item';
 const QUERY_PATH_SEGMENTS = 'js-path-segment';
 const QUERY_LAST_PATH_SEGMENT = 'final-path';
 
