@@ -7,12 +7,12 @@ td.icon {
 }
 
 td.icon > .octicon {
-    display: none; /* don't show old icon */
+    /* display: none; don't show old icon */
     width: 16px;
 }
-td.icon > .spinner {
-    display: block !important; /* show loading icon while replacing old one */
-}
+/* td.icon > .spinner {
+    display: block !important; /* show loading icon while replacing old one
+} */ */
 
 td.icon > img  {
     /* copied from original icon */

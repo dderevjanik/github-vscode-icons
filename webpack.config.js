@@ -4,8 +4,8 @@ const Webpack = require('webpack');
 const baseConfig = {
   entry: {
     content: './packages/content/Content.ts',
-    popup: './packages/popup/Popup.tsx',
-    background: './packages/background/Background.ts'
+    popup: './packages/popup/Index.ts',
+    background: './packages/background/Index.ts'
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -23,10 +23,7 @@ const baseConfig = {
       // all files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader?configFile="tsconfig.json"',
-        options: {
-          configFile: 'tsconfig.json'
-        }
+        loader: 'ts-loader'
       }
     ]
   },

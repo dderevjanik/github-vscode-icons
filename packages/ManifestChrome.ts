@@ -15,6 +15,7 @@ const manifest = {
   author: 'Daniel Derevjanik <daniel.derevjanik@gmail.com>',
   offline_enabled: true,
   browser_action: {
+    default_popup: 'popup.html',
     default_icon: {
       '128': 'icon128.png',
       '48': 'icon48.png'
@@ -45,9 +46,5 @@ const manifest = {
 };
 
 export const createChromeManifest = () => {
-  if (process.env.NODE_ENV === 'development') {
-    // FOR DEVELOPMENT;
-    (manifest.browser_action as any)['default_popup'] = 'popup.html';
-  }
   return manifest;
 };
