@@ -108,7 +108,11 @@ const domLoaded = new Promise(resolve => {
   }
 });
 
-function update(e?: any) {
+function update() {
+  if (!document.querySelector('td.icon > .spinner')) {
+    return
+  }
+
   if ((!isRepoRoot() && isRepoTree()) || isSingleFile() || isHistoryForFile()) {
     showIconsForSegments();
   }
@@ -124,27 +128,12 @@ export function initGithub() {
   // Update on fragment update
   const observer = new MutationObserver(update);
   const observeFragment = () => {
-    const ajaxFiles = document.querySelector('include-fragment.file-wrap');
-    const navigation = document.querySelector('include-fragment.file-navigation');
-    const diffContainer = document.querySelector('.js-diff-progressive-container');
-    if (ajaxFiles) {
-      observer.observe(ajaxFiles.parentNode!, {
-        childList: true
-      });
-    }
-    if (navigation) {
-      observer.observe(navigation.parentNode!, {
-        childList: true
-      });
-    }
-    if (diffContainer) {
-      observer.observe(diffContainer.parentNode!, {
-        childList: true
-      });
-    }
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
   };
-  update();
+
   observeFragment();
-  document.addEventListener('pjax:end', update); // Update on page change
-  document.addEventListener('pjax:end', observeFragment);
+  document.addEventListener('pjax:end', observeFragment); // Update on page change
 }
