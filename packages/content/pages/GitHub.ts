@@ -56,6 +56,7 @@ function showIconsForSegments() {
  */
 function showRepoTreeIcons() {
   if (!(isRepoRoot() || isRepoTree())) return;
+  if (!document.querySelector('td.icon > .spinner')) return;
   const trEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
   for (let i = 0; i < trEls.length; i++) {
     /**
@@ -122,22 +123,24 @@ function update(e?: any) {
 
 export function initGithub() {
   // Update on fragment update
-  const observer = new MutationObserver(update);
-  const addObserver = (parent: Element) => {
+  const fileTableObserver = new MutationObserver(showRepoTreeIcons);
+  const breadcrumbObserver = new MutationObserver(showIconsForSegments);
+  const addObserver = (observer: MutationObserver, parent: Element, subtree = false) => {
     if (parent) {
       observer.observe(parent, {
-        childList: true
+        childList: true,
+        subtree
       });
     }
   };
+  const fileTable = document.querySelector('#js-repo-pjax-container');
+  addObserver(fileTableObserver, fileTable, true);
   const observeFragment = () => {
-    const fileTable = document.querySelector('table.files tbody:last-child');
     const breadcrumbs = document.querySelector('.file-navigation .breadcrumb');
-    addObserver(fileTable);
-    addObserver(breadcrumbs);
+    addObserver(breadcrumbObserver, breadcrumbs);
   };
   update();
   observeFragment();
   document.addEventListener('pjax:end', update); // Update on page change
-  document.addEventListener('pjax:end', observeFragment);
+  document.addEventListener('pjax:beforeReplace', observeFragment);
 }
