@@ -97,9 +97,10 @@ function showRepoTreeIcons() {
       const x = mutate(() => {
         iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" data-index="${i}" width="16" height="18">`;
       });
-    } else {
-      console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
     }
+    // else {
+    //   console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
+    // }
   }
 }
 
