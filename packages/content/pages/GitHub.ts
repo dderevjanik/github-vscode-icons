@@ -11,17 +11,17 @@ import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGis
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
-const QUERY_NAVIGATION_ITEMS = 'table.js-navigation-container>tbody:last-child>tr.js-navigation-item';
-const QUERY_PATH_SEGMENTS = 'js-path-segment';
-const QUERY_LAST_PATH_SEGMENT = 'final-path';
+const QUERY_FILE_TABLE_ITEMS = 'table.js-navigation-container>tbody:last-child>tr.js-navigation-item';
+const QUERY_PATH_SEGMENTS = '.repository-content .breadcrumb a';
+const QUERY_LAST_PATH_SEGMENT = '.final-path';
 
 /**
  * Show icon for path segments
  */
 function showIconsForSegments() {
-  const aSegments = document.getElementsByClassName(QUERY_PATH_SEGMENTS) as HTMLCollectionOf<HTMLDivElement>;
+  const aSegments = document.querySelectorAll<HTMLAnchorElement>(QUERY_PATH_SEGMENTS);
   const firstSegment = aSegments[0];
-  const finalSegment = document.getElementsByClassName(QUERY_LAST_PATH_SEGMENT)[0] as HTMLSpanElement | undefined;
+  const finalSegment = document.querySelector(QUERY_LAST_PATH_SEGMENT) as HTMLSpanElement | undefined;
 
   // first segment has always root folder icon
   if (firstSegment) {
@@ -54,7 +54,7 @@ function showIconsForSegments() {
  * Show icons for repository files
  */
 function showRepoTreeIcons() {
-  const trEls = document.querySelectorAll(QUERY_NAVIGATION_ITEMS);
+  const trEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
   for (let i = 0; i < trEls.length; i++) {
     /**
      * [TR:
@@ -64,11 +64,12 @@ function showRepoTreeIcons() {
      *  [TD: [SPAN: [TIME-AGO: ago]]],
      * ]
      */
-    const trEl = trEls[i] as Element;
-    const iconEl = trEl.children[0] as Element;
-    const iconSVGEl = (iconEl.children[0] as HTMLElement).tagName === 'svg'
-      ? iconEl.children[0] as SVGElement
-      : iconEl.children[0].children[0] as SVGElement; // Refined GH extension
+    const trEl = trEls[i] as HTMLTableRowElement;
+    const iconEl = trEl.children[0] as HTMLTableCellElement;
+    const iconSVGEl =
+      (iconEl.children[0] as HTMLElement).tagName === 'svg'
+        ? (iconEl.children[0] as SVGElement)
+        : (iconEl.children[0].children[0] as SVGElement); // Refined GH extension
     const contentEl = trEl.children[1] as Element;
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
@@ -123,25 +124,18 @@ function update(e?: any) {
 export function initGithub() {
   // Update on fragment update
   const observer = new MutationObserver(update);
+  const fileTable = document.querySelector('table.files tbody:last-child');
+  const breadcrumbs = document.querySelector('.file-navigation .breadcrumb');
+  const addObserver = (parent: Element) => {
+    if (parent) {
+      observer.observe(parent, {
+        childList: true
+      });
+    }
+  };
   const observeFragment = () => {
-    const ajaxFiles = document.querySelector('include-fragment.file-wrap');
-    const navigation = document.querySelector('include-fragment.file-navigation');
-    const diffContainer = document.querySelector('.js-diff-progressive-container');
-    if (ajaxFiles) {
-      observer.observe(ajaxFiles.parentNode!, {
-        childList: true
-      });
-    }
-    if (navigation) {
-      observer.observe(navigation.parentNode!, {
-        childList: true
-      });
-    }
-    if (diffContainer) {
-      observer.observe(diffContainer.parentNode!, {
-        childList: true
-      });
-    }
+    addObserver(fileTable);
+    addObserver(breadcrumbs);
   };
   update();
   observeFragment();
