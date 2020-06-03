@@ -13,7 +13,7 @@
     "build:firefox": "BROWSER=FIREFOX npm run manifest:firefox; BROWSER=FIREFOX npm run script:make-zip",
     "build:chrome": "BROWSER=CHROME npm run manifest:chrome; BROWSER=CHROME npm run script:make-zip",
     "build:edge": "BROWSER=EDGE npm run manifest:edge; BROWSER=EDGE npm run script:make-zip",
-    "build:dev": "NODE_ENV=development; webpack -w --mode production",
+    "build:dev": "NODE_ENV=development; webpack -w --mode development",
     "build:prod": "NODE_ENV=production; webpack --mode production --config webpack.config.js; npm run build:firefox; npm run build:chrome; npm run build:edge",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
