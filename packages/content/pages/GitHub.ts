@@ -19,6 +19,7 @@ const QUERY_LAST_PATH_SEGMENT = '.final-path';
  * Show icon for path segments
  */
 function showIconsForSegments() {
+  if (!((!isRepoRoot() && isRepoTree()) || isSingleFile() || isHistoryForFile())) return;
   const aSegments = document.querySelectorAll<HTMLAnchorElement>(QUERY_PATH_SEGMENTS);
   const firstSegment = aSegments[0];
   const finalSegment = document.querySelector(QUERY_LAST_PATH_SEGMENT) as HTMLSpanElement | undefined;
@@ -54,6 +55,7 @@ function showIconsForSegments() {
  * Show icons for repository files
  */
 function showRepoTreeIcons() {
+  if (!(isRepoRoot() || isRepoTree())) return;
   const trEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
   for (let i = 0; i < trEls.length; i++) {
     /**
@@ -110,12 +112,8 @@ const domLoaded = new Promise(resolve => {
 });
 
 function update(e?: any) {
-  if ((!isRepoRoot() && isRepoTree()) || isSingleFile() || isHistoryForFile()) {
-    showIconsForSegments();
-  }
-  if (isRepoRoot() || isRepoTree()) {
-    showRepoTreeIcons();
-  }
+  showIconsForSegments();
+  showRepoTreeIcons();
   if (isCommit()) {
     // showDiffIcon();
   }
@@ -124,8 +122,6 @@ function update(e?: any) {
 export function initGithub() {
   // Update on fragment update
   const observer = new MutationObserver(update);
-  const fileTable = document.querySelector('table.files tbody:last-child');
-  const breadcrumbs = document.querySelector('.file-navigation .breadcrumb');
   const addObserver = (parent: Element) => {
     if (parent) {
       observer.observe(parent, {
@@ -134,6 +130,8 @@ export function initGithub() {
     }
   };
   const observeFragment = () => {
+    const fileTable = document.querySelector('table.files tbody:last-child');
+    const breadcrumbs = document.querySelector('.file-navigation .breadcrumb');
     addObserver(fileTable);
     addObserver(breadcrumbs);
   };
