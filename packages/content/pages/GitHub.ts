@@ -123,24 +123,14 @@ function update(e?: any) {
 
 export function initGithub() {
   // Update on fragment update
-  const fileTableObserver = new MutationObserver(showRepoTreeIcons);
-  const breadcrumbObserver = new MutationObserver(showIconsForSegments);
-  const addObserver = (observer: MutationObserver, parent: Element, subtree = false) => {
-    if (parent) {
-      observer.observe(parent, {
-        childList: true,
-        subtree
-      });
-    }
-  };
-  const fileTable = document.querySelector('#js-repo-pjax-container');
-  addObserver(fileTableObserver, fileTable, true);
-  const observeFragment = () => {
-    const breadcrumbs = document.querySelector('.file-navigation .breadcrumb');
-    addObserver(breadcrumbObserver, breadcrumbs);
-  };
+  const observer = new MutationObserver(showRepoTreeIcons);
+  const pjaxContainer = document.querySelector('#js-repo-pjax-container');
+  if (pjaxContainer) {
+    observer.observe(pjaxContainer, {
+      childList: true,
+      subtree: true
+    });
+  }
   update();
-  observeFragment();
   document.addEventListener('pjax:end', update); // Update on page change
-  document.addEventListener('pjax:beforeReplace', observeFragment);
 }
