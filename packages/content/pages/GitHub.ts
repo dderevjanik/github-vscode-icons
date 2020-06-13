@@ -56,7 +56,7 @@ function showIconsForSegments() {
  */
 function showRepoTreeIcons() {
   if (!(isRepoRoot() || isRepoTree())) return;
-  if (!document.querySelector('td.icon > .spinner')) return;
+  if (!document.querySelector('table.js-navigation-container>tbody:last-child td.icon > .spinner')) return;
   const trEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
   for (let i = 0; i < trEls.length; i++) {
     /**
