@@ -30,7 +30,7 @@ const manifest = {
       css: ['content.css'],
       matches: ['*://*/*'],
       js: ['content.js'],
-      run_at: 'document_end'
+      run_at: 'document_idle'
     }
   ],
   permissions: [

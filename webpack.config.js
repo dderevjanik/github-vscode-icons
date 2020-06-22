@@ -2,6 +2,7 @@ const path = require('path');
 const Webpack = require('webpack');
 
 const baseConfig = {
+  devtool: 'source-map',
   entry: {
     content: './packages/content/Content.ts',
     popup: './packages/popup/Popup.tsx',

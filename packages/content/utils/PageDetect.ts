@@ -54,7 +54,7 @@ export const isSingleFile = () => {
 export const isCommit = () => isSingleCommit() || isPRCommit() || (isPRFiles() && select.exists('.full-commit'));
 
 export const isRepoRoot = () =>
-  isRepo() && /^(\/?$|\/tree\/)/.test(getRepoPath()) && select.exists('.repository-content');
+  isRepo() && /^(\/?|\/tree\/?)$/.test(getRepoPath()) && select.exists('.repository-content');
 
 export const isHistoryForFile = () => isRepo() && /^\/commits\/[0-9a-f]{5,40}\/.+/.test(getRepoPath());
 
