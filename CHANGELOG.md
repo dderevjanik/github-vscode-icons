@@ -4,9 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.21] - 2020-06-20
+
+### Fixes
+
+- Fixed Infinite spinner issue [#13](https://github.com/dderevjanik/github-vscode-icons/issues/13) and [#17](https://github.com/dderevjanik/github-vscode-icons/issues/17), thanks to [s-weigand](https://github.com/s-weigand)
+
+## Changed
+
+- Updated `vscode-icons` to 10.1.1 [changelog](https://marketplace.visualstudio.com/items/vscode-icons-team.vscode-icons/changelog). Since last version (`9.3.0`), there are
+    - over 180 new filenames and extensions
+    - over 60 new folders
+    - 142 new icons and 51 changed
+
 ## [1.0.20] - 2020-02-24
 
-## Fixes
+### Fixes
 
 - Fixed [GH issue](https://github.com/dderevjanik/github-vscode-icons/issues/13)
 - Fixed [GH not displaying submodule](https://github.com/dderevjanik/github-vscode-icons/issues/11)
