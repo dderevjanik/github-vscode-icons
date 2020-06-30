@@ -11,7 +11,7 @@ import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGis
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
-const QUERY_FILE_TABLE_ITEMS = 'table.js-navigation-container>tbody:last-child>tr.js-navigation-item';
+const QUERY_FILE_TABLE_ITEMS = 'div.js-navigation-container>div.js-navigation-item';
 const QUERY_PATH_SEGMENTS = '.repository-content .breadcrumb a';
 const QUERY_LAST_PATH_SEGMENT = '.final-path';
 
@@ -56,40 +56,43 @@ function showIconsForSegments() {
  */
 function showRepoTreeIcons() {
   if (!(isRepoRoot() || isRepoTree())) return;
-  if (!document.querySelector('table.js-navigation-container>tbody:last-child td.icon > .spinner')) return;
-  const trEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
-  for (let i = 0; i < trEls.length; i++) {
+  const rowEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
+  for (let i = 0; i < rowEls.length; i++) {
+    if (rowEls[i].firstElementChild && rowEls[i].firstElementChild.getAttribute("role") === "rowheader") {
+      // ... (up)
+      continue;
+    }
     /**
-     * [TR:
-     *  [TD: [SVG: icon]],
-     *  [TD: [SPAN: [A: name]]],
-     *  [TD: [SPAN: [A: message]]],
-     *  [TD: [SPAN: [TIME-AGO: ago]]],
-     * ]
+     * <div role="row">
+     *  <div><svg class={{icon}}/></div>,
+     *  <div><span><a>{{name}}</a></span></div>,
+     *  <div><span><a>{{message}}</a></span></div>,
+     *  <div><span>{time}</span><s/div>,
+     * </div>
      */
-    const trEl = trEls[i] as HTMLTableRowElement;
-    const iconEl = trEl.children[0] as HTMLTableCellElement;
+    const rowEl = rowEls[i] as HTMLTableRowElement;
+    const iconEl = rowEl.children[0] as HTMLTableCellElement;
     const iconSVGEl =
       (iconEl.children[0] as HTMLElement).tagName === 'svg'
         ? (iconEl.children[0] as SVGElement)
         : (iconEl.children[0].children[0] as SVGElement); // Refined GH extension
-    const contentEl = trEl.children[1] as Element;
+    const contentEl = rowEl.children[1] as Element;
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
 
     let iconPath = '';
     if (iconSVGEl) {
       const iconSVGClassName = iconSVGEl.className.baseVal;
-      if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.endsWith('octicon-file')) {
+      if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.includes('octicon-file ')) {
         iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
-      } else if (iconSVGClassName.endsWith('octicon-file-directory')) {
+      } else if (iconSVGClassName.includes('octicon-file-directory')) {
         const name = linkToEl.innerText.toLowerCase();
         iconPath = getFolderIcon(name.split('/').shift());
-      } else if (iconSVGClassName.endsWith('octicon-file-submodule')) {
+      } else if (iconSVGClassName.includes('octicon-file-submodule')) {
         iconPath = getIconForFolder('submodules');
-      } else if (iconSVGClassName.endsWith('octicon-file-symlink-file')) {
+      } else if (iconSVGClassName.includes('octicon-file-symlink-file')) {
         iconPath = DEFAULT_FILE;
-      } else if (iconSVGClassName.endsWith('octicon-file-symlink-directory')) {
+      } else if (iconSVGClassName.includes('octicon-file-symlink-directory')) {
         iconPath = DEFAULT_FILE;
       } else {
         console.error(`Unknown filetype: "${iconSVGClassName}" for ${i}. row, please report`);
@@ -104,14 +107,6 @@ function showRepoTreeIcons() {
     // }
   }
 }
-
-const domLoaded = new Promise(resolve => {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', resolve);
-  } else {
-    resolve();
-  }
-});
 
 function update(e?: any) {
   showIconsForSegments();

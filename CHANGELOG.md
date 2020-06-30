@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.22] - 2020-06-30
+
+### Fixes
+
+- Fixed new github UI design [#21](https://github.com/dderevjanik/github-vscode-icons/issues/21)
+
 ## [1.0.21] - 2020-06-20
 
 ### Fixes
