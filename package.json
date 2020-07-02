@@ -1,12 +1,13 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "show vscode-icons in github repository",
   "main": "index.js",
   "private": true,
   "scripts": {
     "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
     "clean": "rimraf build/*.map",
+    "dev": "npm run build:dev",
     "manifest:firefox": "ts-node ./scripts/create-manifest.ts",
     "manifest:chrome": "BROWSER=CHROME ts-node ./scripts/create-manifest.ts",
     "manifest:edge": "BROWSER=EDGE ts-node ./scripts/create-manifest.ts",
@@ -16,6 +17,7 @@
     "build:edge": "BROWSER=EDGE npm run manifest:edge; BROWSER=EDGE npm run script:make-zip",
     "build:dev": "NODE_ENV=development; webpack -w --mode development",
     "build:prod": "NODE_ENV=production; webpack --mode production --config webpack.config.js; npm run clean; npm run build:firefox; npm run build:chrome; npm run build:edge",
+    "dist": "npm run build:prod",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
     "lint:json": "prettier --parser json --write ./*.json",
