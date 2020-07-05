@@ -15,3 +15,6 @@ yarn-error.log*
 
 # Libs
 node_modules
+
+# local coverage
+coverage
