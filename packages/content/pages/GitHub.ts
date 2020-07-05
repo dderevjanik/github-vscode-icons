@@ -11,9 +11,10 @@ import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGis
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
-const QUERY_FILE_TABLE_ITEMS = 'div.js-navigation-container>div.js-navigation-item';
-const QUERY_PATH_SEGMENTS = '.repository-content .breadcrumb a';
+export const QUERY_FILE_TABLE_ITEMS = 'div.js-navigation-container>div.js-navigation-item';
+export const QUERY_PATH_SEGMENTS = '.repository-content .js-path-segment a';
 export const QUERY_PJAX_CONTAINER = 'main';
+export const QUERY_LAST_PATH_SEGMENT = '.final-path';
 
 /**
  * Show icon for path segments
@@ -58,7 +59,7 @@ function showRepoTreeIcons() {
   if (!(isRepoRoot() || isRepoTree())) return;
   const rowEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
   for (let i = 0; i < rowEls.length; i++) {
-    if (rowEls[i].firstElementChild && rowEls[i].firstElementChild.getAttribute("role") === "rowheader") {
+    if (rowEls[i].firstElementChild && rowEls[i].firstElementChild.getAttribute('role') === 'rowheader') {
       // ... (up)
       continue;
     }
