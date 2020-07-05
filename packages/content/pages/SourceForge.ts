@@ -3,7 +3,7 @@ import { isSourceForgeFiles } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 import { getFolderIcon, getFileIcon } from '../utils/Dev';
 
-const QUERY_SOURCEFORGE_ITEMS = '#files_list>tbody>tr';
+export const QUERY_SOURCEFORGE_ITEMS = '#files_list>tbody>tr';
 
 function showIconsForFiles() {
   const items = document.querySelectorAll(QUERY_SOURCEFORGE_ITEMS);
@@ -53,14 +53,6 @@ function showIconsForFiles() {
     }
   }
 }
-
-const domLoaded = new Promise(resolve => {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', resolve);
-  } else {
-    resolve();
-  }
-});
 
 function update(e?: any) {
   if (isSourceForgeFiles) {
