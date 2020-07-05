@@ -13,7 +13,7 @@ import { getFileIcon, getFolderIcon } from '../utils/Dev';
 
 const QUERY_FILE_TABLE_ITEMS = 'div.js-navigation-container>div.js-navigation-item';
 const QUERY_PATH_SEGMENTS = '.repository-content .breadcrumb a';
-const QUERY_LAST_PATH_SEGMENT = '.final-path';
+export const QUERY_PJAX_CONTAINER = 'main';
 
 /**
  * Show icon for path segments
@@ -119,7 +119,7 @@ function update(e?: any) {
 export function initGithub() {
   // Update on fragment update
   const observer = new MutationObserver(showRepoTreeIcons);
-  const pjaxContainer = document.querySelector('#js-repo-pjax-container');
+  const pjaxContainer = document.querySelector(QUERY_PJAX_CONTAINER);
   if (pjaxContainer) {
     observer.observe(pjaxContainer, {
       childList: true,
