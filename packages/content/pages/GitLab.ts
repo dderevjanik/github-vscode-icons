@@ -3,7 +3,7 @@ import { isGitLabRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 import { getFolderIcon, getFileIcon } from '../utils/Dev';
 
-const QUERY_TREE_ITEMS = '.tree-item';
+export const QUERY_TREE_ITEMS = '.tree-item';
 
 function showRepoTreeIcons() {
   const treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
@@ -35,14 +35,6 @@ function showRepoTreeIcons() {
     });
   }
 }
-
-const domLoaded = new Promise(resolve => {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', resolve);
-  } else {
-    resolve();
-  }
-});
 
 function update(e?: any) {
   if (isGitLabRepo()) {
