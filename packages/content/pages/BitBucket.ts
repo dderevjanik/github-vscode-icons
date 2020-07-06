@@ -3,10 +3,11 @@ import { getFileIcon, getFolderIcon } from '../utils/Dev';
 import { isBitBucketRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 
-const QUERY_TREE_ITEMS = 'div[spacing="comfortable"] > div > div > div > div > table > tbody > tr';
+export const QUERY_FILE_TABLE = 'table[data-qa="repository-directory"] > tbody';
+export const QUERY_FILE_TABLE_ROWS = 'table[data-qa="repository-directory"] > tbody > tr';
 
 function showRepoTreeIcons() {
-  const treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
+  const treeItems = document.querySelectorAll(QUERY_FILE_TABLE_ROWS);
   console.log(treeItems);
   for (let i = 0; i < treeItems.length; i++) {
     /**
@@ -52,15 +53,6 @@ function showRepoTreeIcons() {
     }
   }
 }
-
-const domLoaded = new Promise(resolve => {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', resolve);
-  } else {
-    resolve();
-  }
-});
-
 function update(e?: any) {
   if (isBitBucketRepo()) {
     showRepoTreeIcons();
@@ -73,7 +65,7 @@ export function initBitBucket() {
     update();
   });
   const observeFragment = () => {
-    const tableEl = document.querySelector('div[spacing="comfortable"] > div > div > div > div > table > tbody');
+    const tableEl = document.querySelector(QUERY_FILE_TABLE);
     if (tableEl) {
       observer.observe(tableEl, {
         childList: true
