@@ -3,12 +3,13 @@ import { getFileIcon, getFolderIcon } from '../utils/Dev';
 import { isBitBucketRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 
-export const QUERY_FILE_TABLE = 'table[data-qa="repository-directory"] > tbody';
 export const QUERY_FILE_TABLE_ROWS = 'table[data-qa="repository-directory"] > tbody > tr';
+export const QUERY_ICONS_TO_REPLACE = `${QUERY_FILE_TABLE_ROWS} a svg`;
 
 function showRepoTreeIcons() {
-  const treeItems = document.querySelectorAll(QUERY_FILE_TABLE_ROWS);
-  console.log(treeItems);
+  if (!isBitBucketRepo()) return;
+  if (!document.querySelector(QUERY_FILE_TABLE_ROWS) || !document.querySelector(QUERY_ICONS_TO_REPLACE)) return;
+  const treeItems = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ROWS);
   for (let i = 0; i < treeItems.length; i++) {
     /**
      * [TR:
@@ -20,9 +21,19 @@ function showRepoTreeIcons() {
     const iconAnchorEl = itemEl.firstChild!.firstChild!.firstChild! as HTMLAnchorElement;
     const iconEl = iconAnchorEl.firstChild! as HTMLSpanElement;
     const nameAnchorEl = itemEl.children[1].firstChild! as HTMLAnchorElement;
+    if (document.querySelector(`${QUERY_FILE_TABLE_ROWS}:nth-child(${i + 1}) img.vscode-icon.bb-icon`)) {
+      continue;
+    }
 
     const newIconEl = document.createElement('img');
     newIconEl.setAttribute('class', 'vscode-icon bb-icon');
+
+    const replaceNodeIfExists = (newIconEl: HTMLImageElement) => {
+      // used to prevent replacing of none existing nodes
+      if (!document.querySelector(`${QUERY_FILE_TABLE_ROWS}:nth-child(${i + 1}) img.vscode-icon.bb-icon`)) {
+        iconAnchorEl.replaceChild(newIconEl, iconEl);
+      }
+    };
 
     if (iconAnchorEl.href === '..') {
       // ..
@@ -33,14 +44,14 @@ function showRepoTreeIcons() {
       const iconPath = getFolderIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
-        iconAnchorEl.replaceChild(newIconEl, iconEl);
+        replaceNodeIfExists(newIconEl);
       });
     } else if (itemEl.className.includes('subreponame')) {
       // TODO: SUBMODULE
       const iconEl = itemEl.firstElementChild! as HTMLSpanElement;
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(getIconForFolder('submodules')));
-        iconAnchorEl.replaceChild(newIconEl, iconEl);
+        replaceNodeIfExists(newIconEl);
       });
     } else {
       // FILE
@@ -48,33 +59,16 @@ function showRepoTreeIcons() {
       const iconPath = getFileIcon(name);
       mutate(() => {
         newIconEl.setAttribute('src', getIconUrl(iconPath));
-        iconAnchorEl.replaceChild(newIconEl, iconEl);
+        replaceNodeIfExists(newIconEl);
       });
     }
   }
 }
 function update(e?: any) {
-  if (isBitBucketRepo()) {
-    showRepoTreeIcons();
-  }
+  showRepoTreeIcons();
 }
 
 export function initBitBucket() {
-  const observer = new MutationObserver(() => {
-    console.log('mutationZZZZZZZ');
-    update();
-  });
-  const observeFragment = () => {
-    const tableEl = document.querySelector(QUERY_FILE_TABLE);
-    if (tableEl) {
-      observer.observe(tableEl, {
-        childList: true
-      });
-    }
-  };
-
   update();
-  observeFragment();
-  document.addEventListener('pjax:end', update);
-  document.addEventListener('pjax:end', observeFragment);
+  window.addEventListener('message', update);
 }
