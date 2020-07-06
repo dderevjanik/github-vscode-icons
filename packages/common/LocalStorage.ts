@@ -22,7 +22,7 @@ export const initialStorage: LocalStorage = {
     gitlab: true,
     bitbucket: true,
     pastebin: false,
-    sourceforge: false
+    sourceforge: true
   }
 };
 

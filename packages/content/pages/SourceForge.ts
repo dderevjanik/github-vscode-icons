@@ -25,7 +25,7 @@ function showIconsForFiles() {
        * ]
        */
 
-      const iconEl = iconAndNameEl.firstElementChild as HTMLSpanElement;
+      const iconEl = iconAndNameEl.firstElementChild as SVGAElement;
       const nameEl = iconAndNameEl.lastElementChild as HTMLAnchorElement;
       const name = nameEl.innerText.toLowerCase();
       const iconPath = getFolderIcon(name);
@@ -55,7 +55,7 @@ function showIconsForFiles() {
 }
 
 function update(e?: any) {
-  if (isSourceForgeFiles) {
+  if (isSourceForgeFiles()) {
     showIconsForFiles();
   }
 }
