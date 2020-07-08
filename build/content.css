@@ -136,6 +136,7 @@ td.icon > img  {
  * Source Forge
  */
 .vscode-icon.sf-icon {
+    margin-right: 0.5rem;
     width:  20px;
     height: 20px;
 }
