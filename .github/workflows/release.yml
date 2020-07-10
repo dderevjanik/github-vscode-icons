@@ -1,8 +1,10 @@
 name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   Build:
@@ -20,6 +22,55 @@ jobs:
         with:
           name: build
           path: dist
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+
+      - name: Write Asset Paths and Names to Env Vars
+        run: |
+          echo "::set-env name=CHROME_ASSET_NAME::$(ls dist/ | grep chrome)"
+          echo "::set-env name=CHROME_ASSET_PATH::dist/$(ls dist/ | grep chrome)"
+          echo "::set-env name=EDGE_ASSET_NAME::$(ls dist/ | grep edge)"
+          echo "::set-env name=EDGE_ASSET_PATH::dist/$(ls dist/ | grep edge)"
+          echo "::set-env name=FIREFOX_ASSET_NAME::$(ls dist/ | grep firefox)"
+          echo "::set-env name=FIREFOX_ASSET_PATH::dist/$(ls dist/ | grep firefox)"
+
+      - name: Upload Release Asset Chrome
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_name: ${{ env.CHROME_ASSET_NAME }}
+          asset_path: ${{ env.CHROME_ASSET_PATH }}
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset Edge
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_name: ${{ env.EDGE_ASSET_NAME }}
+          asset_path: ${{ env.EDGE_ASSET_PATH }}
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset FireFox
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_name: ${{ env.FIREFOX_ASSET_NAME }}
+          asset_path: ${{ env.FIREFOX_ASSET_PATH }}
+          asset_content_type: application/zip
 
   deploy-to-chrome:
     needs: build
