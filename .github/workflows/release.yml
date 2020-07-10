@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: dist
+          path: dist/*.zip
 
       - name: Extract Changelog
         shell: python
