@@ -94,12 +94,13 @@ jobs:
         with:
           name: build
           path: dist
-      - run: cd distribution && npx chrome-webstore-upload-cli upload --auto-publish
+      - name: Upload to chrome store
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        run: npx chrome-webstore-upload-cli upload --source dist/$(ls dist/ | grep chrome) --auto-publish
 
   deploy-to-firefox:
     needs: build
@@ -109,8 +110,11 @@ jobs:
         with:
           name: build
           path: dist
-      - run: cd distribution && npx web-ext-submit
+      - name: Upload to firefox store
         env:
           WEB_EXT_ID: ${{ secrets.WEB_EXT_ID }}
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+        run: |
+          unzip dist/$(ls dist/ | grep edge) -d dist/ff-build
+          cd dist/ff-build && npx web-ext-submit
