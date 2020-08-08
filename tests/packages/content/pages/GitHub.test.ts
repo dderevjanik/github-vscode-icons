@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { fetchDocument } from '../../../utils';
 
 import {
