@@ -111,11 +111,13 @@ function update(e?: any) {
 
 export function initGithub() {
   // Update on fragment update
-  observe(QUERY_FILE_TABLE_ITEMS, {
-    add(rowEl) {
-      showRepoTreeIcons(rowEl);
-    }
-  });
+  if (typeof window !== 'undefined'){
+    observe(QUERY_FILE_TABLE_ITEMS, {
+      add(rowEl) {
+        showRepoTreeIcons(rowEl);
+      }
+    });
+  }
   update();
   document.addEventListener('pjax:end', update); // Update on page change
 }
