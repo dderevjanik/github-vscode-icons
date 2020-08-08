@@ -16,7 +16,8 @@
     "build:chrome": "BROWSER=CHROME npm run manifest:chrome; BROWSER=CHROME npm run script:make-zip",
     "build:edge": "BROWSER=EDGE npm run manifest:edge; BROWSER=EDGE npm run script:make-zip",
     "build:dev": "NODE_ENV=development; webpack -w --mode development",
-    "build:prod": "NODE_ENV=production; webpack --mode production --config webpack.config.js; npm run clean; npm run build:firefox; npm run build:chrome; npm run build:edge",
+    "build:prod":
+      "NODE_ENV=production; webpack --mode production --config webpack.config.js; npm run clean; npm run build:firefox; npm run build:chrome; npm run build:edge",
     "dist": "npm run build:prod",
     "lint": "npm run lint:packages && npm run lint:json && npm run lint:typings",
     "lint:packages": "prettier --write ./packages/**/*.{ts,d.ts,tsx}",
@@ -30,18 +31,9 @@
       ".(ts|tsx)": "ts-jest"
     },
     "testRegex": "(/tests/.*\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/tests/"
-    ],
-    "collectCoverageFrom": [
-      "packages/**/*.{js,ts,tsx}"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"],
+    "collectCoverageFrom": ["packages/**/*.{js,ts,tsx}"]
   },
   "repository": {
     "type": "git",
