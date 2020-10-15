@@ -11,6 +11,7 @@ import { isCommit, isRepoRoot, isSingleFile, isRepoTree } from 'github-url-detec
 import { isHistoryForFile } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
+import { observe } from 'selector-observer';
 
 export const QUERY_FILE_TABLE_ITEMS = 'div.js-navigation-container>div.js-navigation-item';
 export const QUERY_PATH_SEGMENTS = '.repository-content .js-path-segment a';
@@ -56,13 +57,12 @@ function showIconsForSegments() {
 /**
  * Show icons for repository files
  */
-function showRepoTreeIcons() {
-  if (!(isRepoRoot() || isRepoTree())) return;
-  const rowEls = document.querySelectorAll<HTMLTableRowElement>(QUERY_FILE_TABLE_ITEMS);
-  for (let i = 0; i < rowEls.length; i++) {
-    if (rowEls[i].firstElementChild && rowEls[i].firstElementChild.getAttribute('role') === 'rowheader') {
+function showRepoTreeIcons(rowEl: Element) {
+    const iconEl = rowEl.children[0] as HTMLTableCellElement;
+    const iconSVGEl = iconEl.querySelector<SVGElement>('.octicon');
+    if (!iconSVGEl) {
       // ... (up)
-      continue;
+      return;
     }
     /**
      * <div role="row">
@@ -72,12 +72,6 @@ function showRepoTreeIcons() {
      *  <div><span>{time}</span><s/div>,
      * </div>
      */
-    const rowEl = rowEls[i] as HTMLTableRowElement;
-    const iconEl = rowEl.children[0] as HTMLTableCellElement;
-    const iconSVGEl =
-      (iconEl.children[0] as HTMLElement).tagName === 'svg'
-        ? (iconEl.children[0] as SVGElement)
-        : (iconEl.children[0].children[0] as SVGElement); // Refined GH extension
     const contentEl = rowEl.children[1] as Element;
 
     const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
@@ -97,22 +91,20 @@ function showRepoTreeIcons() {
       } else if (iconSVGClassName.includes('octicon-file-symlink-directory')) {
         iconPath = DEFAULT_FILE;
       } else {
-        console.error(`Unknown filetype: "${iconSVGClassName}" for ${i}. row, please report`);
-        continue;
+        console.error(`Unknown filetype: "${iconSVGClassName}", please report`);
+        return;
       }
       const x = mutate(() => {
-        iconEl.innerHTML = `<img src="${getIconUrl(iconPath)}" alt="icon" data-index="${i}" width="16" height="18">`;
+        iconSVGEl.outerHTML = `<img src="${getIconUrl(iconPath)}" class="${iconSVGClassName}" alt="icon" width="16" height="16">`;
       });
     }
     // else {
     //   console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
     // }
-  }
 }
 
 function update(e?: any) {
   showIconsForSegments();
-  showRepoTreeIcons();
   if (isCommit()) {
     // showDiffIcon();
   }
@@ -120,14 +112,11 @@ function update(e?: any) {
 
 export function initGithub() {
   // Update on fragment update
-  const observer = new MutationObserver(showRepoTreeIcons);
-  const pjaxContainer = document.querySelector(QUERY_PJAX_CONTAINER);
-  if (pjaxContainer) {
-    observer.observe(pjaxContainer, {
-      childList: true,
-      subtree: true
-    });
-  }
+  observe(QUERY_FILE_TABLE_ITEMS, {
+    add(rowEl) {
+      showRepoTreeIcons(rowEl);
+    }
+  });
   update();
   document.addEventListener('pjax:end', update); // Update on page change
 }
