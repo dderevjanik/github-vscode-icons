@@ -1,4 +1,4 @@
-import { isGist } from '../utils/PageDetect';
+import { isGist } from 'github-url-detection';
 import { getIconForFile, getIconUrl } from '../utils/Icons';
 import { mutate } from 'fastdom';
 

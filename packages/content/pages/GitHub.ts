@@ -7,7 +7,8 @@ import {
   DEFAULT_ROOT,
   DEFAULT_FILE
 } from '../utils/Icons';
-import { isRepoRoot, isHistoryForFile, isRepoTree, isSingleFile, isCommit, isGist } from '../utils/PageDetect';
+import { isCommit, isRepoRoot, isSingleFile, isRepoTree } from 'github-url-detection';
+import { isHistoryForFile } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 import { getFileIcon, getFolderIcon } from '../utils/Dev';
 

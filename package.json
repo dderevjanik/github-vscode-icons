@@ -58,6 +58,7 @@
   "homepage": "https://github.com/dderevjanik/github-vscode-icons#readme",
   "dependencies": {
     "fastdom": "^1.0.8",
+    "github-url-detection": "^2.0.5",
     "react": "^16.4.0",
     "react-dom": "^16.13.1",
     "select-dom": "^4.1.3",
