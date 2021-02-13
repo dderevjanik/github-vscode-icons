@@ -95,7 +95,7 @@ function showRepoTreeIcons(rowEl: Element) {
         return;
       }
       const x = mutate(() => {
-        iconSVGEl.outerHTML = `<img src="${getIconUrl(iconPath)}" class="${iconSVGClassName}" alt="icon" width="16" height="16">`;
+        iconSVGEl.outerHTML = `<img src="${getIconUrl(iconPath)}" class="vscode-icon ${iconSVGClassName}" alt="icon" width="16" height="16">`;
       });
     }
     // else {

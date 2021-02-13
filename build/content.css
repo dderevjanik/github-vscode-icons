@@ -43,7 +43,7 @@ td.icon > img  {
 }
 
 .vscode-icon {
-    vertical-align: middle;
+    vertical-align: -3px;
     height: 16px;
 }
 
