@@ -4,10 +4,12 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/dderevjanik/github-vscode-icons/badge.svg)](https://snyk.io/test/github/dderevjanik/github-vscode-icons)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-**Download For:**
-[![chrome-favicon](build/favicons/chrome-favicon.png) Chrome](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github),
-[![firefox-favicon](build/favicons/firefox-favicon.png) Firefox](https://addons.mozilla.org/en-GB/firefox/addon/github-vscode-icons/)
-![opera-favicon](build/favicons/opera-favicon.png) *Opera*
+Chrome webstore: ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/hoccpcefjcgnabbmojbfoflggkecmpgd)
+
+**Download:**
+
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/hoccpcefjcgnabbmojbfoflggkecmpgd)](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github)
+[![Mozilla Add-on](https://img.shields.io/amo/v/github-vscode-icons)](https://addons.mozilla.org/en-GB/firefox/addon/github-vscode-icons/)
 
 **Supported websites:**
 ![github-favicon](build/favicons/github-favicon.ico) Github (also Gist),
