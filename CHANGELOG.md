@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [1.0.23] - 2021-02-13
+
+- Updated `vscode-icons` to 11.1.0
+- Various improvements [#27](https://github.com/dderevjanik/github-vscode-icons/pull/27), thanks to [kidonng](https://github.com/kidonng)
+- Better github url detection [#26](https://github.com/dderevjanik/github-vscode-icons/pull/26), thanks to [kidonng](https://github.com/kidonng)
+- Test for queries [#24](https://github.com/dderevjanik/github-vscode-icons/pull/24), thanks to [s-weigand](https://github.com/s-weigand)
+- Vertically adjuested icons [#28](https://github.com/dderevjanik/github-vscode-icons/pull/30), thanks to [antoinerousseau](https://github.com/antoinerousseau)
+
 ## [1.0.22] - 2020-06-30
 
 ### Fixes

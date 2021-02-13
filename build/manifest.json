@@ -48,9 +48,5 @@
     "*://gitlab.com/*",
     "*://pastebin.com/*",
     "*://sourceforge.net/*"
-  ],
-  "-ms-preload": {
-    "backgroundScript": "backgroundScriptsAPIBridge.js",
-    "contentScript": "contentScriptsAPIBridge.js"
-  }
+  ]
 }

@@ -1,5 +1,5 @@
 import * as Path from 'path';
-import Ch from 'chalk';
+import * as Ch from 'chalk';
 
 const log = console.log;
 
