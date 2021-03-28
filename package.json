@@ -26,9 +26,15 @@
   },
   "jest": {
     "preset": "jest-puppeteer",
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tests/tsconfig.tests.json"
+      }
     },
+    "transform": {
+      "^.+(\\.(ts|tsx)|select-dom/.+\\.js)$": "ts-jest"
+    },
+    "transformIgnorePatterns": ["/node_modules/(?!select-dom)"],
     "testRegex": "(/tests/.*\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": ["ts", "tsx", "js"],
     "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"],
