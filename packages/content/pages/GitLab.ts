@@ -3,37 +3,74 @@ import { isGitLabRepo } from '../utils/PageDetect';
 import { mutate } from 'fastdom';
 import { getFolderIcon, getFileIcon } from '../utils/Dev';
 
-export const QUERY_TREE_ITEMS = '.tree-item';
+export const TREE_ITEM_CLASS = 'tree-item';
+export const QUERY_TREE_ITEMS = `tr.${TREE_ITEM_CLASS}`;
+export const QUERY_TREE_HOLDER = '.tree-holder';
+export const TABLE_ROW_ELEMENT_LITERAL = 'TR';
 
-function showRepoTreeIcons() {
-  const treeItems = document.querySelectorAll(QUERY_TREE_ITEMS);
-  for (let i = 0; i < treeItems.length; i++) {
+function applyRepoTreeIcons(treeItems: HTMLTableRowElement[]) {
+  for (const itemEl of treeItems) {
     /**
      * [TR:
-     *  [TD: [[I: icon], [A: [SPAN: name]]]],
+     *  [TD: 
+     *    [A: 
+     *      [SPAN: [SVG: icon]],
+     *      [SPAN: name]
+     *    ]
+     *  ],
      *  [TD: [SPAN: [A: message]]],
      *  [TD: [TIME: ago]]
      * ]
      */
-    const itemEl = treeItems[i];
-    const newIconEl = document.createElement('img');
 
-    const iconAndNameEls = itemEl.firstElementChild!;
-    const iconEl = iconAndNameEls.firstElementChild!;
-    const nameEl = iconAndNameEls.lastElementChild as HTMLAnchorElement;
-
-    const name = nameEl.innerText.toLowerCase();
-    if (i === 0 && name === '..') {
+    const iconAndNameEls = itemEl.firstElementChild.firstElementChild! as HTMLAnchorElement;
+    const name = iconAndNameEls.innerText.toLowerCase();
+    if (name === '..') {
       continue;
     }
-    const iconPath = nameEl.href.indexOf('/tree/') > 0 ? getFolderIcon(name) : getFileIcon(name);
+
+    const newIconEl = document.createElement('img');
+    const iconEl = iconAndNameEls.firstElementChild.firstElementChild!;
+    const iconPath = iconAndNameEls.href.indexOf('/tree/') > 0 ? getFolderIcon(name) : getFileIcon(name);
 
     mutate(() => {
       newIconEl.setAttribute('src', getIconUrl(iconPath));
       newIconEl.setAttribute('class', 'vscode-icon');
-      iconAndNameEls.replaceChild(newIconEl, iconEl);
+      iconEl.parentNode.replaceChild(newIconEl, iconEl);
     });
   }
+}
+
+function showRepoTreeIcons() {
+  const treeItems = Array.from(document.querySelectorAll<HTMLTableRowElement>(QUERY_TREE_ITEMS));
+  applyRepoTreeIcons(treeItems);
+
+  const treeHolder = document.querySelector(QUERY_TREE_HOLDER);
+  new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {      
+      if (!mutation.addedNodes){
+        return;
+      }
+
+      const treeItemsObserved = Array.from(mutation.addedNodes)
+        .filter(el => {
+          return (
+            el.nodeName == TABLE_ROW_ELEMENT_LITERAL &&
+            (el as HTMLTableRowElement).classList.contains(TREE_ITEM_CLASS)
+          );
+        })
+        .map(el => el as HTMLTableRowElement);
+
+      if (treeItemsObserved.length > 0) {
+        applyRepoTreeIcons(treeItemsObserved);
+      }
+    })
+  }).observe(treeHolder, {
+    childList: true,
+    subtree: true,
+    attributes: false,
+    characterData: false
+  });
 }
 
 function update(e?: any) {

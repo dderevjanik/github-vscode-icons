@@ -1,4 +1,4 @@
-import * as select from 'select-dom';
+import select from 'select-dom';
 import { isRepo, utils } from 'github-url-detection';
 
 export const isHistoryForFile = () => isRepo() && /^\/commits\/[0-9a-f]{5,40}\/.+/.test(utils.getRepoPath());
