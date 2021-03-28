@@ -9,7 +9,7 @@ type Message =
 
 export function sendMessage(message: Message) {
   return new Promise((resolve, _) => {
-    chrome.runtime.sendMessage(message, response => {
+    chrome.runtime.sendMessage(message, (response) => {
       resolve(response);
     });
   });

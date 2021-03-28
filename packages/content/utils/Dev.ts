@@ -64,7 +64,7 @@ export const load = (): Items => {
   } else {
     return {
       files: {},
-      folders: {}
+      folders: {},
     };
   }
 };

@@ -30,18 +30,9 @@
       ".(ts|tsx)": "ts-jest"
     },
     "testRegex": "(/tests/.*\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/tests/"
-    ],
-    "collectCoverageFrom": [
-      "packages/**/*.{js,ts,tsx}"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"],
+    "collectCoverageFrom": ["packages/**/*.{js,ts,tsx}"]
   },
   "repository": {
     "type": "git",

@@ -7,7 +7,7 @@ export {
   DEFAULT_FOLDER,
   DEFAULT_FOLDER_OPENED,
   DEFAULT_ROOT_OPENED,
-  DEFAULT_ROOT
+  DEFAULT_ROOT,
 } from 'vscode-icons-js';
 import { DEFAULT_FILE } from 'vscode-icons-js';
 
