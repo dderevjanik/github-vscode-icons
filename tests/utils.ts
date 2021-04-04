@@ -3,6 +3,9 @@ import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import { table } from 'console';
 
+
+export const SITE_RETRIEVE_TIMEOUT = 30000;
+
 export const getElementFromSource = (elementSource: string): Document => {
   const dom = new JSDOM(elementSource);
   return dom.window.document;

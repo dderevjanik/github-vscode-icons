@@ -14,7 +14,7 @@ import { initSourceForge } from './pages/SourceForge';
 
 const hostLocation = location.host;
 
-(async function() {
+(async function () {
   const storage = (await sendMessage({ type: 'STORAGE_GET' })) as LocalStorage;
   const hosts = Object.keys(storage.showIcons) as SupportedHostings[];
   for (const host of hosts) {

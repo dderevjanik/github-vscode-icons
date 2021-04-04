@@ -3,6 +3,7 @@ name: Test
 on:
   pull_request:
   push:
+  workflow_dispatch:
   schedule:
     - cron: "0 8 * * *" # Every day at 8:00 UTC https://crontab.guru/#0_8_*_*_*
 

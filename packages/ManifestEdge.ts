@@ -12,7 +12,7 @@ export const createEdgeManifest = () => {
   // @ts-ignore
   manifest['-ms-preload'] = {
     backgroundScript: 'backgroundScriptsAPIBridge.js',
-    contentScript: 'contentScriptsAPIBridge.js'
+    contentScript: 'contentScriptsAPIBridge.js',
   };
   return manifest;
 };

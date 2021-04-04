@@ -16,7 +16,7 @@ export function showIconsForHosting(host: SupportedHostings) {
     github: initGithub,
     gitlab: initGitLab,
     pastebin: initPasteBin,
-    sourceforge: initSourceForge
+    sourceforge: initSourceForge,
   };
   funcsToShowIcons[host]();
 }

@@ -5,7 +5,7 @@ import {
   getIconUrl,
   DEFAULT_ROOT_OPENED,
   DEFAULT_ROOT,
-  DEFAULT_FILE
+  DEFAULT_FILE,
 } from '../utils/Icons';
 import { isCommit, isRepoRoot, isSingleFile, isRepoTree } from 'github-url-detection';
 import { isHistoryForFile } from '../utils/PageDetect';
@@ -58,49 +58,51 @@ function showIconsForSegments() {
  * Show icons for repository files
  */
 function showRepoTreeIcons(rowEl: Element) {
-    const iconEl = rowEl.children[0] as HTMLTableCellElement;
-    const iconSVGEl = iconEl.querySelector<SVGElement>('.octicon');
-    if (!iconSVGEl) {
-      // ... (up)
+  const iconEl = rowEl.children[0] as HTMLTableCellElement;
+  const iconSVGEl = iconEl.querySelector<SVGElement>('.octicon');
+  if (!iconSVGEl) {
+    // ... (up)
+    return;
+  }
+  /**
+   * <div role="row">
+   *  <div><svg class={{icon}}/></div>,
+   *  <div><span><a>{{name}}</a></span></div>,
+   *  <div><span><a>{{message}}</a></span></div>,
+   *  <div><span>{time}</span><s/div>,
+   * </div>
+   */
+  const contentEl = rowEl.children[1] as Element;
+
+  const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
+
+  let iconPath = '';
+  if (iconSVGEl) {
+    const iconSVGClassName = iconSVGEl.className.baseVal;
+    if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.includes('octicon-file ')) {
+      iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
+    } else if (iconSVGClassName.includes('octicon-file-directory')) {
+      const name = linkToEl.innerText.toLowerCase();
+      iconPath = getFolderIcon(name.split('/').shift());
+    } else if (iconSVGClassName.includes('octicon-file-submodule')) {
+      iconPath = getIconForFolder('submodules');
+    } else if (iconSVGClassName.includes('octicon-file-symlink-file')) {
+      iconPath = DEFAULT_FILE;
+    } else if (iconSVGClassName.includes('octicon-file-symlink-directory')) {
+      iconPath = DEFAULT_FILE;
+    } else {
+      console.error(`Unknown filetype: "${iconSVGClassName}", please report`);
       return;
     }
-    /**
-     * <div role="row">
-     *  <div><svg class={{icon}}/></div>,
-     *  <div><span><a>{{name}}</a></span></div>,
-     *  <div><span><a>{{message}}</a></span></div>,
-     *  <div><span>{time}</span><s/div>,
-     * </div>
-     */
-    const contentEl = rowEl.children[1] as Element;
-
-    const linkToEl = contentEl.firstElementChild.firstElementChild as HTMLAnchorElement;
-
-    let iconPath = '';
-    if (iconSVGEl) {
-      const iconSVGClassName = iconSVGEl.className.baseVal;
-      if (iconSVGClassName.includes('octicon-file-text') || iconSVGClassName.includes('octicon-file ')) {
-        iconPath = getFileIcon(linkToEl.innerText.toLowerCase());
-      } else if (iconSVGClassName.includes('octicon-file-directory')) {
-        const name = linkToEl.innerText.toLowerCase();
-        iconPath = getFolderIcon(name.split('/').shift());
-      } else if (iconSVGClassName.includes('octicon-file-submodule')) {
-        iconPath = getIconForFolder('submodules');
-      } else if (iconSVGClassName.includes('octicon-file-symlink-file')) {
-        iconPath = DEFAULT_FILE;
-      } else if (iconSVGClassName.includes('octicon-file-symlink-directory')) {
-        iconPath = DEFAULT_FILE;
-      } else {
-        console.error(`Unknown filetype: "${iconSVGClassName}", please report`);
-        return;
-      }
-      const x = mutate(() => {
-        iconSVGEl.outerHTML = `<img src="${getIconUrl(iconPath)}" class="vscode-icon ${iconSVGClassName}" alt="icon" width="16" height="16">`;
-      });
-    }
-    // else {
-    //   console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
-    // }
+    const x = mutate(() => {
+      iconSVGEl.outerHTML = `<img src="${getIconUrl(
+        iconPath
+      )}" class="vscode-icon ${iconSVGClassName}" alt="icon" width="16" height="16">`;
+    });
+  }
+  // else {
+  //   console.error(`Error during parsing: "td.icon > svg.octoicon" doesnt exists for ${i}. row`);
+  // }
 }
 
 function update(e?: any) {
@@ -115,7 +117,7 @@ export function initGithub() {
   observe(QUERY_FILE_TABLE_ITEMS, {
     add(rowEl) {
       showRepoTreeIcons(rowEl);
-    }
+    },
   });
   update();
   document.addEventListener('pjax:end', update); // Update on page change

@@ -18,7 +18,7 @@ class Popup extends React.Component<Props, State> {
     super(props);
     this.state = {
       storage: props.storage,
-      isSomethingChanged: false
+      isSomethingChanged: false,
     };
   }
 
@@ -28,20 +28,20 @@ class Popup extends React.Component<Props, State> {
       ...prevStorage,
       showIcons: {
         ...prevStorage.showIcons,
-        [hosting]: !prevStorage.showIcons[hosting]
-      }
+        [hosting]: !prevStorage.showIcons[hosting],
+      },
     };
     sendMessage({ type: 'STORAGE_SET', storage: newStorage });
     this.setState({
       storage: newStorage,
-      isSomethingChanged: true
+      isSomethingChanged: true,
     });
   };
 
   handleResetButton = async () => {
     const defaultState = (await sendMessage({ type: 'STORAGE_RESET' })) as LocalStorage;
     this.setState({
-      storage: defaultState
+      storage: defaultState,
     });
   };
 
@@ -85,7 +85,7 @@ class Popup extends React.Component<Props, State> {
   }
 }
 
-(async function() {
+(async function () {
   const storage = (await sendMessage({ type: 'STORAGE_GET' })) as LocalStorage;
   ReactDOM.render(<Popup storage={storage} />, document.getElementById('app') as HTMLDivElement);
 })();

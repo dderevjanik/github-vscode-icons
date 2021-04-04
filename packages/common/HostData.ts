@@ -19,33 +19,33 @@ const hostData: { [H in SupportedHostings]: HostData } = {
   bitbucket: {
     fullName: 'Bitbucket',
     favicon: 'bitbucket-favicon.ico',
-    host: 'bitbucket'
+    host: 'bitbucket',
   },
   github: {
     fullName: 'Github',
     favicon: 'github-favicon.ico',
-    host: 'github'
+    host: 'github',
   },
   githubgist: {
     fullName: 'Github Gist',
     favicon: 'github-favicon.ico',
-    host: 'gist.github'
+    host: 'gist.github',
   },
   gitlab: {
     fullName: 'Gitlab',
     favicon: 'gitlab-favicon.ico',
-    host: 'gitlab'
+    host: 'gitlab',
   },
   pastebin: {
     fullName: 'Pastebin',
     favicon: 'pastebin-favicon.ico',
-    host: 'pastebin'
+    host: 'pastebin',
   },
   sourceforge: {
     fullName: 'Sourceforge',
     favicon: 'sourceforge-favicon.ico',
-    host: 'sourceforge'
-  }
+    host: 'sourceforge',
+  },
 };
 
 export function getHostData(host: SupportedHostings) {

@@ -22,8 +22,8 @@ export const initialStorage: LocalStorage = {
     gitlab: true,
     bitbucket: true,
     pastebin: false,
-    sourceforge: true
-  }
+    sourceforge: true,
+  },
 };
 
 export function getStorage(): Promise<LocalStorage> {
@@ -31,7 +31,7 @@ export function getStorage(): Promise<LocalStorage> {
     if (chrome.storage === undefined) {
       reject(new Error('Storage is not accessible from this part of extension'));
     }
-    chrome.storage.local.get(storage => {
+    chrome.storage.local.get((storage) => {
       const store = storage as LocalStorage;
       if (store.version === undefined) {
         // When version doesn't exists, it means that storage is empty and user is running

@@ -9,7 +9,7 @@ const manifest = {
   icons: {
     '128': 'icon128.png',
     '48': 'icon48.png',
-    '16': 'icon16.png'
+    '16': 'icon16.png',
   },
   version: '1.23',
   author: 'Daniel Derevjanik <daniel.derevjanik@gmail.com>',
@@ -17,12 +17,12 @@ const manifest = {
   browser_action: {
     default_icon: {
       '128': 'icon128.png',
-      '48': 'icon48.png'
-    }
+      '48': 'icon48.png',
+    },
   },
   background: {
     scripts: ['background.js'],
-    persistent: false
+    persistent: false,
   },
   web_accessible_resources: ['icons/*.svg', 'images/*.gif'],
   content_scripts: [
@@ -30,8 +30,8 @@ const manifest = {
       css: ['content.css'],
       matches: ['*://*/*'],
       js: ['content.js'],
-      run_at: 'document_idle'
-    }
+      run_at: 'document_idle',
+    },
   ],
   permissions: [
     'storage',
@@ -40,8 +40,8 @@ const manifest = {
     '*://gist.github.com/*',
     '*://gitlab.com/*',
     '*://pastebin.com/*',
-    '*://sourceforge.net/*'
-  ]
+    '*://sourceforge.net/*',
+  ],
 };
 
 export const createChromeManifest = () => {
