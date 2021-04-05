@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - '*'
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Run unit tests
+        run: npm test
+      - name: Run build
+        run: npm run build:prod
+      - name: Upload dist bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: dist/*.zip
+
+      - name: Extract Changelog
+        shell: python
+        run: |
+          import os, re
+          change_pattern = re.compile(r"(##\s\[.+?)##\s\[", re.DOTALL)
+          with open("CHANGELOG.md") as file:
+              changelog = file.read()
+          match = re.search(change_pattern, changelog)
+          if match:
+              last_change = match.group(1)
+              with open("last_change.md", "w") as release_body:
+                  release_body.write(last_change)
+                  print(r"::set-env name=RELEASE_BODY_PATH::{}".format(os.path.abspath("last_change.md")))
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body_path: ${{ env.RELEASE_BODY_PATH }}
+
+      - name: Write Asset Paths and Names to Env Vars
+        run: |
+          echo "::set-env name=CHROME_ASSET_NAME::$(ls dist/ | grep chrome)"
+          echo "::set-env name=CHROME_ASSET_PATH::dist/$(ls dist/ | grep chrome)"
+          echo "::set-env name=EDGE_ASSET_NAME::$(ls dist/ | grep edge)"
+          echo "::set-env name=EDGE_ASSET_PATH::dist/$(ls dist/ | grep edge)"
+          echo "::set-env name=FIREFOX_ASSET_NAME::$(ls dist/ | grep firefox)"
+          echo "::set-env name=FIREFOX_ASSET_PATH::dist/$(ls dist/ | grep firefox)"
+
+      - name: Upload Release Asset Chrome
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_name: ${{ env.CHROME_ASSET_NAME }}
+          asset_path: ${{ env.CHROME_ASSET_PATH }}
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset Edge
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_name: ${{ env.EDGE_ASSET_NAME }}
+          asset_path: ${{ env.EDGE_ASSET_PATH }}
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset FireFox
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_name: ${{ env.FIREFOX_ASSET_NAME }}
+          asset_path: ${{ env.FIREFOX_ASSET_PATH }}
+          asset_content_type: application/zip
+
+  deploy-to-chrome:
+    if: startsWith(github.ref, 'v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: build
+          path: dist
+      - name: Upload to chrome store
+        env:
+          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        run: npx chrome-webstore-upload-cli upload --source dist/$(ls dist/ | grep chrome) --auto-publish
+
+  deploy-to-firefox:
+    if: startsWith(github.ref, 'v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: build
+          path: dist
+      - name: Upload to firefox store
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+        run: |
+          unzip dist/$(ls dist/ | grep edge) -d dist/ff-build
+          cd dist/ff-build && npx web-ext-submit
