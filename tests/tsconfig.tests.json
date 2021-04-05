@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop":true,
-    "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "esModuleInterop": true,
+    "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */
+  }
 }
-} 
