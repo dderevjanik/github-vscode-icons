@@ -31,7 +31,9 @@
   "jest": {
     "preset": "jest-puppeteer",
     "globals": {
-      "extensionsToTreatAsEsm": [".ts"],
+      "extensionsToTreatAsEsm": [
+        ".ts"
+      ],
       "ts-jest": {
         "tsconfig": "tests/tsconfig.tests.json",
         "useESM": true
@@ -40,11 +42,22 @@
     "transform": {
       "^.+(\\.(ts|tsx)|select-dom/.+\\.js)$": "ts-jest"
     },
-    "transformIgnorePatterns": ["/node_modules/(?!select-dom)"],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!select-dom)"
+    ],
     "testRegex": "(/tests/.*\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"],
-    "collectCoverageFrom": ["packages/**/*.{js,ts,tsx}"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ],
+    "collectCoverageFrom": [
+      "packages/**/*.{js,ts,tsx}"
+    ]
   },
   "repository": {
     "type": "git",
@@ -66,7 +79,7 @@
     "react-dom": "^17.0.1",
     "select-dom": "^7.1.0",
     "selector-observer": "^2.1.6",
-    "vscode-icons-js": "^11.1.0"
+    "vscode-icons-js": "^11.6.0"
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
