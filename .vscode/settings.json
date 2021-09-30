@@ -5,5 +5,10 @@
         "**/node_modules": true,
         "**/bower_components": true,
         "**/dist": true
+    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#192963",
+        "titleBar.activeBackground": "#23398B",
+        "titleBar.activeForeground": "#FAFBFE"
     }
 }
