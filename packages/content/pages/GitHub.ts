@@ -122,6 +122,9 @@ function isNavSidebarSvgShouldBeIgnored(svg: SVGSVGElement) {
 function newShowRepoTreeIcons(row: HTMLElement) {
   const fileName = row.querySelector('a')!.textContent!.toLowerCase();
   if (fileName === '..') return;
+  const iconEl = row.querySelector('svg')!;
+  // probably already replaced
+  if (!iconEl) return;
   const linkToFile = row.querySelector('a')!.href;
 
   let iconPath: string | undefined;
@@ -136,7 +139,6 @@ function newShowRepoTreeIcons(row: HTMLElement) {
 
   if (iconPath) {
     (fastdom as any).mutate(() => {
-      const iconEl = row.querySelector('svg')!;
       iconEl.outerHTML = getHtmlIcon(iconPath!, iconEl);
     });
   }
@@ -146,12 +148,11 @@ function newShowRepoTreeIconsFileSearchResult(row: HTMLElement) {
   const fileName = row.children[0]?.children?.[0].textContent?.toLowerCase();
   if (!fileName) return;
 
-  const iconPath = getFileIcon(fileName);
-
-  if (!iconPath) return;
-
   const a = row.closest('a')!;
-  if ([...a.children].some((elem) => elem.classList.contains('vscode-icon'))) return;
+  if (hasVscodeIcon(a)) return;
+
+  const iconPath = getFileIcon(fileName);
+  if (!iconPath) return;
 
   (fastdom as any).mutate(() => {
     a.insertAdjacentHTML('afterbegin', getHtmlIcon(iconPath!));
@@ -159,6 +160,10 @@ function newShowRepoTreeIconsFileSearchResult(row: HTMLElement) {
     justInsertedIcon.style.marginRight = '3px';
     justInsertedIcon.style.marginTop = '3px';
   });
+}
+
+function hasVscodeIcon(container: Element) {
+  return [...container.children].some((elem) => elem.classList.contains('vscode-icon'));
 }
 
 function newShowRepoTreeIconsCommandPallete(row: HTMLElement) {
@@ -185,12 +190,12 @@ function newShowRepoTreeIconsCommandPallete(row: HTMLElement) {
   }
 }
 
-function newShowRepoTreeIconsSidebar(li: HTMLElement) {
-  const fileName = li.textContent!.toLowerCase();
+function newShowRepoTreeIconsSidebar(fileElem: HTMLElement) {
+  const fileName = fileElem.textContent!.trim().toLowerCase();
   const folderName = fileName.split('/').shift()!;
 
   let iconPath: string | undefined;
-  const svgs = [...li.querySelectorAll('svg')].filter((svg) => !isNavSidebarSvgShouldBeIgnored(svg));
+  const svgs = [...fileElem.querySelectorAll('svg')].filter((svg) => !isNavSidebarSvgShouldBeIgnored(svg));
   const svgFileElem = svgs[0];
   if (!svgFileElem) return;
   const { classList } = svgFileElem;
@@ -247,7 +252,13 @@ export function initGithub() {
     add(elem) {
       const svg = elem as SVGSVGElement;
       if (isNavSidebarSvgShouldBeIgnored(svg)) return;
-      newShowRepoTreeIconsSidebar((svg.closest('li') as HTMLElement).children[0] as HTMLElement);
+      const li = svg.closest('li')!;
+      let fileElem = li.children[0] as HTMLElement;
+      // pull request changed files file tree pattern
+      if (li.children[0].tagName.toLowerCase() === 'span' && li.children[1].tagName.toLowerCase() === 'a') {
+        fileElem = li.children[1] as HTMLElement;
+      }
+      newShowRepoTreeIconsSidebar(fileElem);
     },
   });
   const FILE_COMMAND_PALLETE_ITEMS = 'command-palette-item-group [aria-label="Files results"] command-palette-item';
