@@ -73,12 +73,13 @@
   },
   "homepage": "https://github.com/dderevjanik/github-vscode-icons#readme",
   "dependencies": {
-    "fastdom": "^1.0.10",
+    "fastdom": "^1.0.11",
     "github-url-detection": "^2.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "select-dom": "^7.1.0",
     "selector-observer": "^2.1.6",
+    "typed-query-selector": "^2.8.0",
     "vscode-icons-js": "^11.6.0"
   },
   "devDependencies": {
@@ -105,9 +106,9 @@
     "puppeteer": "^7.1.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.0-next.10",
-    "ts-loader": "^8.0.17",
+    "ts-loader": "^9.4.2",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
+    "typescript": "^4.9.5",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   }

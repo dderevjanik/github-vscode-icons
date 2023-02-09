@@ -14,7 +14,8 @@
     "default_icon": {
       "48": "icon48.png",
       "128": "icon128.png"
-    }
+    },
+    "default_popup": "popup.html"
   },
   "background": {
     "scripts": [
@@ -48,9 +49,5 @@
     "*://gitlab.com/*",
     "*://pastebin.com/*",
     "*://sourceforge.net/*"
-  ],
-  "-ms-preload": {
-    "backgroundScript": "backgroundScriptsAPIBridge.js",
-    "contentScript": "contentScriptsAPIBridge.js"
-  }
+  ]
 }
