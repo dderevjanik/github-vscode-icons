@@ -17,6 +17,7 @@
     "build:edge": "BROWSER=EDGE run-s manifest:edge script:make-zip",
     "build:dev": "NODE_ENV=development; webpack -w --mode development",
     "build:prod": "NODE_ENV=production; webpack --mode production --config webpack.config.js; run-s clean build:firefox build:chrome build:edge",
+    "launch:chrome": "web-ext run --source-dir=build --target=chromium --reload --url github.com/vscode-icons/vscode-icons --browser-console",
     "dist": "npm run build:prod",
     "lint": "run-s lint:packages lint:json lint:typings",
     "lint:packages": "prettier --check ./packages/**/*.{ts,d.ts,tsx}",
