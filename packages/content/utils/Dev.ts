@@ -1,4 +1,4 @@
-import * as VSCJS from 'vscode-icons-js';
+import * as VSCJS from 'vscode-icons-ts';
 
 export const getFolderIcon =
   process.env.NODE_ENV === 'production'
@@ -19,7 +19,7 @@ export const getFileIcon =
         if (fileIcon === VSCJS.DEFAULT_FILE) {
           save('FILE', filename);
         }
-        return fileIcon;
+        return fileIcon!;
       };
 
 type Items = {

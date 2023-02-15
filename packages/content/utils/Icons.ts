@@ -8,8 +8,8 @@ export {
   DEFAULT_FOLDER_OPENED,
   DEFAULT_ROOT_OPENED,
   DEFAULT_ROOT,
-} from 'vscode-icons-js';
-import { DEFAULT_FILE } from 'vscode-icons-js';
+} from 'vscode-icons-ts';
+import { DEFAULT_FILE } from 'vscode-icons-ts';
 
 const PBSyntaxesToIcon = require('../data/PastebinSyntaxesToIcon.json') as NAME_TO_ICON;
 

@@ -1,15 +1,8 @@
-# Github-vscode-icons
-
-[![Build Status](https://travis-ci.org/dderevjanik/github-vscode-icons.svg?branch=master)](https://travis-ci.org/dderevjanik/github-vscode-icons)
-[![Known Vulnerabilities](https://snyk.io/test/github/dderevjanik/github-vscode-icons/badge.svg)](https://snyk.io/test/github/dderevjanik/github-vscode-icons)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+# GitHub vscode-icons (Updated)
 
 Chrome webstore: ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/hoccpcefjcgnabbmojbfoflggkecmpgd)
 
 **Download:**
-
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/hoccpcefjcgnabbmojbfoflggkecmpgd)](https://chrome.google.com/webstore/detail/vscode-github-icons/hoccpcefjcgnabbmojbfoflggkecmpgd?utm_source=github)
-[![Mozilla Add-on](https://img.shields.io/amo/v/github-vscode-icons)](https://addons.mozilla.org/en-GB/firefox/addon/github-vscode-icons/)
 
 **Supported websites:**
 ![github-favicon](build/favicons/github-favicon.ico) Github (also Gist),
@@ -39,4 +32,4 @@ After that, you need run script called `npm run preprocess`, which will generate
 ## Related
 
 - [vscode-icons](https://github.com/vscode-icons/vscode-icons) extension for vscode
-- [vscode-icons-js](https://github.com/dderevjanik/vscode-icons-js) File specific icons from vscode [vscode-icons](https://github.com/vscode-icons/vscode-icons) extension inspired by file-icons-js
+- [vscode-icons-ts](https://github.com/zardoy/vscode-icons-ts) File specific icons from vscode [vscode-icons](https://github.com/vscode-icons/vscode-icons) extension inspired by file-icons-js
