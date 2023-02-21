@@ -40,7 +40,12 @@
         "content.css"
       ],
       "matches": [
-        "*://*/*"
+        "*://bitbucket.org/*",
+        "*://github.com/*",
+        "*://gist.github.com/*",
+        "*://gitlab.com/*",
+        "*://pastebin.com/*",
+        "*://sourceforge.net/*"
       ],
       "js": [
         "content.js"
@@ -50,13 +55,5 @@
   ],
   "permissions": [
     "storage"
-  ],
-  "host_permissions": [
-    "*://bitbucket.org/*",
-    "*://github.com/*",
-    "*://gist.github.com/*",
-    "*://gitlab.com/*",
-    "*://pastebin.com/*",
-    "*://sourceforge.net/*"
   ]
 }
