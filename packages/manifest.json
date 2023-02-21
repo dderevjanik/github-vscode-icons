@@ -1,31 +1,38 @@
 {
-  "manifest_version": 2,
-  "name": "github-vscode-icons-updated",
-  "description": "[UPDATED} This extension shows a VS Code icons in Github Repositories",
+  "manifest_version": 3,
+  "name": "github-vscode-icons",
+  "description": "This extension shows a VS Code icons in Github Repositories",
+  "version": "REPLACED",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "version": "1.24",
-  "author": "Daniel Derevjanik <daniel.derevjanik@gmail.com>",
   "offline_enabled": true,
-  "browser_action": {
+  "action": {
     "default_icon": {
       "48": "icon48.png",
       "128": "icon128.png"
-    },
-    "default_popup": "popup.html"
+    }
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "web_accessible_resources": [
-    "icons/*.svg",
-    "images/*.gif"
+    {
+      "resources": [
+        "icons/*.svg",
+        "images/*.gif"
+      ],
+      "matches": [
+        "*://bitbucket.org/*",
+        "*://github.com/*",
+        "*://gist.github.com/*",
+        "*://gitlab.com/*",
+        "*://pastebin.com/*",
+        "*://sourceforge.net/*"
+      ]
+    }
   ],
   "content_scripts": [
     {
@@ -42,7 +49,9 @@
     }
   ],
   "permissions": [
-    "storage",
+    "storage"
+  ],
+  "host_permissions": [
     "*://bitbucket.org/*",
     "*://github.com/*",
     "*://gist.github.com/*",

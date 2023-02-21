@@ -2,10 +2,7 @@
 build/icons
 
 # Build
-build/*.js
-
-# Maps
-build/*.js.map
+build
 
 # Logs
 logs

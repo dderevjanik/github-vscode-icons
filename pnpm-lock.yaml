@@ -25,6 +25,7 @@ specifiers:
   jest-puppeteer: ^4.4.0
   jsdom: ^16.4.0
   log4js: ^6.7.1
+  modify-json-file: ^1.2.2
   node-fetch: ^2.6.1
   npm-run-all: ^4.1.5
   prettier: ^2.2.1
@@ -37,6 +38,7 @@ specifiers:
   ts-jest: ^27.0.0-next.10
   ts-loader: ^9.4.2
   ts-node: ^10.9.1
+  typed-jsonfile: ^0.2.1
   typed-query-selector: ^2.8.0
   typescript: 4.9.5
   vscode-icons-ts: ^0.1.0
@@ -76,6 +78,7 @@ devDependencies:
   jest: 27.5.1_ts-node@10.9.1
   jest-puppeteer: 4.4.0_puppeteer@7.1.0
   jsdom: 16.7.0
+  modify-json-file: 1.2.2
   node-fetch: 2.6.9
   npm-run-all: 4.1.5
   prettier: 2.8.4
@@ -84,6 +87,7 @@ devDependencies:
   ts-jest: 27.1.5_uhgawvl27wqfdvmodyutcmaycm
   ts-loader: 9.4.2_hhrrucqyg4eysmfpujvov2ym5u
   ts-node: 10.9.1_7iyetdgfmqiorh7qupktbe7tm4
+  typed-jsonfile: 0.2.1
   typescript: 4.9.5
   webpack: 5.75.0_webpack-cli@4.10.0
   webpack-cli: 4.10.0_webpack@5.75.0
@@ -1921,6 +1925,11 @@ packages:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
 
+  /detect-indent/6.1.0:
+    resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
+    engines: {node: '>=8'}
+    dev: true
+
   /detect-newline/3.1.0:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
     engines: {node: '>=8'}
@@ -3630,6 +3639,10 @@ packages:
     hasBin: true
     dev: true
 
+  /jsonc-parser/3.2.0:
+    resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
+    dev: true
+
   /jsonfile/4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
@@ -3642,7 +3655,6 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.10
-    dev: false
 
   /jsprim/1.4.2:
     resolution: {integrity: sha512-P2bSOMAc/ciLz6DzgjVlGJP9+BrJWu5UDGK70C2iweC5QBIeFf0ZXRvGjEj2uYgrY2MkAAhsSWHDWlFtEroZWw==}
@@ -3912,6 +3924,19 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dev: false
+
+  /modify-json-file/1.2.2:
+    resolution: {integrity: sha512-4CwL/8zzn8oTxm2qM+gGNFGqGS201aDecHATlS6v7o74nHcGP78ciJ5JGqauVLUbsO1DjKgUJfSGL41XWkuzJA==}
+    engines: {node: '>=12'}
+    dependencies:
+      detect-indent: 6.1.0
+      graceful-fs: 4.2.10
+      parse-json: 5.2.0
+      strip-bom: 4.0.0
+      strip-json-comments: 3.1.1
+      strip-json-trailing-commas: 1.1.0
+      type-fest: 2.19.0
+    dev: true
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
@@ -4792,6 +4817,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /strip-json-trailing-commas/1.1.0:
+    resolution: {integrity: sha512-oFze7V4LBrJXx1liTYTXg2VRhHZAqlw/4izGIkrvz/DxJV/ocp1fVKIAexslbnHvEOjngmu396O6SDkgeIdt+w==}
+    engines: {node: '>=10.14.2'}
+    dev: true
+
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -5084,12 +5114,26 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /type-fest/2.19.0:
+    resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
+    engines: {node: '>=12.20'}
+    dev: true
+
   /typed-array-length/1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}
     dependencies:
       call-bind: 1.0.2
       for-each: 0.3.3
       is-typed-array: 1.1.10
+    dev: true
+
+  /typed-jsonfile/0.2.1:
+    resolution: {integrity: sha512-8G2jqDOjg2reeq0Af3LYb1hY9bbmDYdnleAPQ6o74IPBJ5OxTjbG89TNoXGVGhy1+M16oFHmLIFfMEthQo3lYA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      jsonc-parser: 3.2.0
+      jsonfile: 6.1.0
+      type-fest: 2.19.0
     dev: true
 
   /typed-query-selector/2.8.0:
@@ -5137,7 +5181,6 @@ packages:
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
-    dev: false
 
   /update-browserslist-db/1.0.10_browserslist@4.21.5:
     resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}
