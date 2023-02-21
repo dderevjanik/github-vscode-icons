@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "github-vscode-icons",
-  "description": "This extension shows a VS Code icons in Github Repositories",
+  "name": "github-vscode-icons-updated",
+  "description": "[UPDATED] This extension shows a VS Code icons in GitHub Repositories",
   "version": "REPLACED",
   "icons": {
     "16": "icon16.png",
