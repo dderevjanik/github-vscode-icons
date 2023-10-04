@@ -1,5 +1,6 @@
 .idea/
 build/icons
+.DS_Store
 
 # Build
 build

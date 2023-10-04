@@ -120,27 +120,29 @@ function isNavSidebarSvgShouldBeIgnored(svg: SVGSVGElement) {
 }
 
 function newShowRepoTreeIcons(row: HTMLElement) {
-  const fileName = row.querySelector('a')!.textContent!.toLowerCase();
-  if (fileName === '..') return;
-  const iconEl = row.querySelector('svg')!;
-  // probably already replaced
-  if (!iconEl) return;
-  const linkToFile = row.querySelector('a')!.href;
+  const fileName = row.querySelector('a')?.textContent?.toLowerCase();
+  if (!fileName || fileName === '..') return;
+  const iconElems = row.querySelectorAll(
+    '.react-directory-filename-column > svg, .react-directory-filename-column > svg'
+  );
+  for (const iconEl of iconElems) {
+    const linkToFile = row.querySelector('a')!.href;
 
-  let iconPath: string | undefined;
-  const linkUrl = new URL(linkToFile, window.location.href);
-  if (isSingleFile(linkUrl)) {
-    iconPath = getFileIcon(fileName);
-  } else if (isRepoTree(linkUrl)) {
-    iconPath = getFolderIcon(fileName.split('/').shift()!);
-  } else {
-    console.warn(`[vscode-icons] Unknown link type: "${linkToFile}", please report`);
-  }
+    let iconPath: string | undefined;
+    const linkUrl = new URL(linkToFile, window.location.href);
+    if (isSingleFile(linkUrl)) {
+      iconPath = getFileIcon(fileName);
+    } else if (isRepoTree(linkUrl)) {
+      iconPath = getFolderIcon(fileName.split('/').shift()!);
+    } else {
+      console.warn(`[vscode-icons] Unknown link type: "${linkToFile}", please report`);
+    }
 
-  if (iconPath) {
-    (fastdom as any).mutate(() => {
-      iconEl.outerHTML = getHtmlIcon(iconPath!, iconEl);
-    });
+    if (iconPath) {
+      (fastdom as any).mutate(() => {
+        iconEl.outerHTML = getHtmlIcon(iconPath!, iconEl as SVGElement);
+      });
+    }
   }
 }
 
@@ -150,13 +152,14 @@ function newShowRepoTreeIconsFileSearchResult(row: HTMLElement) {
 
   const a = row.closest('a')!;
   if (hasVscodeIcon(a)) return;
+  const iconEl = a.querySelector('svg');
 
   const iconPath = getFileIcon(fileName);
-  if (!iconPath) return;
+  if (!iconPath || !iconEl) return;
 
   (fastdom as any).mutate(() => {
-    a.insertAdjacentHTML('afterbegin', getHtmlIcon(iconPath!));
-    const justInsertedIcon = a.children[0] as HTMLElement;
+    iconEl.outerHTML = getHtmlIcon(iconPath!);
+    const justInsertedIcon = a.querySelector('.vscode-icon') as HTMLElement;
     justInsertedIcon.style.marginRight = '3px';
     justInsertedIcon.style.marginTop = '3px';
   });
@@ -270,7 +273,6 @@ export function initGithub() {
   const FILE_SEARCH_RESULT_ITEMS = 'span[id^=file-result-]';
   observe(FILE_SEARCH_RESULT_ITEMS, {
     add(row) {
-      console.log(row);
       newShowRepoTreeIconsFileSearchResult(row as HTMLElement);
     },
   });
