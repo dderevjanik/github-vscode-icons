@@ -1,6 +1,6 @@
 {
   "name": "github-vscode-icons",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "show vscode-icons in github repository",
   "private": true,
   "scripts": {
