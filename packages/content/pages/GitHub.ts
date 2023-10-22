@@ -164,6 +164,26 @@ function newShowRepoTreeIconsFileSearchResult(row: HTMLElement) {
     justInsertedIcon.style.marginTop = '3px';
   });
 }
+function globalSearchResult(row: HTMLElement) {
+  const label = row.querySelector('.ActionListItem-label > span') ?? row.querySelector('.ActionListItem-label');
+  if (!label) return;
+  // for constants use description
+  const fileNameEl = label.children.length > 1 ? row.querySelector('.ActionListItem-description') : label;
+  if (!fileNameEl) return;
+
+  const iconEl = row.querySelector('svg');
+  if (!iconEl || iconEl.classList.contains('vscode-icon')) return;
+
+  const iconPath = getFileIcon(fileNameEl.textContent!.trim());
+  if (!iconPath) return;
+
+  (fastdom as any).mutate(() => {
+    iconEl.outerHTML = getHtmlIcon(iconPath!);
+    const justInsertedIcon = row.querySelector('.vscode-icon') as HTMLElement;
+    justInsertedIcon.style.marginRight = '3px';
+    justInsertedIcon.style.marginTop = '3px';
+  });
+}
 
 function hasVscodeIcon(container: Element) {
   return [...container.children].some((elem) => elem.classList.contains('vscode-icon'));
@@ -274,6 +294,12 @@ export function initGithub() {
   observe(FILE_SEARCH_RESULT_ITEMS, {
     add(row) {
       newShowRepoTreeIconsFileSearchResult(row as HTMLElement);
+    },
+  });
+  const FILE_SEARCH_RESULT_GLOBAL_SEARCH = 'li[id^=query-builder] > a';
+  observe(FILE_SEARCH_RESULT_GLOBAL_SEARCH, {
+    add(row) {
+      globalSearchResult(row as HTMLElement);
     },
   });
   update();
