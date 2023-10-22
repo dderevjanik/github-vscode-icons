@@ -1,8 +1,7 @@
 {
   "name": "github-vscode-icons",
-  "version": "1.0.24",
+  "version": "2.0.2",
   "description": "show vscode-icons in github repository",
-  "main": "index.js",
   "private": true,
   "scripts": {
     "script:make-zip": "ts-node ./scripts/make-dist-zip.script.ts",
@@ -15,8 +14,10 @@
     "build:firefox": "BROWSER=FIREFOX run-s manifest:firefox script:make-zip",
     "build:chrome": "BROWSER=CHROME run-s manifest:chrome script:make-zip",
     "build:edge": "BROWSER=EDGE run-s manifest:edge script:make-zip",
-    "build:dev": "NODE_ENV=development; webpack -w --mode development",
-    "build:prod": "NODE_ENV=production; webpack --mode production --config webpack.config.js; run-s clean build:firefox build:chrome build:edge",
+    "build:dev": "NODE_ENV=development; node scripts/generate-manifest.mjs dev && webpack -w --mode development",
+    "build:prod": "NODE_ENV=production; node scripts/generate-manifest.mjs prod && webpack --mode production --config webpack.config.js;",
+    "build:prod-all": "run-s clean build:prod build:firefox build:chrome build:edge",
+    "launch:chrome": "web-ext run --source-dir=build --target=chromium --reload --url github.com/vscode-icons/vscode-icons --browser-console",
     "dist": "npm run build:prod",
     "lint": "run-s lint:packages lint:json lint:typings",
     "lint:packages": "prettier --check ./packages/**/*.{ts,d.ts,tsx}",
@@ -59,32 +60,26 @@
       "packages/**/*.{js,ts,tsx}"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dderevjanik/github-vscode-icons"
-  },
-  "author": {
-    "email": "daniel.derevjanik@gmail.com",
-    "name": "Daniel Derevjanik"
-  },
+  "author": "Vitaly Turovsky <vital2580@icloud.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dderevjanik/github-vscode-icons/issues"
-  },
-  "homepage": "https://github.com/dderevjanik/github-vscode-icons#readme",
   "dependencies": {
-    "fastdom": "^1.0.10",
+    "fastdom": "^1.0.11",
+    "fs-extra": "^11.1.0",
     "github-url-detection": "^2.0.5",
+    "gitly": "^2.4.0",
+    "log4js": "^6.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "select-dom": "^7.1.0",
     "selector-observer": "^2.1.6",
-    "vscode-icons-js": "^11.6.0"
+    "typed-query-selector": "^2.8.0",
+    "vscode-icons-ts": "^0.1.2"
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
     "@types/chalk": "^0.4.31",
     "@types/chrome": "0.0.130",
+    "@types/fs-extra": "^11.0.1",
     "@types/jest": "^26.0.20",
     "@types/jest-environment-puppeteer": "^4.4.1",
     "@types/jsdom": "^16.2.6",
@@ -95,19 +90,20 @@
     "@types/react-dom": "^17.0.1",
     "archiver": "^5.2.0",
     "chalk": "^4.1.0",
+    "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "jest": "^27.0.0-next.7",
-    "jest-puppeteer": "^4.4.0",
     "jsdom": "^16.4.0",
+    "modify-json-file": "^1.2.2",
     "node-fetch": "^2.6.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
-    "puppeteer": "^7.1.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.0-next.10",
-    "ts-loader": "^8.0.17",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typed-jsonfile": "^0.2.1",
+    "typescript": "4.9.5",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   }

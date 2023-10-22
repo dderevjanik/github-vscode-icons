@@ -1,10 +1,9 @@
 .idea/
+build/icons
+.DS_Store
 
 # Build
-build/*.js
-
-# Maps
-build/*.js.map
+build
 
 # Logs
 logs

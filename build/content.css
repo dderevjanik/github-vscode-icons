@@ -45,6 +45,8 @@ td.icon > img  {
 .vscode-icon {
     vertical-align: -3px;
     height: 16px;
+    user-select: none;
+    object-fit: cover;
 }
 
 /**
